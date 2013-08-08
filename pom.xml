@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cn.ccrise</groupId>
+	<artifactId>seeker</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Seeker</name>
+	<description>&quot;Get the Snitch or die trying.&quot;</description>
+	<organization>
+		<name>CCRISE</name>
+	</organization>
+	<scm>
+		<url>https://git.oschina.net/shelltea/seeker.git</url>
+		<developerConnection>scm:git:https://git.oschina.net/shelltea/seeker.git</developerConnection>
+		<connection>scm:git:https://git.oschina.net/shelltea/seeker.git</connection>
+	</scm>
+	<issueManagement>
+		<url>http://git.oschina.net/shelltea/seeker/issues</url>
+		<system>oschina</system>
+	</issueManagement>
+	<url>http://git.oschina.net/shelltea/seeker</url>
+	<inceptionYear>2013</inceptionYear>
+
+	<properties>
+		<ikjp.version>1.4.2</ikjp.version>
+		<jetty.version>9.0.4.v20130625</jetty.version>
+		<js.dir>WEB-INF/resources/scripts</js.dir>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk.version>1.7</jdk.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>ccrise</id>
+			<name>CCRISE Repository</name>
+			<url>http://10.10.22.19:8080/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>ccrise</id>
+			<name>CCRISE Repository</name>
+			<url>http://10.10.22.19:8080/nexus/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>cn.ccrise</groupId>
+			<artifactId>ikjp.core</artifactId>
+			<version>${ikjp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.ccrise</groupId>
+			<artifactId>ikjp.security</artifactId>
+			<version>${ikjp.version}</version>
+		</dependency>
+	</dependencies>
+</project>
