@@ -12,12 +12,12 @@
 		<property name="cacheManager" ref="shiroEhCacheManager" />
 	</bean>
 
-	<!-- 項目自定义的Realm, 所有accountService依赖的dao都需要用depends-on声明 -->
+	<!-- 项目自定义的Realm -->
 	<bean id="shiroDbRealm" class="org.shelltea.seeker.service.security.ShiroDbRealm">
 		<property name="accountService" ref="accountService" />
 	</bean>
 
-	<!-- Shiro Filter -->
+	<!-- Shiro过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
@@ -25,13 +25,13 @@
 		<property name="unauthorizedUrl" value="/403" />
 		<property name="filterChainDefinitions">
 			<value>
-				/login = authc
-				/logout = logout
-				/static-resources/** = anon
-				/api/** = anon
-				/register/** = anon
-				/admin/** = roles[admin]
-				/** = user
+				/login=authc
+				/logout=logout
+				/static-resources/**=anon
+				/api/**=anon
+				/register/**=anon
+				/admin/**=roles[admin]
+				/**=user
 			</value>
 		</property>
 	</bean>
