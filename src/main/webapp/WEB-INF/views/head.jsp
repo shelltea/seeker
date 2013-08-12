@@ -1,5 +1,3 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script src="${resources}/app.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="${resources}/styles/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="${resources}/styles/bootstrap-responsive.css">
-<link rel="stylesheet" type="text/css" href="${resources}/styles/main.css">
