@@ -5,8 +5,11 @@
 
 	<description>DAO配置</description>
 
+	<!-- 当数据库不存在时，自动创建数据库，目前只支持MySQL -->
+	<bean id="datebaseUtils" class="org.shelltea.seeker.util.DatabaseUtils" init-method="create" />
+
 	<!-- 数据源配置, 使用Druid连接池 -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" depends-on="datebaseUtils">
 		<!-- 基本属性 -->
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
