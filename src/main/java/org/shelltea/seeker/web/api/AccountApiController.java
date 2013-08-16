@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.shelltea.seeker.entity.Account;
 import org.shelltea.seeker.repository.AccountRepository;
+import org.shelltea.seeker.service.AccountService;
 import org.shelltea.seeker.util.ValidationUtils;
 import org.shelltea.seeker.web.entity.RegisterAccount;
 import org.shelltea.seeker.web.entity.Response;
@@ -34,6 +35,8 @@ public class AccountApiController {
 
 	@Autowired
 	private AccountRepository accountRepository;
+	@Autowired
+	private AccountService accountService;
 	@Autowired
 	private MessageSource messageSource;
 
@@ -89,8 +92,10 @@ public class AccountApiController {
 			return new Response(ValidationUtils.renderResultMap("Unique.registerAccount.email", messageSource));
 		}
 
-		// TODO 创建用户
+		// 创建用户
+		boolean result = accountService.createNewAccount(registerAccount.getEmail(), registerAccount.getUsername(),
+				registerAccount.getPassword());
 
-		return new Response(true);
+		return new Response(result);
 	}
 }

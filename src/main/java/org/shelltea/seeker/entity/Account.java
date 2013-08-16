@@ -8,11 +8,6 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
@@ -23,41 +18,35 @@ public class Account extends IDEntity {
 	/**
 	 * 用户身份.例如用户名或者电子邮箱.
 	 */
-	@Size(min = 3, max = 12)
 	private String username;
 
 	/**
 	 * 身份凭证.一般情况下为密码.
 	 */
-	@NotBlank
 	private String password;
 
 	/**
 	 * 账户创建时间.
 	 */
-	@NotNull
 	private Timestamp createTime = new Timestamp(System.currentTimeMillis());
 
 	/**
 	 * 账户最后更新时间.
 	 */
-	@NotNull
 	private Timestamp updateTime;
 
 	/**
 	 * 是否上锁.
 	 */
-	@NotNull
 	private Boolean locked;
 
 	/**
 	 * 电子邮箱.
 	 */
-	@Email
 	private String email;
 
 	/**
-	 * 
+	 * Salt.
 	 */
 	private String salt;
 

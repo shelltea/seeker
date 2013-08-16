@@ -26,7 +26,12 @@ public class RegisterController {
 	private MessageSource messageSource;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String registerGet() {
+	public String register() {
 		return "account/register";
+	}
+
+	@RequestMapping(value = "success", method = RequestMethod.GET)
+	public String registerSuccess() {
+		return "account/register-success";
 	}
 }

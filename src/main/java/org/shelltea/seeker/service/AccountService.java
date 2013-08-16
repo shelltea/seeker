@@ -6,6 +6,9 @@ package org.shelltea.seeker.service;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.shiro.crypto.RandomNumberGenerator;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.shelltea.seeker.entity.Account;
 import org.shelltea.seeker.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +28,26 @@ public class AccountService {
 		return accountRepository.count();
 	}
 
+	public boolean createNewAccount(String email, String username, String password) {
+		RandomNumberGenerator saltGenerator = new SecureRandomNumberGenerator();
+		String salt = saltGenerator.nextBytes().toBase64();
+
+		Account account = new Account();
+		account.setEmail(email);
+		account.setUsername(username);
+		account.setSalt(salt);
+		account.setPassword(new Sha256Hash(password, salt, 1024).toBase64());
+		account.setLocked(false);
+		account.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+		accountRepository.save(account);
+		return true;
+	}
+
 	public List<Account> findAll() {
 		return (List<Account>) accountRepository.findAll();
 	}
 
 	public Account findByUsername(String username) {
 		return accountRepository.findByUsername(username);
-	}
-
-	public boolean init() {
-		Account admin = new Account();
-		admin.setUsername("admin");
-		admin.setPassword("admin");
-		admin.setEmail("shelltea@gmail.com");
-		admin.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-		admin.setLocked(false);
-
-		accountRepository.save(admin);
-		return true;
 	}
 }

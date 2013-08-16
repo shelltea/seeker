@@ -3,6 +3,7 @@
  */
 package org.shelltea.seeker.web.api;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.shelltea.seeker.web.entity.RegisterAccount;
 import org.shelltea.seeker.web.entity.Response;
@@ -34,16 +35,25 @@ public class AccountApiControllerTest {
 				.postForObject("http://localhost:8080/api/accounts", registerAccount, Response.class);
 		System.out.println(result);
 
-		registerAccount.setEmail("shelltea@gmail.com");
+		String username = RandomStringUtils.randomAlphabetic(6);
+
+		registerAccount.setEmail(username + "@gmail.com");
 		registerAccount.setUsername("admin");
 		registerAccount.setPassword("admin");
 		result = new RestTemplate()
 				.postForObject("http://localhost:8080/api/accounts", registerAccount, Response.class);
 		System.out.println(result);
 
-		registerAccount.setEmail("shelltea1@gmail.com");
-		registerAccount.setUsername("admin1");
+		registerAccount.setEmail("shelltea@gmail.com");
+		registerAccount.setUsername(username);
 		registerAccount.setPassword("admin");
+		result = new RestTemplate()
+				.postForObject("http://localhost:8080/api/accounts", registerAccount, Response.class);
+		System.out.println(result);
+
+		registerAccount.setEmail(username + "@gmail.com");
+		registerAccount.setUsername(username);
+		registerAccount.setPassword(username);
 		result = new RestTemplate()
 				.postForObject("http://localhost:8080/api/accounts", registerAccount, Response.class);
 		System.out.println(result);
