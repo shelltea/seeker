@@ -6,8 +6,8 @@ package org.shelltea.seeker.service;
 import java.sql.Timestamp;
 import java.util.List;
 
-import org.shelltea.seeker.access.AccountDao;
 import org.shelltea.seeker.entity.Account;
+import org.shelltea.seeker.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,24 +19,29 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AccountService {
 	@Autowired
-	private AccountDao accountDao;
+	private AccountRepository accountRepository;
 
 	public long count() {
-		return accountDao.count();
+		return accountRepository.count();
 	}
 
 	public List<Account> findAll() {
-		return (List<Account>) accountDao.findAll();
+		return (List<Account>) accountRepository.findAll();
+	}
+
+	public Account findByUsername(String username) {
+		return accountRepository.findByUsername(username);
 	}
 
 	public boolean init() {
-		Account account = new Account();
-		account.setPrincipal("admin");
-		account.setCredential("admin");
-		account.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-		account.setLocked(false);
+		Account admin = new Account();
+		admin.setUsername("admin");
+		admin.setPassword("admin");
+		admin.setEmail("shelltea@gmail.com");
+		admin.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+		admin.setLocked(false);
 
-		accountDao.save(account);
+		accountRepository.save(admin);
 		return true;
 	}
 }

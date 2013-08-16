@@ -19,17 +19,18 @@
 	<!-- Shiro过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login" />
+		<property name="loginUrl" value="/account/login" />
 		<property name="successUrl" value="/" />
 		<property name="unauthorizedUrl" value="/403" />
 		<property name="filterChainDefinitions">
 			<value>
-				/login=authc
-				/logout=logout
-				/static-resources/**=anon
+				/account/login=authc
+				/account/logout=logout
+				/account/register/**=anon
 				/api/**=anon
-				/register/**=anon
-				/admin/**=roles[admin]
+				
+				/static-resources/**=anon
+				/manage/**=roles[admin]
 				/**=user
 			</value>
 		</property>
