@@ -36,7 +36,7 @@
 		</property>
 		<property name="defaultEncoding" value="UTF-8" />
 		<!-- 不要在生产环境中设置为0 -->
-		<property name="cacheSeconds" value="60" />
+		<property name="cacheSeconds" value="10" />
 	</bean>
 
 	<!-- 对模型视图名称的解析，在模型视图名称添加前后缀 -->
@@ -53,7 +53,7 @@
 
 	<!-- 国际化，强制国际化信息使用中文 -->
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-		<property name="defaultLocale" value="zh" />
+		<!-- <property name="defaultLocale" value="zh" /> -->
 	</bean>
 
 	<!-- 采用注解定义配置 -->
