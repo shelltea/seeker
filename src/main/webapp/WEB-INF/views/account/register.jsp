@@ -11,27 +11,33 @@
 <%@ include file="../head.jsp"%>
 <script src="${resources}/scripts/register.js" type="text/javascript"></script>
 </head>
-<body>
+<body style="background-color: #eee;">
 	<div class="container">
-		<form id="registerForm" class="form-horizontal" <%-- action="${contextPath}/account/register" --%> method="POST">
+		<form id="registerForm" class="form-horizontal" method="POST">
 			<fieldset>
 				<legend>
 					<fmt:message key="register.title" />
 				</legend>
-				<div class="form-group" style="padding-bottom: 10px;">
-					<label for="inputEmail" class="col-lg-2 control-label"><fmt:message key="register.email" /></label>
+				<div class="form-group form-padding">
+					<label for="inputEmail" class="col-lg-2 control-label">
+						<fmt:message key="register.email" />
+					</label>
 					<div class="col-lg-4">
 						<input name="email" type="text" class="form-control" id="email" placeholder="<fmt:message key="register.email"/>">
 					</div>
 				</div>
-				<div class="form-group" style="padding-bottom: 10px;">
-					<label for="inputUsername" class="col-lg-2 control-label"><fmt:message key="register.username" /></label>
+				<div class="form-group form-padding">
+					<label for="inputUsername" class="col-lg-2 control-label">
+						<fmt:message key="register.username" />
+					</label>
 					<div class="col-lg-4">
 						<input name="username" type="text" class="form-control" id="username" placeholder="<fmt:message key="register.username"/>">
 					</div>
 				</div>
-				<div class="form-group" style="padding-bottom: 10px;">
-					<label for="inputPassword" class="col-lg-2 control-label"><fmt:message key="register.password" /></label>
+				<div class="form-group form-padding">
+					<label for="inputPassword" class="col-lg-2 control-label">
+						<fmt:message key="register.password" />
+					</label>
 					<div class="col-lg-4">
 						<input name="password" type="password" class="form-control" id="password" placeholder="<fmt:message key="register.password"/>">
 					</div>
@@ -45,6 +51,18 @@
 				</div>
 			</fieldset>
 		</form>
+		<div class="pull-right">
+			<div class="btn-group" data-toggle="buttons">
+				<label class="btn btn-success btn-xs active">
+					<input type="radio" name="language" id="zh">
+					中文
+				</label>
+				<label class="btn btn-success btn-xs">
+					<input type="radio" name="language" id="en">
+					English
+				</label>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

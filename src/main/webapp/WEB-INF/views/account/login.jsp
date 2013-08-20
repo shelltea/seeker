@@ -1,47 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Login</title>
+<title><fmt:message key="login.title" /></title>
 <link rel="shortcut icon" type="image/x-icon" href="${resources}/favicon.ico">
 <%@ include file="../head.jsp"%>
+<script src="${resources}/scripts/login.js" type="text/javascript"></script>
 </head>
-<body>
+<body style="background-color: #eee;">
 	<div class="container">
-		<form class="form-horizontal" action="" method="POST">
+		<form id="loginForm" class="form-horizontal" method="POST">
 			<fieldset>
-				<legend>Login</legend>
-				<div class="form-group">
-					<label for="inputUsername" class="col-lg-2 control-label">Username</label>
-					<div class="col-lg-10">
-						<input type="text" class="form-control" id="inputUsername" placeholder="Username">
+				<legend>
+					<fmt:message key="login.title" />
+				</legend>
+				<div class="form-group form-padding">
+					<label for="inputUsername" class="col-lg-2 control-label">
+						<fmt:message key="login.username" />
+					</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="inputUsername" placeholder="<fmt:message key="login.username" />">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="inputPassword" class="col-lg-2 control-label">Password</label>
-					<div class="col-lg-10">
-						<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+				<div class="form-group form-padding">
+					<label for="inputPassword" class="col-lg-2 control-label">
+						<fmt:message key="login.password" />
+					</label>
+					<div class="col-lg-4">
+						<input type="password" class="form-control" id="inputPassword" placeholder="<fmt:message key="login.password" />">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-lg-offset-2 col-lg-10">
 						<div class="checkbox">
-							<label> <input type="checkbox"> Remember me
+							<label>
+								<input type="checkbox">
+								<fmt:message key="login.rememberMe" />
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-lg-offset-2 col-lg-10">
-						<button type="submit" class="btn btn-default">Sign in</button>
-						<a href="register">Sign up</a>
+						<button type="submit" class="btn btn-primary">
+							<fmt:message key="login.title" />
+						</button>
+						<a href="register" class="btn btn-default">
+							<fmt:message key="register.title" />
+						</a>
 					</div>
 				</div>
 			</fieldset>
 		</form>
+		<div class="pull-right">
+			<div class="btn-group" data-toggle="buttons">
+				<label class="btn btn-success btn-xs active">
+					<input type="radio" name="language" id="zh">
+					中文
+				</label>
+				<label class="btn btn-success btn-xs">
+					<input type="radio" name="language" id="en">
+					English
+				</label>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
