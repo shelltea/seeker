@@ -3,7 +3,7 @@
 	updateCheck="false" monitoring="autodetect" dynamicConfig="true">
 	<diskStore path="java.io.tmpdir/ehcache/seeker" />
 
-	<!-- DefaultCache setting. -->
-	<defaultCache maxEntriesLocalHeap="10000" eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="600"
-		overflowToDisk="true" maxEntriesLocalDisk="100000" />
+	<!-- 默认设置 -->
+	<defaultCache maxElementsInMemory="10000" maxElementsOnDisk="100000" memoryStoreEvictionPolicy="LRU"
+		eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="600" overflowToDisk="true" diskPersistent="false" />
 </ehcache>

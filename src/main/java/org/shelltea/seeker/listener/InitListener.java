@@ -35,7 +35,7 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 
 				// 执行初始化
 				if (accountService.count() == 0) {
-					if (accountService.init()) {
+					if (accountService.createNewAccount("shelltea@gmail.com", "admin", "admin")) {
 						logger.info("初始化成功");
 					} else {
 						logger.error("初始化失败");
