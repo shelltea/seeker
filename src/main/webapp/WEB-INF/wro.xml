@@ -8,10 +8,11 @@
 		<js>/static-resources/scripts/jquery/jquery.slimscroll.js</js>
 		<js>/static-resources/scripts/jquery/jquery.validator.js</js>
 		<js>/static-resources/scripts/jquery/jquery.serialize-object.js</js>
+		<js>/static-resources/scripts/jquery/jquery.cookie.js</js>
 		<js>/static-resources/scripts/jquery/jqrest-1.0.0.js</js>
 		<js>/static-resources/scripts/jquery/zh_CN.js</js>
 		<css>/static-resources/styles/bootstrap.css</css>
 		<css>/static-resources/styles/jquery.validator/jquery.validator.css</css>
-		<css>/static-resources/styles/app.css</css>
+		<css>/static-resources/styles/common.css</css>
 	</group>
 </groups>

@@ -19,16 +19,14 @@
 					<fmt:message key="login.title" />
 				</legend>
 				<div class="form-group form-padding">
-					<label for="inputUsername" class="col-lg-2 control-label">
-						<fmt:message key="login.username" />
+					<label for="inputUsername" class="col-lg-2 control-label"> <fmt:message key="login.username" />
 					</label>
 					<div class="col-lg-4">
 						<input type="text" class="form-control" id="inputUsername" placeholder="<fmt:message key="login.username" />">
 					</div>
 				</div>
 				<div class="form-group form-padding">
-					<label for="inputPassword" class="col-lg-2 control-label">
-						<fmt:message key="login.password" />
+					<label for="inputPassword" class="col-lg-2 control-label"> <fmt:message key="login.password" />
 					</label>
 					<div class="col-lg-4">
 						<input type="password" class="form-control" id="inputPassword" placeholder="<fmt:message key="login.password" />">
@@ -37,9 +35,7 @@
 				<div class="form-group">
 					<div class="col-lg-offset-2 col-lg-10">
 						<div class="checkbox">
-							<label>
-								<input type="checkbox">
-								<fmt:message key="login.rememberMe" />
+							<label> <input type="checkbox"> <fmt:message key="login.rememberMe" />
 							</label>
 						</div>
 					</div>
@@ -56,18 +52,7 @@
 				</div>
 			</fieldset>
 		</form>
-		<div class="pull-right">
-			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-success btn-xs active">
-					<input type="radio" name="language" id="zh">
-					中文
-				</label>
-				<label class="btn btn-success btn-xs">
-					<input type="radio" name="language" id="en">
-					English
-				</label>
-			</div>
-		</div>
+		<%@ include file="../common/locale.jsp"%>
 	</div>
 </body>
 </html>

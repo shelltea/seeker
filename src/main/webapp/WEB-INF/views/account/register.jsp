@@ -19,24 +19,21 @@
 					<fmt:message key="register.title" />
 				</legend>
 				<div class="form-group form-padding">
-					<label for="inputEmail" class="col-lg-2 control-label">
-						<fmt:message key="register.email" />
+					<label for="inputEmail" class="col-lg-2 control-label"> <fmt:message key="register.email" />
 					</label>
 					<div class="col-lg-4">
 						<input name="email" type="text" class="form-control" id="email" placeholder="<fmt:message key="register.email"/>">
 					</div>
 				</div>
 				<div class="form-group form-padding">
-					<label for="inputUsername" class="col-lg-2 control-label">
-						<fmt:message key="register.username" />
+					<label for="inputUsername" class="col-lg-2 control-label"> <fmt:message key="register.username" />
 					</label>
 					<div class="col-lg-4">
 						<input name="username" type="text" class="form-control" id="username" placeholder="<fmt:message key="register.username"/>">
 					</div>
 				</div>
 				<div class="form-group form-padding">
-					<label for="inputPassword" class="col-lg-2 control-label">
-						<fmt:message key="register.password" />
+					<label for="inputPassword" class="col-lg-2 control-label"> <fmt:message key="register.password" />
 					</label>
 					<div class="col-lg-4">
 						<input name="password" type="password" class="form-control" id="password" placeholder="<fmt:message key="register.password"/>">
@@ -51,18 +48,7 @@
 				</div>
 			</fieldset>
 		</form>
-		<div class="pull-right">
-			<div class="btn-group" data-toggle="buttons">
-				<label class="btn btn-success btn-xs active">
-					<input type="radio" name="language" id="zh">
-					中文
-				</label>
-				<label class="btn btn-success btn-xs">
-					<input type="radio" name="language" id="en">
-					English
-				</label>
-			</div>
-		</div>
+		<%@ include file="../common/locale.jsp"%>
 	</div>
 </body>
 </html>

@@ -52,8 +52,9 @@
 	</bean>
 
 	<!-- 国际化，强制国际化信息使用中文 -->
-	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="zh" />
+		<property name="cookieName" value="locale" />
 	</bean>
 
 	<!-- 采用注解定义配置 -->
@@ -78,4 +79,13 @@
 	<mvc:resources location="/WEB-INF/resources/favicon.ico" mapping="/favicon.ico" cache-period="2592000" />
 	<!-- 上传文件 -->
 	<mvc:resources location="/WEB-INF/uploads/" mapping="/uploads/**" cache-period="0" />
+
+	<!-- 设置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<!-- 通过配置application.properties中的security.skip_paths指定忽略路径 -->
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
