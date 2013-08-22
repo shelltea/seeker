@@ -53,7 +53,7 @@
 
 	<!-- 国际化，强制国际化信息使用中文 -->
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-		<property name="defaultLocale" value="zh" />
+		<property name="defaultLocale" value="zh_CN" />
 		<property name="cookieName" value="locale" />
 	</bean>
 

@@ -13,29 +13,29 @@
 </head>
 <body style="background-color: #eee;">
 	<div class="container">
-		<form id="loginForm" class="form-horizontal" method="POST">
+		<form id="loginForm" class="form-horizontal" method="POST" action="${contextPath}/account/login">
 			<fieldset>
 				<legend>
 					<fmt:message key="login.title" />
 				</legend>
 				<div class="form-group form-padding">
-					<label for="inputUsername" class="col-lg-2 control-label"> <fmt:message key="login.username" />
+					<label for="username" class="col-lg-2 control-label"> <fmt:message key="login.username" />
 					</label>
 					<div class="col-lg-4">
-						<input type="text" class="form-control" id="inputUsername" placeholder="<fmt:message key="login.username" />">
+						<input name="username" type="text" class="form-control" id="username" placeholder="<fmt:message key="login.username" />">
 					</div>
 				</div>
 				<div class="form-group form-padding">
-					<label for="inputPassword" class="col-lg-2 control-label"> <fmt:message key="login.password" />
+					<label for="password" class="col-lg-2 control-label"> <fmt:message key="login.password" />
 					</label>
 					<div class="col-lg-4">
-						<input type="password" class="form-control" id="inputPassword" placeholder="<fmt:message key="login.password" />">
+						<input name="password" type="password" class="form-control" id="password" placeholder="<fmt:message key="login.password" />">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-lg-offset-2 col-lg-10">
 						<div class="checkbox">
-							<label> <input type="checkbox"> <fmt:message key="login.rememberMe" />
+							<label> <input name="rememberMe" type="checkbox"> <fmt:message key="login.rememberMe" />
 							</label>
 						</div>
 					</div>
@@ -50,6 +50,7 @@
 						</a>
 					</div>
 				</div>
+				${loginMessage}
 			</fieldset>
 		</form>
 		<%@ include file="../common/locale.jsp"%>

@@ -3,6 +3,7 @@
  */
 package org.shelltea.seeker.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -14,7 +15,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "seeker_account")
-public class Account extends IDEntity {
+public class Account extends IDEntity implements Serializable {
+	private static final long serialVersionUID = -3651803052145540378L;
+
 	/**
 	 * 用户身份.例如用户名或者电子邮箱.
 	 */

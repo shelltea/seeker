@@ -11,7 +11,7 @@
 		<property name="cacheManager" ref="shiroEhCacheManager" />
 	</bean>
 
-	<!-- 项目自定义的Realm -->
+	<!-- 自定义的Realm -->
 	<bean id="shiroDbRealm" class="org.shelltea.seeker.service.security.ShiroDbRealm">
 		<property name="accountService" ref="accountService" />
 	</bean>
@@ -28,7 +28,7 @@
 				/account/logout=logout
 				/account/register/**=anon
 				/api/**=anon
-				
+
 				/static-resources/**=anon
 				/manage/**=roles[admin]
 				/**=user
