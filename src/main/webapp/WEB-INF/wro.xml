@@ -15,4 +15,8 @@
 		<css>/static-resources/styles/jquery.validator/jquery.validator.css</css>
 		<css>/static-resources/styles/common.css</css>
 	</group>
+	<group name="compatible">
+		<js>/static-resources/scripts/jquery/html5shiv.js</js>
+		<js>/static-resources/scripts/jquery/respond.min.js</js>
+	</group>
 </groups>

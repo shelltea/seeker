@@ -7,6 +7,9 @@
 <link rel="stylesheet" type="text/css" href="${resources}/styles/jquery.validator/jquery.validator.css">
 <link rel="stylesheet" type="text/css" href="${resources}/styles/common.css">
 <script src="${resources}/app.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+<script src="${resources}/compatible.js" type="text/javascript"></script>
+<![endif]-->
 <script type="text/javascript">
 	var contextPath = "${contextPath}";
 </script>
