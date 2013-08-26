@@ -5,3 +5,24 @@
 .form-padding {
 	padding-bottom: 10px;
 }
+
+.navbar-logo {
+	padding: 12px 0px 0px 15px;
+}
+
+.navbar-logo span {
+	color: #5cb85c;
+	font-size: 24px;
+}
+
+.navbar-links {
+	padding-right: 40px;
+}
+
+.navbar-profile-link {
+	margin-left: 5px;
+}
+
+.navbar-profile-link:HOVER {
+	text-decoration: none;
+}

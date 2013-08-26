@@ -7,40 +7,54 @@
 <head>
 <title><fmt:message key="index.title" /> - <shiro:principal property="username" /></title>
 <%@ include file="common/head.jsp"%>
+<script src="${resources}/scripts/index.js" type="text/javascript"></script>
 </head>
-<body>
-	<div class="navbar navbar-static-top navbar-default">
+<body style="background-color: #eee;">
+	<div class="navbar navbar-default navbar-static-top">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${contextPath}/">
-				<%-- <fmt:message key="index.title" /> --%>
+			<a class="navbar-brand navbar-logo" href="${contextPath}/">
+				<span class="glyphicon glyphicon-send"></span>
 			</a>
 		</div>
-		<div class="navbar-collapse collapse">
+		<div class="navbar-collapse collapse navbar-links">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="${contextPath}/explore">Explore</a>
+					<a href="${contextPath}/explore">
+						<fmt:message key="index.link.explore" />
+					</a>
 				</li>
 				<li>
-					<a href="${contextPath}/blog">Blog</a>
+					<a href="${contextPath}/blog">
+						<fmt:message key="index.link.blog" />
+					</a>
 				</li>
 				<li>
-					<a href="${contextPath}/help">Help</a>
+					<a href="${contextPath}/help">
+						<fmt:message key="index.link.help" />
+					</a>
 				</li>
 			</ul>
 			<p class="navbar-text navbar-right">
-				<img src="<shiro:principal property="gravatarURL" />" width="20" height="20"> <b><shiro:principal property="username" /></b>
+				<a href="${contextPath}/account/profile" class="navbar-link navbar-profile-link">
+					<img src="<shiro:principal property="gravatarURL" />" width="20" height="20" class="img-rounded">
+					<shiro:principal property="username" />
+				</a>
+				<a href="${contextPath}/account/settings" title="<fmt:message key="index.link.settings" />" data-toggle="tooltip" data-placement="bottom"
+					class="navbar-link navbar-profile-link">
+					<span class="glyphicon glyphicon-cog"></span>
+				</a>
+				<a href="${contextPath}/account/logout" title="<fmt:message key="index.link.logout" />" data-toggle="tooltip" data-placement="bottom"
+					class="navbar-link navbar-profile-link">
+					<span class="glyphicon glyphicon-log-out"></span>
+				</a>
 			</p>
-			<form class="navbar-form navbar-right">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-			</form>
 		</div>
 	</div>
+	<%@ include file="common/locale.jsp"%>
 </body>
 </html>
