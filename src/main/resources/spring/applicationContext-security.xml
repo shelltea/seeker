@@ -26,10 +26,12 @@
 			<value>
 				/account/login=authc
 				/account/logout=logout
-				/account/register/**=anon
-				/api/**=anon
 
+				/account/register/**=anon
+				/favicon.ico=anon
+				/api/**=anon
 				/static-resources/**=anon
+
 				/manage/**=roles[admin]
 				/**=user
 			</value>
