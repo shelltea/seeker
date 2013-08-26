@@ -2,22 +2,45 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<c:set var="resources" value="${pageContext.request.contextPath}/static-resources" />
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title></title>
-<link rel="shortcut icon" type="image/x-icon" href="${resources}/favicon.ico">
-<%@ include file="head.jsp"%>
+<title><fmt:message key="index.title" /> - <shiro:principal property="username" /></title>
+<%@ include file="common/head.jsp"%>
 </head>
 <body>
-	<shiro:user>
-    	Welcome back <shiro:principal property="username" />!
-    	<a href="${contextPath}/account/logout">
-			<fmt:message key="logout.title" />
-		</a>
-	</shiro:user>
+	<div class="navbar navbar-static-top navbar-default">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="${contextPath}/">
+				<%-- <fmt:message key="index.title" /> --%>
+			</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li>
+					<a href="${contextPath}/explore">Explore</a>
+				</li>
+				<li>
+					<a href="${contextPath}/blog">Blog</a>
+				</li>
+				<li>
+					<a href="${contextPath}/help">Help</a>
+				</li>
+			</ul>
+			<p class="navbar-text navbar-right">
+				<img src="<shiro:principal property="gravatarURL" />" width="20" height="20"> <b><shiro:principal property="username" /></b>
+			</p>
+			<form class="navbar-form navbar-right">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search">
+				</div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

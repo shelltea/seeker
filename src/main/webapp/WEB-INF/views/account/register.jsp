@@ -3,12 +3,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><fmt:message key="register.title" /></title>
-<link rel="shortcut icon" type="image/x-icon" href="${resources}/favicon.ico">
-<%@ include file="../head.jsp"%>
+<%@ include file="../common/head.jsp"%>
 <script src="${resources}/scripts/register.js" type="text/javascript"></script>
 </head>
 <body style="background-color: #eee;">
@@ -19,31 +15,34 @@
 					<fmt:message key="register.title" />
 				</legend>
 				<div class="form-group form-padding">
-					<label for="inputEmail" class="col-lg-2 control-label"> <fmt:message key="register.email" />
+					<label for="email" class="col-lg-2 control-label"> <fmt:message key="register.email" />
 					</label>
 					<div class="col-lg-4">
-						<input name="email" type="text" class="form-control" id="email" placeholder="<fmt:message key="register.email"/>">
+						<input id="email" name="email" type="text" class="form-control" placeholder="<fmt:message key="register.email"/>" autofocus="autofocus">
 					</div>
 				</div>
 				<div class="form-group form-padding">
-					<label for="inputUsername" class="col-lg-2 control-label"> <fmt:message key="register.username" />
+					<label for="username" class="col-lg-2 control-label"> <fmt:message key="register.username" />
 					</label>
 					<div class="col-lg-4">
-						<input name="username" type="text" class="form-control" id="username" placeholder="<fmt:message key="register.username"/>">
+						<input id="username" name="username" type="text" class="form-control" placeholder="<fmt:message key="register.username"/>">
 					</div>
 				</div>
 				<div class="form-group form-padding">
-					<label for="inputPassword" class="col-lg-2 control-label"> <fmt:message key="register.password" />
+					<label for="password" class="col-lg-2 control-label"> <fmt:message key="register.password" />
 					</label>
 					<div class="col-lg-4">
-						<input name="password" type="password" class="form-control" id="password" placeholder="<fmt:message key="register.password"/>">
+						<input id="password" name="password" type="password" class="form-control" placeholder="<fmt:message key="register.password"/>">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-lg-offset-2 col-lg-10">
-						<button id="registerButton" type="submit" class="btn btn-primary">
+						<button type="submit" class="btn btn-primary">
 							<fmt:message key="register.title" />
 						</button>
+						<a href="login" class="btn btn-default">
+							<fmt:message key="register.gotoLogin" />
+						</a>
 					</div>
 				</div>
 			</fieldset>

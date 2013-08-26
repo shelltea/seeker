@@ -3,12 +3,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><fmt:message key="login.title" /></title>
-<link rel="shortcut icon" type="image/x-icon" href="${resources}/favicon.ico">
-<%@ include file="../head.jsp"%>
+<%@ include file="../common/head.jsp"%>
 <script src="${resources}/scripts/login.js" type="text/javascript"></script>
 </head>
 <body style="background-color: #eee;">
@@ -18,18 +14,25 @@
 				<legend>
 					<fmt:message key="login.title" />
 				</legend>
+				<c:if test="${loginMessage!=null}">
+					<div class="alert alert-danger">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<span class="glyphicon glyphicon-warning-sign"></span>
+						${loginMessage}
+					</div>
+				</c:if>
 				<div class="form-group form-padding">
 					<label for="username" class="col-lg-2 control-label"> <fmt:message key="login.username" />
 					</label>
 					<div class="col-lg-4">
-						<input name="username" type="text" class="form-control" id="username" placeholder="<fmt:message key="login.username" />">
+						<input id="username" name="username" type="text" class="form-control" placeholder="<fmt:message key="login.username" />" autofocus="autofocus">
 					</div>
 				</div>
 				<div class="form-group form-padding">
 					<label for="password" class="col-lg-2 control-label"> <fmt:message key="login.password" />
 					</label>
 					<div class="col-lg-4">
-						<input name="password" type="password" class="form-control" id="password" placeholder="<fmt:message key="login.password" />">
+						<input id="password" name="password" type="password" class="form-control" placeholder="<fmt:message key="login.password" />">
 					</div>
 				</div>
 				<div class="form-group">
@@ -50,7 +53,6 @@
 						</a>
 					</div>
 				</div>
-				${loginMessage}
 			</fieldset>
 		</form>
 		<%@ include file="../common/locale.jsp"%>
