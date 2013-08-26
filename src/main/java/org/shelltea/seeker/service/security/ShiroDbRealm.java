@@ -15,6 +15,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.shelltea.seeker.entity.Account;
 import org.shelltea.seeker.service.AccountService;
+import org.shelltea.seeker.web.entity.ShiroAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		Account account = accountService.findByUsername(usernamePasswordToken.getUsername());
 
 		if (account != null) {
-			return new SimpleAuthenticationInfo(account, account.getPassword(),
-					ByteSource.Util.bytes(account.getSalt()), getName());
+			return new SimpleAuthenticationInfo(new ShiroAccount(account.getId(), account.getUsername(),
+					account.getEmail()), account.getPassword(), ByteSource.Util.bytes(account.getSalt()), getName());
 		} else {
 			return null;
 		}

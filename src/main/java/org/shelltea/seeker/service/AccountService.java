@@ -36,10 +36,10 @@ public class AccountService {
 		String salt = saltGenerator.nextBytes().toBase64();
 
 		Account account = new Account();
-		account.setEmail(email);
-		account.setUsername(username);
+		account.setEmail(email.trim());
+		account.setUsername(username.trim());
 		account.setSalt(salt);
-		account.setPassword(new SimpleHash(HASH_ALGORITHM_NAME, password, salt, HASH_ITERATIONS).toBase64());
+		account.setPassword(new SimpleHash(HASH_ALGORITHM_NAME, password.trim(), salt, HASH_ITERATIONS).toBase64());
 		account.setLocked(false);
 		account.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 		accountRepository.save(account);
