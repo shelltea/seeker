@@ -1,5 +1,5 @@
 /*
- * Copyright (C) CCRISE.
+ * Copyright (C) SHELLTEA.
  */
 package org.shelltea.seeker.web.api;
 
