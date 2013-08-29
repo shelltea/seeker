@@ -10,49 +10,121 @@
 <script src="${resources}/scripts/index.js" type="text/javascript"></script>
 </head>
 <body style="background-color: #eee;">
-	<div class="navbar navbar-default navbar-static-top">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand navbar-logo" href="${contextPath}/">
-				<span class="glyphicon glyphicon-send"></span>
-			</a>
+	<%@ include file="common/navbar.jsp"%>
+	<div class="container">
+		<div id="toolbar" class="row row-padding">
+			<div class="col-sm-4 col-md-3 hidden-xs">
+				<button type="button" class="btn btn-sm btn-danger btn-block">
+					<fmt:message key="index.subscribe.title" />
+				</button>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-9">
+				<div class="row">
+					<div class="col-xs-8 col-md-8">
+						<button type="button" class="btn btn-sm btn-default" title="<fmt:message key="index.refresh.tooltip" />" data-toggle="tooltip" data-placement="top">
+							<span class="glyphicon glyphicon-refresh"></span>
+						</button>
+						<div class="btn-group">
+							<button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+								<fmt:message key="index.all-items.title" />
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#">
+										<fmt:message key="index.all-items.title" />
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<fmt:message key="index.unread-items.title" />
+									</a>
+								</li>
+							</ul>
+						</div>
+						<button type="button" class="btn btn-sm btn-default" title="<fmt:message key="index.mask-as-read.tooltip" />" data-toggle="tooltip" data-placement="top">
+							<span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</div>
+					<div class="col-xs-4 col-md-4">
+						<div class="btn-group pull-right">
+							<button type="button" class="btn btn-sm btn-default" title="<fmt:message key="index.up.tooltip" />" data-toggle="tooltip" data-placement="top">
+								<span class="glyphicon glyphicon-chevron-up"></span>
+							</button>
+							<button type="button" class="btn btn-sm btn-default" title="<fmt:message key="index.down.tooltip" />" data-toggle="tooltip" data-placement="top">
+								<span class="glyphicon glyphicon-chevron-down"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="navbar-collapse collapse navbar-links">
-			<ul class="nav navbar-nav">
-				<li>
-					<a href="${contextPath}/explore">
-						<fmt:message key="index.link.explore" />
+		<div class="row">
+			<div class="col-sm-4 col-md-3 hidden-xs">
+				<div class="list-group">
+					<a href="${contextPath}/inbox" class="list-group-item active">
+						<b><fmt:message key="index.inbox.title" /></b>
+						<span class="badge">0</span>
 					</a>
-				</li>
-				<li>
-					<a href="${contextPath}/blog">
-						<fmt:message key="index.link.blog" />
+					<a href="${contextPath}/star" class="list-group-item">
+						<fmt:message key="index.star.title" />
 					</a>
-				</li>
-				<li>
-					<a href="${contextPath}/help">
-						<fmt:message key="index.link.help" />
-					</a>
-				</li>
-			</ul>
-			<p class="navbar-text navbar-right">
-				<a href="${contextPath}/account/profile" class="navbar-link navbar-profile-link">
-					<img src="<shiro:principal property="gravatarURL" />" width="20" height="20" class="img-rounded">
-					<shiro:principal property="username" />
-				</a>
-				<a href="${contextPath}/account/settings" title="<fmt:message key="index.link.settings" />" data-toggle="tooltip" data-placement="bottom"
-					class="navbar-link navbar-profile-link">
-					<span class="glyphicon glyphicon-cog"></span>
-				</a>
-				<a href="${contextPath}/account/logout" title="<fmt:message key="index.link.logout" />" data-toggle="tooltip" data-placement="bottom"
-					class="navbar-link navbar-profile-link">
-					<span class="glyphicon glyphicon-log-out"></span>
-				</a>
-			</p>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<fmt:message key="index.subscriptions.title" />
+					</div>
+					<div class="panel-body"></div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-9">
+				<div id="items" class="list-group">
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Item</h4>
+						<p class="list-group-item-text">Item text</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<%@ include file="common/locale.jsp"%>

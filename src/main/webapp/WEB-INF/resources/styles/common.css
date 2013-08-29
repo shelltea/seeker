@@ -26,3 +26,7 @@
 .navbar-profile-link:HOVER {
 	text-decoration: none;
 }
+
+.row-padding {
+	padding-bottom: 10px;
+}

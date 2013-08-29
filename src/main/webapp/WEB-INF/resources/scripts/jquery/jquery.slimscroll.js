@@ -2,7 +2,7 @@
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
  * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  *
- * Version: 1.2.0
+ * Version: 1.3.1
  *
  */
 (function($) {
@@ -40,7 +40,7 @@
         alwaysVisible : false,
 
         // check if we should hide the scrollbar when user is hovering over
-        disableFadeOut: false,
+        disableFadeOut : false,
 
         // sets visibility of the rail
         railVisible : false,
@@ -70,7 +70,13 @@
         wheelStep : 20,
 
         // scroll amount applied when user is using gestures
-        touchScrollStep : 200
+        touchScrollStep : 200,
+
+        // sets border radius
+        borderRadius: '7px',
+
+        // sets border radius of the rail
+        railBorderRadius : '7px'
       };
 
       var o = $.extend(defaults, options);
@@ -166,7 +172,7 @@
             position: 'absolute',
             top: 0,
             display: (o.alwaysVisible && o.railVisible) ? 'block' : 'none',
-            'border-radius': o.size,
+            'border-radius': o.railBorderRadius,
             background: o.railColor,
             opacity: o.railOpacity,
             zIndex: 90
@@ -182,10 +188,10 @@
             top: 0,
             opacity: o.opacity,
             display: o.alwaysVisible ? 'block' : 'none',
-            'border-radius' : o.size,
-            BorderRadius: o.size,
-            MozBorderRadius: o.size,
-            WebkitBorderRadius: o.size,
+            'border-radius' : o.borderRadius,
+            BorderRadius: o.borderRadius,
+            MozBorderRadius: o.borderRadius,
+            WebkitBorderRadius: o.borderRadius,
             zIndex: 99
           });
 
@@ -201,19 +207,29 @@
         me.parent().append(bar);
         me.parent().append(rail);
 
-        // make it draggable
-        if (o.railDraggable && $.ui && typeof($.ui.draggable) == 'function')
-        {
-          bar.draggable({
-            axis: 'y',
-            containment: 'parent',
-            start: function() { isDragg = true; },
-            stop: function() { isDragg = false; hideBar(); },
-            drag: function(e)
-            {
-              // scroll content
-              scrollContent(0, $(this).position().top, false);
-            }
+        // make it draggable and no longer dependent on the jqueryUI
+        if (o.railDraggable){
+          bar.bind("mousedown", function(e) {
+            var $doc = $(document);
+            isDragg = true;
+            t = parseFloat(bar.css('top'));
+            pageY = e.pageY;
+
+            $doc.bind("mousemove.slimscroll", function(e){
+              currTop = t + e.pageY - pageY;
+              bar.css('top', currTop);
+              scrollContent(0, bar.position().top, false);// scroll content
+            });
+
+            $doc.bind("mouseup.slimscroll", function(e) {
+              isDragg = false;hideBar();
+              $doc.unbind('.slimscroll');
+            });
+            return false;
+          }).bind("selectstart.slimscroll", function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
           });
         }
 
@@ -251,16 +267,23 @@
         });
 
         me.bind('touchmove', function(e){
-          // prevent scrolling the page
-          e.originalEvent.preventDefault();
+          // prevent scrolling the page if necessary
+          if(!releaseScroll)
+          {
+  		      e.originalEvent.preventDefault();
+		      }
           if (e.originalEvent.touches.length)
           {
             // see how far user swiped
             var diff = (touchDif - e.originalEvent.touches[0].pageY) / o.touchScrollStep;
             // scroll content
             scrollContent(diff, true);
+            touchDif = e.originalEvent.touches[0].pageY;
           }
         });
+
+        // set up initial height
+        getBarHeight();
 
         // check start position
         if (o.start === 'bottom')
@@ -280,9 +303,6 @@
 
         // attach scroll events
         attachWheel();
-
-        // set up initial height
-        getBarHeight();
 
         function _onWheel(e)
         {
@@ -308,6 +328,7 @@
 
         function scrollContent(y, isWheel, isJump)
         {
+          releaseScroll = false;
           var delta = y;
           var maxTop = me.outerHeight() - bar.outerHeight();
 
@@ -360,6 +381,7 @@
           {
             this.addEventListener('DOMMouseScroll', _onWheel, false );
             this.addEventListener('mousewheel', _onWheel, false );
+            this.addEventListener('MozMousePixelScroll', _onWheel, false );
           }
           else
           {
