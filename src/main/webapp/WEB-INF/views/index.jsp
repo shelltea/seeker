@@ -14,9 +14,14 @@
 	<div class="container">
 		<div id="toolbar" class="row row-padding">
 			<div class="col-sm-4 col-md-3 hidden-xs">
-				<button type="button" class="btn btn-sm btn-danger btn-block">
-					<fmt:message key="index.subscribe.title" />
-				</button>
+				<div class="input-group input-group-sm">
+					<input type="text" class="form-control">
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-danger">
+							<fmt:message key="index.subscribe.title" />
+						</button>
+					</span>
+				</div>
 			</div>
 			<div class="col-xs-12 col-sm-8 col-md-9">
 				<div class="row">
@@ -63,10 +68,12 @@
 			<div class="col-sm-4 col-md-3 hidden-xs">
 				<div class="list-group">
 					<a href="${contextPath}/inbox" class="list-group-item active">
+						<span class="glyphicon glyphicon-inbox"></span>
 						<b><fmt:message key="index.inbox.title" /></b>
 						<span class="badge">0</span>
 					</a>
 					<a href="${contextPath}/star" class="list-group-item">
+						<span class="glyphicon glyphicon-star"></span>
 						<fmt:message key="index.star.title" />
 					</a>
 				</div>
@@ -79,46 +86,6 @@
 			</div>
 			<div class="col-xs-12 col-sm-8 col-md-9">
 				<div id="items" class="list-group">
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
-					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
-					</div>
 					<div class="list-group-item">
 						<h4 class="list-group-item-heading">Item</h4>
 						<p class="list-group-item-text">Item text</p>
