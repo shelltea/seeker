@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
+ * 账户.
+ * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Entity

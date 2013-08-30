@@ -87,8 +87,12 @@
 			<div class="col-xs-12 col-sm-8 col-md-9">
 				<div id="items" class="list-group">
 					<div class="list-group-item">
-						<h4 class="list-group-item-heading">Item</h4>
-						<p class="list-group-item-text">Item text</p>
+						<span class="glyphicon glyphicon-star-empty"></span>
+						<b>Item title1</b> <small>description1</small> <small class="pull-right">2013-08-30 17:35</small>
+					</div>
+					<div class="list-group-item">
+						<span class="glyphicon glyphicon-star-empty"></span>
+						<b>Item title2</b> <small>description2</small> <small class="pull-right">2013-08-30 17:30</small>
 					</div>
 				</div>
 			</div>
