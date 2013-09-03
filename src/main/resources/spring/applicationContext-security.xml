@@ -13,7 +13,7 @@
 
 	<!-- 自定义的Realm -->
 	<bean id="shiroDbRealm" class="org.shelltea.seeker.service.security.ShiroDbRealm">
-		<property name="accountService" ref="accountService" />
+		<property name="accountRepository" ref="accountRepository" />
 	</bean>
 
 	<!-- Shiro过滤器 -->

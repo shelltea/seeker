@@ -14,6 +14,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.shelltea.seeker.entity.Account;
+import org.shelltea.seeker.repository.AccountRepository;
 import org.shelltea.seeker.service.AccountService;
 import org.shelltea.seeker.web.entity.ShiroAccount;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private AccountService accountService;
+	private AccountRepository accountRepository;
 
 	public ShiroDbRealm() {
 		super();
@@ -41,19 +42,19 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		setCredentialsMatcher(credentialsMatcher);
 	}
 
-	public AccountService getAccountService() {
-		return accountService;
+	public AccountRepository getAccountRepository() {
+		return accountRepository;
 	}
 
-	public void setAccountService(AccountService accountService) {
-		this.accountService = accountService;
+	public void setAccountRepository(AccountRepository accountRepository) {
+		this.accountRepository = accountRepository;
 	}
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 
-		Account account = accountService.findByUsername(usernamePasswordToken.getUsername());
+		Account account = accountRepository.findByUsername(usernamePasswordToken.getUsername());
 
 		if (account != null) {
 			return new SimpleAuthenticationInfo(new ShiroAccount(account.getId(), account.getUsername(),

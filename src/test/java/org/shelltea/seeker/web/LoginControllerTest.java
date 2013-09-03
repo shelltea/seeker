@@ -1,7 +1,7 @@
 /*
  * Copyright (C) SHELLTEA.
  */
-package org.shelltea.seeker.web.api;
+package org.shelltea.seeker.web;
 
 import java.io.IOException;
 import java.util.List;

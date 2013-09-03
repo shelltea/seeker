@@ -101,10 +101,10 @@ public class AccountApiController {
 		}
 
 		// 创建用户
-		boolean result = accountService.create(registerAccount.getEmail(), registerAccount.getUsername(),
-				registerAccount.getPassword());
+		accountRepository.save(accountService.create(registerAccount.getEmail(), registerAccount.getUsername(),
+				registerAccount.getPassword()));
 
-		return new Response(result);
+		return new Response(true);
 	}
 
 	@ResponseBody

@@ -3,6 +3,7 @@
  */
 package org.shelltea.seeker.listener;
 
+import org.shelltea.seeker.repository.AccountRepository;
 import org.shelltea.seeker.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,8 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private AccountRepository accountRepository;
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
@@ -34,12 +37,9 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 				logger.info("系统启动成功:)");
 
 				// 执行初始化
-				if (accountService.count() == 0) {
-					if (accountService.create("shelltea@gmail.com", "shelltea", "shelltea")) {
-						logger.info("初始化成功");
-					} else {
-						logger.error("初始化失败");
-					}
+				if (accountRepository.count() == 0) {
+					accountRepository.save(accountService.create("shelltea@gmail.com", "shelltea", "shelltea"));
+					logger.info("初始化默认账户");
 				}
 			}
 		}
