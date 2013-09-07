@@ -3,14 +3,15 @@
  */
 package org.shelltea.seeker.entity;
 
-import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotBlank;
+import com.google.common.collect.Sets;
 
 /**
  * 频道.
@@ -21,25 +22,14 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "seeker_channel")
 public class Channel extends IDEntity {
 	/**
-	 * 网站地址.
-	 */
-	private String url;
-
-	/**
-	 * RSS地址.
-	 */
-	@NotBlank
-	private String rssUrl;
-
-	/**
-	 * Atom地址.
-	 */
-	private String baseUri;
-
-	/**
 	 * 标题.
 	 */
 	private String title;
+
+	/**
+	 * 图标地址.
+	 */
+	private String iconUrl;
 
 	/**
 	 * 描述.
@@ -47,70 +37,43 @@ public class Channel extends IDEntity {
 	private String description;
 
 	/**
-	 * 创建时间.
+	 * 包含的源.
 	 */
-	private Timestamp createTime = new Timestamp(System.currentTimeMillis());
-
-	/**
-	 * 最后抓取时间.
-	 */
-	private Timestamp lastFetchTime;
-
-	public String getBaseUri() {
-		return baseUri;
-	}
-
-	public Timestamp getCreateTime() {
-		return createTime;
-	}
+	private Set<Feed> feeds = Sets.newHashSet();
 
 	@Lob
 	public String getDescription() {
 		return description;
 	}
 
-	public Timestamp getLastFetchTime() {
-		return lastFetchTime;
+	@OneToMany
+	public Set<Feed> getFeeds() {
+		return feeds;
 	}
 
-	@Column(nullable = false)
-	public String getRssUrl() {
-		return rssUrl;
+	@Column(nullable = false, unique = true)
+	public String getIconUrl() {
+		return iconUrl;
 	}
 
+	@Column(nullable = false, unique = true)
 	public String getTitle() {
 		return title;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setBaseUri(String baseUri) {
-		this.baseUri = baseUri;
-	}
-
-	public void setCreateTime(Timestamp createTime) {
-		this.createTime = createTime;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public void setLastFetchTime(Timestamp lastFetchTime) {
-		this.lastFetchTime = lastFetchTime;
+	public void setFeeds(Set<Feed> feeds) {
+		this.feeds = feeds;
 	}
 
-	public void setRssUrl(String rssUrl) {
-		this.rssUrl = rssUrl;
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
 	}
 }

@@ -3,16 +3,14 @@
  */
 package org.shelltea.seeker.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 /**
  * 分类.
@@ -30,18 +28,17 @@ public class Category extends IDEntity {
 	/**
 	 * 分类名称.
 	 */
-	@NotBlank
 	private String title;
 
 	/**
 	 * 子分类.
 	 */
-	private List<Category> categories = Lists.newArrayList();;
+	private Set<Category> categories = Sets.newHashSet();
 
 	/**
-	 * 包含的频道.
+	 * 包含的源.
 	 */
-	private List<Channel> channels = Lists.newArrayList();;
+	private Set<Feed> feeds = Sets.newHashSet();
 
 	/**
 	 * 顺序.
@@ -54,15 +51,16 @@ public class Category extends IDEntity {
 	}
 
 	@OneToMany
-	public List<Category> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
 
 	@OneToMany
-	public List<Channel> getChannels() {
-		return channels;
+	public Set<Feed> getFeeds() {
+		return feeds;
 	}
 
+	@Column(nullable = false)
 	public Integer getSequence() {
 		return sequence;
 	}
@@ -76,12 +74,12 @@ public class Category extends IDEntity {
 		this.accountId = accountId;
 	}
 
-	public void setCategories(List<Category> categories) {
+	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
 
-	public void setChannels(List<Channel> channels) {
-		this.channels = channels;
+	public void setFeeds(Set<Feed> feeds) {
+		this.feeds = feeds;
 	}
 
 	public void setSequence(Integer sequence) {

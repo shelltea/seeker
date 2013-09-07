@@ -4,11 +4,13 @@
 package org.shelltea.seeker.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 账户.
@@ -33,12 +35,12 @@ public class Account extends IDEntity implements Serializable {
 	/**
 	 * 账户创建时间.
 	 */
-	private Timestamp createTime = new Timestamp(System.currentTimeMillis());
+	private Date createTime = new Date(System.currentTimeMillis());
 
 	/**
 	 * 账户最后更新时间.
 	 */
-	private Timestamp updateTime;
+	private Date updateTime;
 
 	/**
 	 * 是否上锁.
@@ -55,8 +57,9 @@ public class Account extends IDEntity implements Serializable {
 	 */
 	private String salt;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false, updatable = false)
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
@@ -75,12 +78,14 @@ public class Account extends IDEntity implements Serializable {
 		return password;
 	}
 
+	@Column(nullable = false)
 	public String getSalt() {
 		return salt;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
-	public Timestamp getUpdateTime() {
+	public Date getUpdateTime() {
 		return updateTime;
 	}
 
@@ -89,7 +94,7 @@ public class Account extends IDEntity implements Serializable {
 		return username;
 	}
 
-	public void setCreateTime(final Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
@@ -97,7 +102,7 @@ public class Account extends IDEntity implements Serializable {
 		this.email = email;
 	}
 
-	public void setLocked(final Boolean locked) {
+	public void setLocked(Boolean locked) {
 		this.locked = locked;
 	}
 
@@ -109,7 +114,7 @@ public class Account extends IDEntity implements Serializable {
 		this.salt = salt;
 	}
 
-	public void setUpdateTime(Timestamp updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 

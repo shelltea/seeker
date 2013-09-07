@@ -21,8 +21,8 @@ public class ShiroAccount extends WebEntity implements Serializable {
 		this.id = id;
 		this.username = username;
 		this.email = email;
-		this.gravatarURL = "http://www.gravatar.com/avatar/"
-				+ new SimpleHash("MD5", email.trim().toLowerCase()).toString() + "?d=mm&s=200";
+		gravatarURL = "http://www.gravatar.com/avatar/" + new SimpleHash("MD5", email.trim().toLowerCase()).toString()
+				+ "?d=mm&s=200";
 	}
 
 	public String getEmail() {

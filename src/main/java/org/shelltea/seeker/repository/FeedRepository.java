@@ -3,11 +3,11 @@
  */
 package org.shelltea.seeker.repository;
 
-import org.shelltea.seeker.entity.Item;
+import org.shelltea.seeker.entity.Feed;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface FeedRepository extends JpaRepository<Feed, Long> {
 }
