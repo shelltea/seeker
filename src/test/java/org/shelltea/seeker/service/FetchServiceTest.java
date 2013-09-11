@@ -1,10 +1,11 @@
 /*
  * Copyright (C) SHELLTEA.
  */
-package org.shelltea.seeker.repository;
+package org.shelltea.seeker.service;
 
-import org.junit.Assert;
 import org.junit.Test;
+import org.shelltea.seeker.entity.Feed;
+import org.shelltea.seeker.repository.FeedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
@@ -15,12 +16,16 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
  */
 @ContextConfiguration(locations = { "/spring/applicationContext.xml" })
 @TransactionConfiguration(defaultRollback = false)
-public class AccountRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class FetchServiceTest extends AbstractTransactionalJUnit4SpringContextTests {
 	@Autowired
-	private AccountRepository accountRepository;
+	private FetchService fetchService;
+	@Autowired
+	private FeedRepository feedRepository;
 
 	@Test
-	public void testFindByEmail() {
-		Assert.assertEquals("admin", accountRepository.findByEmail("shelltea@gmail.com").getUsername());
+	public void fetch() {
+		Feed cnbeta = feedRepository.findByTitle("cnBeta");
+
+		fetchService.fetch(cnbeta.getId());
 	}
 }

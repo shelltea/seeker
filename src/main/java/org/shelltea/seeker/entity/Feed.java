@@ -56,13 +56,32 @@ public class Feed extends IDEntity {
 	private String listSelector;
 
 	/**
+	 * 标题选择器.
+	 */
+	private String titleSelector;
+
+	/**
 	 * 内容选择器.
 	 */
-	private String contentSelector;
+	private String originContentSelector;
 
-	@Column(nullable = false)
-	public String getContentSelector() {
-		return contentSelector;
+	/**
+	 * 发布时间选择器.
+	 */
+	private String publishedTimeSelector;
+
+	/**
+	 * 发布时间格式.
+	 */
+	private String publishedTimePattern;
+
+	/**
+	 * 来源选择器.
+	 */
+	private String authorSelector;
+
+	public String getAuthorSelector() {
+		return authorSelector;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -92,8 +111,25 @@ public class Feed extends IDEntity {
 	}
 
 	@Column(nullable = false)
+	public String getOriginContentSelector() {
+		return originContentSelector;
+	}
+
+	public String getPublishedTimePattern() {
+		return publishedTimePattern;
+	}
+
+	public String getPublishedTimeSelector() {
+		return publishedTimeSelector;
+	}
+
+	@Column(nullable = false)
 	public String getTitle() {
 		return title;
+	}
+
+	public String getTitleSelector() {
+		return titleSelector;
 	}
 
 	@Column(nullable = false, unique = true)
@@ -101,8 +137,8 @@ public class Feed extends IDEntity {
 		return url;
 	}
 
-	public void setContentSelector(String contentSelector) {
-		this.contentSelector = contentSelector;
+	public void setAuthorSelector(String authorSelector) {
+		this.authorSelector = authorSelector;
 	}
 
 	public void setCreateTime(Date createTime) {
@@ -125,8 +161,24 @@ public class Feed extends IDEntity {
 		this.listSelector = listSelector;
 	}
 
+	public void setOriginContentSelector(String originContentSelector) {
+		this.originContentSelector = originContentSelector;
+	}
+
+	public void setPublishedTimePattern(String publishedTimePattern) {
+		this.publishedTimePattern = publishedTimePattern;
+	}
+
+	public void setPublishedTimeSelector(String publishedTimeSelector) {
+		this.publishedTimeSelector = publishedTimeSelector;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public void setTitleSelector(String titleSelector) {
+		this.titleSelector = titleSelector;
 	}
 
 	public void setUrl(String url) {

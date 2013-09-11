@@ -23,8 +23,6 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Stopwatch;
 
 /**
- * 解析网页测试。
- * 
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class JsoupTest {

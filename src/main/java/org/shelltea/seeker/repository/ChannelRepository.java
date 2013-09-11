@@ -10,4 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public interface ChannelRepository extends JpaRepository<Channel, Long> {
+	Channel findByTitle(String title);
 }

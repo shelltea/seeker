@@ -3,7 +3,6 @@
  */
 package org.shelltea.seeker.entity;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -42,11 +41,6 @@ public class Entry extends IDEntity {
 	private String author;
 
 	/**
-	 * 描述.
-	 */
-	private String description;
-
-	/**
 	 * 原内容.
 	 */
 	private String originContent;
@@ -57,19 +51,14 @@ public class Entry extends IDEntity {
 	private String content;
 
 	/**
-	 * 抓取时间.
+	 * 最后抓取时间.
 	 */
-	private Date fetchTime;
+	private Date lastFetchTime;
 
 	/**
 	 * 发布时间.
 	 */
 	private Date publishedTime;
-
-	/**
-	 * 更新时间.
-	 */
-	private Date updatedTime;
 
 	public String getAuthor() {
 		return author;
@@ -80,19 +69,14 @@ public class Entry extends IDEntity {
 		return content;
 	}
 
-	@Lob
-	public String getDescription() {
-		return description;
-	}
-
 	@Column(nullable = false)
 	public Long getFeedId() {
 		return feedId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date getFetchTime() {
-		return fetchTime;
+	public Date getLastFetchTime() {
+		return lastFetchTime;
 	}
 
 	@Lob
@@ -110,12 +94,7 @@ public class Entry extends IDEntity {
 		return title;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date getUpdatedTime() {
-		return updatedTime;
-	}
-
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	public String getUrl() {
 		return url;
 	}
@@ -128,16 +107,12 @@ public class Entry extends IDEntity {
 		this.content = content;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public void setFeedId(Long feedId) {
 		this.feedId = feedId;
 	}
 
-	public void setFetchTime(Date fetchTime) {
-		this.fetchTime = fetchTime;
+	public void setLastFetchTime(Date lastFetchTime) {
+		this.lastFetchTime = lastFetchTime;
 	}
 
 	public void setOriginContent(String originContent) {
@@ -150,14 +125,6 @@ public class Entry extends IDEntity {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public void setUpdatedTime(Date updatedTime) {
-		this.updatedTime = updatedTime;
-	}
-
-	public void setUpdatedTime(Timestamp updatedTime) {
-		this.updatedTime = updatedTime;
 	}
 
 	public void setUrl(String url) {
