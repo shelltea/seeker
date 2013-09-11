@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -50,7 +51,7 @@ public class Category extends IDEntity {
 		return accountId;
 	}
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	public Set<Category> getCategories() {
 		return categories;
 	}
