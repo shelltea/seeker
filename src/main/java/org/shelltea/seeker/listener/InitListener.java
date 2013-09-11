@@ -38,7 +38,7 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 
 				// 执行初始化
 				if (accountRepository.count() == 0) {
-					accountRepository.save(accountService.create("shelltea@gmail.com", "shelltea", "shelltea"));
+					accountService.initialize(accountService.create("shelltea@gmail.com", "shelltea", "shelltea"));
 					logger.info("初始化默认账户");
 				}
 			}

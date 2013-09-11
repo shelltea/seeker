@@ -16,6 +16,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.shelltea.seeker.entity.Account;
 import org.shelltea.seeker.repository.AccountRepository;
+import org.shelltea.seeker.repository.CategoryRepository;
 import org.shelltea.seeker.service.AccountService;
 import org.shelltea.seeker.util.ValidationUtils;
 import org.shelltea.seeker.web.entity.LoginAccount;
@@ -44,9 +45,11 @@ public class AccountApiController {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
+	private AccountService accountService;
+	@Autowired
 	private AccountRepository accountRepository;
 	@Autowired
-	private AccountService accountService;
+	private CategoryRepository categoryRepository;
 	@Autowired
 	private MessageSource messageSource;
 
@@ -100,8 +103,8 @@ public class AccountApiController {
 			return new Response(ValidationUtils.renderResultMap("Unique.registerAccount.email", messageSource, locale));
 		}
 
-		// 创建用户
-		accountRepository.save(accountService.create(registerAccount.getEmail(), registerAccount.getUsername(),
+		// 创建并初始化用户
+		accountService.initialize(accountService.create(registerAccount.getEmail(), registerAccount.getUsername(),
 				registerAccount.getPassword()));
 
 		return new Response(true);
