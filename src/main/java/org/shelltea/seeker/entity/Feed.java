@@ -26,9 +26,14 @@ public class Feed extends IDEntity {
 	private String url;
 
 	/**
-	 * 抓取地址.
+	 * 列表抓取地址.
 	 */
 	private String fetchUrl;
+
+	/**
+	 * 文章条目url前缀
+	 */
+	private String entryUrlPrefix;
 
 	/**
 	 * 标题.
@@ -95,6 +100,11 @@ public class Feed extends IDEntity {
 		return description;
 	}
 
+	@Column(nullable = false)
+	public String getEntryUrlPrefix() {
+		return entryUrlPrefix;
+	}
+
 	@Column(nullable = false, unique = true)
 	public String getFetchUrl() {
 		return fetchUrl;
@@ -147,6 +157,10 @@ public class Feed extends IDEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setEntryUrlPrefix(String entryUrlPrefix) {
+		this.entryUrlPrefix = entryUrlPrefix;
 	}
 
 	public void setFetchUrl(String fetchUrl) {

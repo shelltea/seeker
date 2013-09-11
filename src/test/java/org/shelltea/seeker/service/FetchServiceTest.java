@@ -25,7 +25,13 @@ public class FetchServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 	@Test
 	public void fetch() {
 		Feed cnbeta = feedRepository.findByTitle("cnBeta");
+		if (cnbeta != null) {
+			fetchService.fetchFeed(cnbeta.getId());
+		}
 
-		fetchService.fetch(cnbeta.getId());
+		Feed oschina = feedRepository.findByTitle("oschina");
+		if (oschina != null) {
+			fetchService.fetchFeed(oschina.getId());
+		}
 	}
 }

@@ -45,7 +45,7 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 
 		logger.debug("{}", channel);
 
-		deleteFeed();
+		// deleteFeed();
 	}
 
 	// @After
@@ -58,22 +58,42 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 	}
 
 	@Test
-	public void saveFeed() {
+	public void saveCnbetaFeed() {
 		Feed cnbetaFeed = new Feed();
 		cnbetaFeed.setTitle("cnBeta");
 		cnbetaFeed.setUrl("http://www.cnbeta.com");
 		cnbetaFeed.setFetchUrl("http://www.cnbeta.com");
+		cnbetaFeed.setEntryUrlPrefix("http://www.cnbeta.com");
 		cnbetaFeed.setListSelector("#allnews_all dt > a");
 		cnbetaFeed.setTitleSelector("#news_title");
 		cnbetaFeed.setOriginContentSelector(".content > .content");
 		cnbetaFeed.setPublishedTimeSelector(".date");
-		cnbetaFeed.setPublishedTimePattern("yyyy-MM-dd hh:mm:ss");
+		cnbetaFeed.setPublishedTimePattern("yyyy-MM-dd HH:mm:ss");
 		cnbetaFeed.setAuthorSelector(".where > a");
 		cnbetaFeed.setLastFetchTime(new Date(System.currentTimeMillis()));
 		feedRepository.save(cnbetaFeed);
 
 		Channel techChannel = channelRepository.findByTitle("科技");
 		techChannel.getFeeds().add(cnbetaFeed);
+		channelRepository.save(techChannel);
+	}
+
+	@Test
+	public void saveOschinaFeed() {
+		Feed oschinaFeed = new Feed();
+		oschinaFeed.setTitle("oschina");
+		oschinaFeed.setUrl("http://www.oschina.net");
+		oschinaFeed.setFetchUrl("http://www.oschina.net/news/list?show=industry");
+		oschinaFeed.setEntryUrlPrefix("http://www.oschina.net");
+		oschinaFeed.setListSelector(".List > li > h2 > a");
+		oschinaFeed.setTitleSelector(".OSCTitle");
+		oschinaFeed.setOriginContentSelector(".NewsContent");
+		oschinaFeed.setAuthorSelector(".PubDate > a");
+		oschinaFeed.setLastFetchTime(new Date(System.currentTimeMillis()));
+		feedRepository.save(oschinaFeed);
+
+		Channel techChannel = channelRepository.findByTitle("科技");
+		techChannel.getFeeds().add(oschinaFeed);
 		channelRepository.save(techChannel);
 	}
 }

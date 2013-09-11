@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,6 +24,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Stopwatch;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
@@ -31,12 +35,43 @@ import com.google.common.base.Stopwatch;
 public class FetchService {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
+	private static final int INTERVAL_MILLISECOND = 500;
+	public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.28 Safari/537.36";
+
 	@Autowired
 	private FeedRepository feedRepository;
 	@Autowired
 	private EntryRepository entryRepository;
 
-	public void fetch(Long feedId) {
+	/**
+	 * 抓取文章条目.
+	 * 
+	 * @param fetchFeed
+	 * @param entryAbsolutePath
+	 * @return
+	 */
+	public Map<String, String> fetchEntry(Feed fetchFeed, String entryAbsolutePath) {
+		try {
+			Thread.sleep(INTERVAL_MILLISECOND);
+
+			Document pageDocument = Jsoup.connect(entryAbsolutePath).userAgent(USER_AGENT).get();
+
+			Map<String, String> entryMap = Maps.newHashMap();
+			entryMap.put("title", getData(pageDocument, fetchFeed.getTitleSelector()));
+			entryMap.put("author", getData(pageDocument, fetchFeed.getAuthorSelector()));
+			entryMap.put("publishedTime", getData(pageDocument, fetchFeed.getPublishedTimeSelector()));
+			entryMap.put("originContent", getData(pageDocument, fetchFeed.getOriginContentSelector()));
+
+			logger.debug("fetching entry completed:{}", entryAbsolutePath);
+			return entryMap;
+		} catch (IOException | InterruptedException e) {
+			logger.warn("fetching entry failure:{},{}", entryAbsolutePath, e);
+			return null;
+		}
+	}
+
+	public void fetchFeed(Long feedId) {
+		// 验证
 		Preconditions.checkNotNull(feedId);
 
 		Feed fetchFeed = feedRepository.findOne(feedId);
@@ -46,118 +81,93 @@ public class FetchService {
 		}
 
 		Stopwatch stopwatch = new Stopwatch().start();
-		logger.info("begin to fetch:{}", fetchFeed.getTitle());
+		logger.info("begin to fetch feed:{}", fetchFeed.getTitle());
 
 		// 抓取列表页
 		Document listDocument = null;
 		try {
-			listDocument = Jsoup.connect(fetchFeed.getFetchUrl()).get();
+			listDocument = Jsoup.connect(fetchFeed.getFetchUrl()).userAgent(USER_AGENT).get();
 		} catch (IOException e) {
-			logger.warn("fetching {} failure", fetchFeed.getTitle());
+			logger.warn("fetching feed failure:{},{}", fetchFeed.getTitle(), e);
 			return;
 		}
-
 		Elements links = listDocument.select(fetchFeed.getListSelector());
 
-		for (Element link : links) {
+		// 抓取文章页
+		for (Element link : Lists.reverse(links)) {
 			// 处理路径可能出现的问题
-			String entryRelativePath = link.attr("href");
-			if (entryRelativePath.charAt(0) != '/') {
-				entryRelativePath = '/' + entryRelativePath;
-			}
-
-			String entryAbsolutePath = fetchFeed.getFetchUrl() + entryRelativePath;
-
-			logger.debug("begin to fetch entry:{}", entryAbsolutePath);
+			String entryAbsolutePath = getAbsolutePath(fetchFeed, link);
 
 			// 根据url查询Entry
-			Entry entry = entryRepository.findByUrl(fetchFeed.getFetchUrl() + link.attr("href"));
+			Entry entry = entryRepository.findByUrl(entryAbsolutePath);
 
-			// 判断Entry是否已经存在，如果上次抓取时间和本次抓取时间间隔15分钟，将重新抓取
+			// 当前时间
 			Date now = new Date(System.currentTimeMillis());
-			if (entry != null) {
-				if (now.getTime() - entry.getLastFetchTime().getTime() >= 15 * 60 * 1000) {
-					// 抓取单个页面
-					Document pageDocument;
-					try {
-						Thread.sleep(500);
 
-						pageDocument = Jsoup.connect(entryAbsolutePath).get();
+			// 当Entry不存在或者存在，但抓取间隔时间不小于15分钟，将抓取页面
+			if (entry == null
+					|| (entry != null && now.getTime() - entry.getLastFetchTime().getTime() >= 15 * 60 * 1000)) {
+				logger.debug("begin to fetch entry:{}", entryAbsolutePath);
 
-						// 获取页面数据
-						String title = getData(pageDocument, fetchFeed.getTitleSelector());
-						String author = getData(pageDocument, fetchFeed.getAuthorSelector());
-						String publishedTime = getData(pageDocument, fetchFeed.getPublishedTimeSelector());
-						String originContent = getData(pageDocument, fetchFeed.getOriginContentSelector());
+				Map<String, String> entryMap = fetchEntry(fetchFeed, entryAbsolutePath);
 
-						// 创建文章条目并保存
-						entry.setLastFetchTime(now);
-
-						entry.setTitle(title == null ? link.html() : title);
-						entry.setAuthor(author == null ? fetchFeed.getTitle() : author);
-						entry.setPublishedTime(publishedTime == null ? now : new SimpleDateFormat(fetchFeed
-								.getPublishedTimePattern()).parse(publishedTime));
-						entry.setOriginContent(originContent);
-
-						// TODO 清理内容
-						entry.setContent(originContent);
-
-						entryRepository.save(entry);
-					} catch (IOException | ParseException e) {
-						logger.warn("fetching entry {} failure", entryAbsolutePath);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				} else {
-					logger.info("have been fetching {} in 15 minutes, skip this time", entryAbsolutePath);
+				// 如果抓取失败或者文章内容为空，则跳过
+				if (entryMap == null || Strings.isNullOrEmpty(entryMap.get("originContent"))) {
+					logger.warn("skip save/update entry:{}", entryAbsolutePath);
+					continue;
 				}
-			} else {
-				// 抓取单个页面
-				Document pageDocument;
+
+				// 处理内容
+				String title = entryMap.get("title") == null ? link.html() : entryMap.get("title");
+				String author = entryMap.get("author") == null ? fetchFeed.getTitle() : entryMap.get("author");
+				Date publishedTime = now;
 				try {
-					Thread.sleep(500);
+					publishedTime = entryMap.get("publishedTime") == null ? now : new SimpleDateFormat(
+							fetchFeed.getPublishedTimePattern()).parse(entryMap.get("publishedTime"));
+				} catch (ParseException e) {
+				}
+				String originContent = entryMap.get("originContent");
 
-					pageDocument = Jsoup.connect(entryAbsolutePath).get();
-
-					// 获取页面数据
-					String title = getData(pageDocument, fetchFeed.getTitleSelector());
-					String author = getData(pageDocument, fetchFeed.getAuthorSelector());
-					String publishedTime = getData(pageDocument, fetchFeed.getPublishedTimeSelector());
-					String originContent = getData(pageDocument, fetchFeed.getOriginContentSelector());
-
-					// 创建文章条目并保存
+				// 保存或更新文章
+				if (entry == null) {
 					entry = new Entry();
 					entry.setFeedId(feedId);
 					entry.setUrl(entryAbsolutePath);
-					entry.setLastFetchTime(now);
-
-					entry.setTitle(title == null ? link.html() : title);
-					entry.setAuthor(author == null ? fetchFeed.getTitle() : author);
-					entry.setPublishedTime(publishedTime == null ? now : new SimpleDateFormat(fetchFeed
-							.getPublishedTimePattern()).parse(publishedTime));
-					entry.setOriginContent(originContent);
-
-					// TODO 清理内容
-					entry.setContent(originContent);
-
-					entryRepository.save(entry);
-				} catch (IOException | ParseException e) {
-					logger.warn("fetching entry {} failure", entryAbsolutePath);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					entry.setPublishedTime(publishedTime);
 				}
-			}
 
-			logger.debug("fetching {} completed", entryAbsolutePath);
+				entry.setTitle(title);
+				entry.setAuthor(author);
+				entry.setOriginContent(originContent);
+				entry.setLastFetchTime(now);
+
+				// TODO 清理内容
+				entry.setContent(originContent);
+
+				entryRepository.save(entry);
+				logger.debug("save/update entry:{}", entryAbsolutePath);
+			} else {
+				logger.debug("already fetching entry in 15 minutes:{}", entryAbsolutePath);
+			}
 		}
 
 		fetchFeed.setLastFetchTime(new Date(System.currentTimeMillis()));
 		feedRepository.save(fetchFeed);
-
-		logger.info("fetching {} completed:{}", fetchFeed.getTitle(), stopwatch.toString());
+		logger.info("fetching feed completed:{},{}", fetchFeed.getTitle(), stopwatch.toString());
 	}
 
+	/**
+	 * 根据选择器获取对应内容.
+	 * 
+	 * @param document
+	 * @param selector
+	 * @return
+	 */
 	public String getData(Document document, String selector) {
+		if (selector == null) {
+			return null;
+		}
+
 		Elements elements = document.select(selector);
 
 		if (elements.size() == 1) {
@@ -165,5 +175,21 @@ public class FetchService {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * 获取绝对路径.
+	 * 
+	 * @param fetchFeed
+	 * @param link
+	 * @return
+	 */
+	private String getAbsolutePath(Feed fetchFeed, Element link) {
+		String entryRelativePath = link.attr("href");
+		if (entryRelativePath.charAt(0) != '/') {
+			entryRelativePath = '/' + entryRelativePath;
+		}
+
+		return fetchFeed.getEntryUrlPrefix() + entryRelativePath;
 	}
 }
