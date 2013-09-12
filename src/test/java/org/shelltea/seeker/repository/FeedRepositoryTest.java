@@ -62,6 +62,7 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 		Feed cnbetaFeed = new Feed();
 		cnbetaFeed.setTitle("cnBeta");
 		cnbetaFeed.setUrl("http://www.cnbeta.com");
+		cnbetaFeed.setFaviconUrl("http://www.cnbeta.com/favicon.ico");
 		cnbetaFeed.setFetchUrl("http://www.cnbeta.com");
 		cnbetaFeed.setEntryUrlPrefix("http://www.cnbeta.com");
 		cnbetaFeed.setListSelector("#allnews_all dt > a");
@@ -83,6 +84,7 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 		Feed oschinaFeed = new Feed();
 		oschinaFeed.setTitle("oschina");
 		oschinaFeed.setUrl("http://www.oschina.net");
+		oschinaFeed.setFaviconUrl("http://www.oschina.net/img/favicon.ico");
 		oschinaFeed.setFetchUrl("http://www.oschina.net/news/list?show=industry");
 		oschinaFeed.setEntryUrlPrefix("http://www.oschina.net");
 		oschinaFeed.setListSelector(".List > li > h2 > a");

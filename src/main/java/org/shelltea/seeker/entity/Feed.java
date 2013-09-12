@@ -26,6 +26,11 @@ public class Feed extends IDEntity {
 	private String url;
 
 	/**
+	 * Favicon地址.
+	 */
+	private String faviconUrl;
+
+	/**
 	 * 列表抓取地址.
 	 */
 	private String fetchUrl;
@@ -105,6 +110,10 @@ public class Feed extends IDEntity {
 		return entryUrlPrefix;
 	}
 
+	public String getFaviconUrl() {
+		return faviconUrl;
+	}
+
 	@Column(nullable = false, unique = true)
 	public String getFetchUrl() {
 		return fetchUrl;
@@ -161,6 +170,10 @@ public class Feed extends IDEntity {
 
 	public void setEntryUrlPrefix(String entryUrlPrefix) {
 		this.entryUrlPrefix = entryUrlPrefix;
+	}
+
+	public void setFaviconUrl(String faviconUrl) {
+		this.faviconUrl = faviconUrl;
 	}
 
 	public void setFetchUrl(String fetchUrl) {
