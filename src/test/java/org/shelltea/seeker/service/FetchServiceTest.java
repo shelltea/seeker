@@ -34,4 +34,11 @@ public class FetchServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 			fetchService.fetchFeed(oschina.getId());
 		}
 	}
+
+	@Test
+	public void fetchAll() {
+		for (Feed feed : feedRepository.findAll()) {
+			fetchService.fetchFeed(feed.getId());
+		}
+	}
 }
