@@ -6,7 +6,7 @@ package org.shelltea.seeker.web.api;
 import org.apache.shiro.SecurityUtils;
 import org.shelltea.seeker.repository.CategoryRepository;
 import org.shelltea.seeker.service.CategoryService;
-import org.shelltea.seeker.web.entity.Response;
+import org.shelltea.seeker.web.api.entity.Response;
 import org.shelltea.seeker.web.entity.ShiroAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,11 @@
 /*
  * Copyright (C) SHELLTEA.
  */
-package org.shelltea.seeker.web.entity;
+package org.shelltea.seeker.web.api.entity;
 
 import java.util.Map;
+
+import org.shelltea.seeker.web.entity.WebEntity;
 
 /**
  * 返回数据模型.
