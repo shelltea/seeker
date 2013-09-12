@@ -62,6 +62,6 @@ public class EntryApiController {
 		});
 
 		return new Response(entryRepository.findByFeedIdIn(feedIds, new PageRequest(page, size, new Sort(
-				Direction.DESC, "publishedTime"))));
+				Direction.DESC, "id"))));
 	}
 }
