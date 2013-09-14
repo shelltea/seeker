@@ -7,6 +7,7 @@
 <head>
 <title><fmt:message key="index.title" /> - <shiro:principal property="username" /></title>
 <%@ include file="common/head.jsp"%>
+<%@ include file="common/template.jsp"%>
 <script src="${resources}/scripts/index.js" type="text/javascript"></script>
 </head>
 <body style="background-color: #eee;">
@@ -27,7 +28,7 @@
 				<div class="row">
 					<div class="col-xs-8 col-md-8">
 						<button type="button" class="btn btn-sm btn-default" title="<fmt:message key="index.refresh.tooltip" />" data-toggle="tooltip" data-placement="top">
-							<span class="glyphicon glyphicon-refresh"></span>
+							<span id="refresh" class="glyphicon glyphicon-refresh"></span>
 						</button>
 						<div class="btn-group">
 							<button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
@@ -53,11 +54,13 @@
 					</div>
 					<div class="col-xs-4 col-md-4">
 						<div class="btn-group pull-right">
-							<button type="button" class="btn btn-sm btn-default" title="<fmt:message key="index.up.tooltip" />" data-toggle="tooltip" data-placement="top">
-								<span class="glyphicon glyphicon-chevron-up"></span>
+							<button id="prev-page" type="button" class="btn btn-sm btn-default" title="<fmt:message key="index.left.tooltip" />" data-toggle="tooltip"
+								data-placement="top">
+								<span class="glyphicon glyphicon-chevron-left"></span>
 							</button>
-							<button type="button" class="btn btn-sm btn-default" title="<fmt:message key="index.down.tooltip" />" data-toggle="tooltip" data-placement="top">
-								<span class="glyphicon glyphicon-chevron-down"></span>
+							<button id="next-page" type="button" class="btn btn-sm btn-default" title="<fmt:message key="index.right.tooltip" />" data-toggle="tooltip"
+								data-placement="top">
+								<span class="glyphicon glyphicon-chevron-right"></span>
 							</button>
 						</div>
 					</div>
@@ -70,7 +73,7 @@
 					<a href="${contextPath}/inbox" class="list-group-item active">
 						<span class="glyphicon glyphicon-inbox"></span>
 						<b><fmt:message key="index.inbox.title" /></b>
-						<span class="badge">0</span>
+						<span id="entries-count" class="badge"></span>
 					</a>
 					<a href="${contextPath}/star" class="list-group-item">
 						<span class="glyphicon glyphicon-star"></span>
@@ -81,23 +84,26 @@
 					<div class="panel-heading">
 						<fmt:message key="index.subscriptions.title" />
 					</div>
-					<div class="panel-body"></div>
+					<div id="feeds" class="list-group"></div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-8 col-md-9">
-				<div id="items" class="list-group">
-					<div class="list-group-item">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<b>Item title1</b> <small>description1</small> <small class="pull-right">2013-08-30 17:35</small>
-					</div>
-					<div class="list-group-item">
-						<span class="glyphicon glyphicon-star-empty"></span>
-						<b>Item title2</b> <small>description2</small> <small class="pull-right">2013-08-30 17:30</small>
-					</div>
-				</div>
+				<div id="entries" class="list-group"></div>
 			</div>
 		</div>
 	</div>
 	<%@ include file="common/locale.jsp"%>
+	<!-- Entry -->
+	<div class="modal" id="entry-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 id="entry-title" class="modal-title"></h4>
+				</div>
+				<div id="entry-content" class="modal-body"></div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

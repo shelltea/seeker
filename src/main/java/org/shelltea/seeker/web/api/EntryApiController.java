@@ -7,14 +7,18 @@ import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
 import org.shelltea.seeker.entity.Category;
+import org.shelltea.seeker.entity.Entry;
 import org.shelltea.seeker.entity.Feed;
 import org.shelltea.seeker.repository.CategoryRepository;
 import org.shelltea.seeker.repository.EntryRepository;
+import org.shelltea.seeker.repository.FeedRepository;
+import org.shelltea.seeker.service.FetchService;
 import org.shelltea.seeker.web.api.entity.Response;
 import org.shelltea.seeker.web.entity.ShiroAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -39,6 +43,10 @@ public class EntryApiController {
 	private EntryRepository entryRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private FetchService fetchService;
+	@Autowired
+	private FeedRepository feedRepository;
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
@@ -61,7 +69,18 @@ public class EntryApiController {
 			}
 		});
 
-		return new Response(entryRepository.findByFeedIdIn(feedIds, new PageRequest(page, size, new Sort(
-				Direction.DESC, "id"))));
+		Page<Entry> pageEntries = entryRepository.findByFeedIdIn(feedIds, new PageRequest(page, size, new Sort(
+				Direction.DESC, "publishedTime")));
+
+		return new Response(pageEntries);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "refresh", method = RequestMethod.PUT)
+	public Response refresh() {
+		for (Feed feed : feedRepository.findAll()) {
+			fetchService.fetchFeed(feed.getId());
+		}
+		return new Response(true);
 	}
 }

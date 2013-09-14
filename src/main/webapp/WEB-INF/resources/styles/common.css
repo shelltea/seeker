@@ -30,3 +30,7 @@
 .row-padding {
 	padding-bottom: 10px;
 }
+
+.list-group-item a{
+	cursor: pointer;
+}

@@ -11,6 +11,7 @@
 		<js>/static-resources/scripts/jquery/jquery.cookie.js</js>
 		<js>/static-resources/scripts/jquery/jqrest-1.0.0.js</js>
 		<js>/static-resources/scripts/jquery/zh_CN.js</js>
+		<js>/static-resources/scripts/date.js</js>
 		<css>/static-resources/styles/bootstrap.css</css>
 		<css>/static-resources/styles/jquery.validator/jquery.validator.css</css>
 		<css>/static-resources/styles/common.css</css>
