@@ -15,6 +15,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public interface EntryRepository extends JpaRepository<Entry, Long> {
+	Long countByFeedId(Long feedId);
+
 	List<Entry> findByFeedIdIn(Collection<Long> feedIds);
 
 	Page<Entry> findByFeedIdIn(Collection<Long> feedIds, Pageable pageable);
