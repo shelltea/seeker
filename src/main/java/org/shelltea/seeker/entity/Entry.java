@@ -11,6 +11,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * 文章条目.
@@ -60,6 +61,17 @@ public class Entry extends IDEntity {
 	 */
 	private Date publishedTime;
 
+	/* 非持久化属性 */
+	/**
+	 * 是否加星.
+	 */
+	private Boolean starred;
+
+	/**
+	 * 是否已读.
+	 */
+	private Boolean read;
+
 	public String getAuthor() {
 		return author;
 	}
@@ -87,6 +99,15 @@ public class Entry extends IDEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getPublishedTime() {
 		return publishedTime;
+	}
+
+	public Boolean getRead() {
+		return read;
+	}
+
+	@Transient
+	public Boolean getStarred() {
+		return starred;
 	}
 
 	@Column(nullable = false)
@@ -121,6 +142,14 @@ public class Entry extends IDEntity {
 
 	public void setPublishedTime(Date publishedTime) {
 		this.publishedTime = publishedTime;
+	}
+
+	public void setRead(Boolean read) {
+		this.read = read;
+	}
+
+	public void setStarred(Boolean starred) {
+		this.starred = starred;
 	}
 
 	public void setTitle(String title) {
