@@ -8,7 +8,7 @@
 </script>
 <script id="feed-template" type="text/x-handlebars-template">
 {{#each data}}
-<a href="${contextPath}/feed/{{id}}" class="list-group-item">
+<a href="${contextPath}/feed/{{title}}" class="list-group-item" data-feed="{{title}}">
 	<img alt="{{title}}" src="{{faviconUrl}}" width="16" height="16">
 	<b>{{title}}</b>
 	<span class="badge">{{entryCount}}</span>

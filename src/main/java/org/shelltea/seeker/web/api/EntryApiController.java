@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.base.Function;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 /**
@@ -50,16 +51,27 @@ public class EntryApiController {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
-	public Response list(@RequestParam(defaultValue = "0") Integer page, Integer size) {
+	public Response list(@RequestParam(defaultValue = "0") Integer page, Integer size, String feedTitle) {
 		ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
 
 		// 查询当前用户包含的分类
 		List<Category> categories = categoryRepository.findByAccountId(loginAccount.getId());
 
-		// 获取所有分类中的Feed
+		// 根据feed判断是加载全部还是特定的Feed
 		List<Feed> feeds = Lists.newArrayList();
-		for (Category category : categories) {
-			feeds.addAll(category.getFeeds());
+		if (Strings.isNullOrEmpty(feedTitle)) {
+			// 获取所有分类中的Feed
+			for (Category category : categories) {
+				feeds.addAll(category.getFeeds());
+			}
+		} else {
+			for (Category category : categories) {
+				for (Feed feed : category.getFeeds()) {
+					if (feed.getTitle().equals(feedTitle)) {
+						feeds.add(feed);
+					}
+				}
+			}
 		}
 
 		List<Long> feedIds = Lists.transform(feeds, new Function<Feed, Long>() {
@@ -69,10 +81,14 @@ public class EntryApiController {
 			}
 		});
 
-		Page<Entry> pageEntries = entryRepository.findByFeedIdIn(feedIds, new PageRequest(page, size, new Sort(
-				Direction.DESC, "publishedTime")));
+		if (feedIds.isEmpty()) {
+			return new Response(true);
+		} else {
+			Page<Entry> pageEntries = entryRepository.findByFeedIdIn(feedIds, new PageRequest(page, size, new Sort(
+					Direction.DESC, "publishedTime")));
 
-		return new Response(pageEntries);
+			return new Response(pageEntries);
+		}
 	}
 
 	@ResponseBody

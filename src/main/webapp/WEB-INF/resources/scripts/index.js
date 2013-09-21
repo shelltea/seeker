@@ -1,6 +1,9 @@
 $(function() {
 	var currentPage = 0;
 
+	// 获取选择的Feed
+	var feedTitle = location.pathname.split('/')[2];
+
 	// 启用Tooltip
 	$('body').tooltip({
 		selector : "[data-toggle=tooltip]",
@@ -32,11 +35,23 @@ $(function() {
 		});
 
 		$('#entries-count').html(entriesCount);
+
+		// 根据选择的Feed控制列表激活样式
+		if (feedTitle) {
+			$('#feeds').find('a[data-feed="' + feedTitle + '"]').addClass('active');
+		}
 	});
 
 	function loadPage(page) {
 		var entrySize = Math.floor(itemsDivHeight / 45);
-		$.get(contextPath + '/api/entries?page=' + (page - 1) + '&size=' + entrySize, function(data) {
+
+		// 根据选择的Feed获取Entry列表
+		var entryUri = contextPath + '/api/entries?page=' + (page - 1) + '&size=' + entrySize;
+		if (feedTitle) {
+			entryUri += '&feedTitle=' + feedTitle;
+		}
+
+		$.get(entryUri, function(data) {
 			var template = Handlebars.compile($('#entry-template').html());
 			var html = template(data.data);
 			$('#entries').html(html);
