@@ -101,6 +101,7 @@ public class Entry extends IDEntity {
 		return publishedTime;
 	}
 
+	@Transient
 	public Boolean getRead() {
 		return read;
 	}
