@@ -16,4 +16,5 @@
 <![endif]-->
 <script type="text/javascript">
 	var contextPath = "${contextPath}";
+	var resources = "${resources}";
 </script>

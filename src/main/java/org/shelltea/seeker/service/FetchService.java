@@ -165,6 +165,10 @@ public class FetchService {
 	 * @return
 	 */
 	private String getAbsolutePath(Feed fetchFeed, Element link) {
+		if (Strings.isNullOrEmpty(fetchFeed.getEntryUrlPrefix())) {
+			return link.attr("href");
+		}
+
 		String entryRelativePath = link.attr("href");
 		if (entryRelativePath.charAt(0) != '/') {
 			entryRelativePath = '/' + entryRelativePath;
