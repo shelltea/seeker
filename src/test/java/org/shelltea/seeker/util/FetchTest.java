@@ -4,6 +4,8 @@
 package org.shelltea.seeker.util;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -51,6 +53,35 @@ public class FetchTest {
 
 		Elements notFound = pageDoc.select("#not_found");
 		logger.info("{}", notFound.get(0).html());
+
+		logger.debug("Jsoup:{}", stopwatch.toString());
+	}
+
+	@Test
+	public void fetchIfengTest() throws IOException, ParseException {
+		Stopwatch stopwatch = new Stopwatch().start();
+
+		String fetchUrl = "http://news.ifeng.com/rt-channel/rtlist_0/";
+		String entryUrlPrefix = "";
+
+		Document doc = Jsoup.connect(fetchUrl).userAgent(FetchService.USER_AGENT).get();
+		Elements links = doc.select(".newsList ul a");
+
+		for (Element link : links) {
+			logger.info("{}:{}{}", link.html(), entryUrlPrefix, link.attr("href"));
+		}
+
+		Document pageDoc = Jsoup.connect(entryUrlPrefix + links.get(0).attr("href")).userAgent(FetchService.USER_AGENT)
+				.get();
+
+		Elements title = pageDoc.select("#artical_topic");
+		logger.info("{}", title.get(0).html());
+
+		Elements content = pageDoc.select("#main_content");
+		logger.info("{}", content.get(0).html());
+
+		Elements date = pageDoc.select("#artical_sth > p > span");
+		logger.info("{}", date.get(0).html(), new SimpleDateFormat("yyyy年MM月dd HH:mm").parse(date.get(0).html()));
 
 		logger.debug("Jsoup:{}", stopwatch.toString());
 	}

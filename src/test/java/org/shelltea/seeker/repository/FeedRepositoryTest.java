@@ -80,6 +80,27 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 	}
 
 	@Test
+	public void saveIfengaFeed() {
+		Feed ifengFeed = new Feed();
+		ifengFeed.setTitle("iFeng");
+		ifengFeed.setUrl("http://www.ifeng.com/");
+		ifengFeed.setFaviconUrl("http://y0.ifengimg.com/index/favicon.ico");
+		ifengFeed.setFetchUrl("http://news.ifeng.com/rt-channel/rtlist_0");
+		ifengFeed.setEntryUrlPrefix("");
+		ifengFeed.setListSelector(".newsList ul a");
+		ifengFeed.setTitleSelector("#artical_topic");
+		ifengFeed.setOriginContentSelector("#main_content");
+		ifengFeed.setPublishedTimeSelector("#artical_sth > p > span");
+		ifengFeed.setPublishedTimePattern("yyyy年MM月dd HH:mm");
+		ifengFeed.setLastFetchTime(new Date(System.currentTimeMillis()));
+		feedRepository.save(ifengFeed);
+
+		Channel newsChannel = channelRepository.findByTitle("新闻");
+		newsChannel.getFeeds().add(ifengFeed);
+		channelRepository.save(newsChannel);
+	}
+
+	@Test
 	public void saveOschinaFeed() {
 		Feed oschinaFeed = new Feed();
 		oschinaFeed.setTitle("oschina");
