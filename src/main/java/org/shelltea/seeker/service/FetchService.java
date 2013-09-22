@@ -141,7 +141,8 @@ public class FetchService {
 		try {
 			Thread.sleep(INTERVAL_MILLISECOND);
 
-			Document pageDocument = Jsoup.connect(entryAbsolutePath).userAgent(USER_AGENT).get();
+			Document pageDocument = Jsoup.connect(entryAbsolutePath).userAgent(USER_AGENT).timeout(TIMEOUT_MILLISECOND)
+					.get();
 
 			Map<String, String> entryMap = Maps.newHashMap();
 			entryMap.put("title", getData(pageDocument, fetchFeed.getTitleSelector()));
