@@ -54,7 +54,7 @@ public class FetchService {
 			return;
 		}
 
-		Stopwatch stopwatch = new Stopwatch().start();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 		logger.info("begin to fetch feed:{}", fetchFeed.getTitle());
 
 		// 抓取列表页

@@ -30,7 +30,7 @@ public class JsoupTest {
 
 	@Test
 	public void testHttpClient() throws ClientProtocolException, IOException {
-		Stopwatch stopwatch = new Stopwatch().start();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpResponse httpResponse = httpClient.execute(new HttpGet("http://www.cnbeta.com/"));
@@ -48,7 +48,7 @@ public class JsoupTest {
 
 	@Test
 	public void testJsoup() throws IOException {
-		Stopwatch stopwatch = new Stopwatch().start();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 
 		Document doc = Jsoup.connect("http://www.cnbeta.com/").get();
 		Elements links = doc.select("#allnews_all dt > a");

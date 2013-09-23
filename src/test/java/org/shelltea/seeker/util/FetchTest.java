@@ -26,7 +26,7 @@ public class FetchTest {
 
 	@Test
 	public void fetchCnbetaTest() throws IOException {
-		Stopwatch stopwatch = new Stopwatch().start();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 
 		String url = "http://www.cnbeta.com";
 
@@ -59,7 +59,7 @@ public class FetchTest {
 
 	@Test
 	public void fetchIfengTest() throws IOException, ParseException {
-		Stopwatch stopwatch = new Stopwatch().start();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 
 		String fetchUrl = "http://news.ifeng.com/rt-channel/rtlist_0/";
 		String entryUrlPrefix = "";
@@ -88,7 +88,7 @@ public class FetchTest {
 
 	@Test
 	public void fetchOschinaTest() throws IOException {
-		Stopwatch stopwatch = new Stopwatch().start();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 
 		String fetchUrl = "http://www.oschina.net/news/list?show=industry";
 		String entryUrlPrefix = "http://www.oschina.net";
