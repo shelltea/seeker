@@ -91,7 +91,7 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 		ifengFeed.setTitleSelector("#artical_topic");
 		ifengFeed.setOriginContentSelector("#main_content");
 		ifengFeed.setPublishedTimeSelector("#artical_sth > p > span");
-		ifengFeed.setPublishedTimePattern("yyyy年MM月dd HH:mm");
+		ifengFeed.setPublishedTimePattern("yyyy年MM月dd日 HH:mm");
 		ifengFeed.setLastFetchTime(new Date(System.currentTimeMillis()));
 		feedRepository.save(ifengFeed);
 

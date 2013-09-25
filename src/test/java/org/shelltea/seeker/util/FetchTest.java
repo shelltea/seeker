@@ -81,7 +81,7 @@ public class FetchTest {
 		logger.info("{}", content.get(0).html());
 
 		Elements date = pageDoc.select("#artical_sth > p > span");
-		logger.info("{}", date.get(0).html(), new SimpleDateFormat("yyyy年MM月dd HH:mm").parse(date.get(0).html()));
+		logger.info("{}", date.get(0).html(), new SimpleDateFormat("yyyy年MM月dd日 HH:mm").parse(date.get(0).html()));
 
 		logger.debug("Jsoup:{}", stopwatch.toString());
 	}

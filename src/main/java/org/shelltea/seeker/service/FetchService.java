@@ -192,7 +192,7 @@ public class FetchService {
 
 		Elements elements = document.select(selector);
 
-		if (elements.size() == 1) {
+		if (elements.size() > 0) {
 			return elements.get(0).html();
 		} else {
 			return null;
