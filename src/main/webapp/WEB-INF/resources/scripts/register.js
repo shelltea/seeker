@@ -1,6 +1,6 @@
 $(function() {
 	$('#registerForm').validator({
-		// theme : 'simple_right',
+		theme : 'yellow_right_effect',
 		stopOnError : false,
 		fields : {
 			'email' : 'required;email;remote[get:' + contextPath + '/api/accounts/checking/email]',

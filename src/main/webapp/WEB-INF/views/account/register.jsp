@@ -14,21 +14,21 @@
 				<legend>
 					<fmt:message key="register.title" />
 				</legend>
-				<div class="form-group form-padding">
+				<div class="form-group">
 					<label for="email" class="col-lg-2 control-label"> <fmt:message key="register.email" />
 					</label>
 					<div class="col-lg-4">
 						<input id="email" name="email" type="text" class="form-control" placeholder="<fmt:message key="register.email"/>" autofocus="autofocus">
 					</div>
 				</div>
-				<div class="form-group form-padding">
+				<div class="form-group">
 					<label for="username" class="col-lg-2 control-label"> <fmt:message key="register.username" />
 					</label>
 					<div class="col-lg-4">
 						<input id="username" name="username" type="text" class="form-control" placeholder="<fmt:message key="register.username"/>">
 					</div>
 				</div>
-				<div class="form-group form-padding">
+				<div class="form-group">
 					<label for="password" class="col-lg-2 control-label"> <fmt:message key="register.password" />
 					</label>
 					<div class="col-lg-4">
