@@ -65,20 +65,21 @@ $(function() {
 			} else {
 				$('#prev-page,#next-page').removeAttr('disabled');
 			}
-
-			// 打开单个Entry
-			$('a[id^="entry-"]').on('click', function() {
-				$('#entry-title').html($(this).data('title'));
-				$('#entry-content').html($(this).data('content')).slimScroll({
-					height : (itemsDivHeight - 35) + 'px'
-				});
-				$('#entry-modal').modal();
-			});
 		});
 	}
 
 	// 默认加载第一页Entry
 	loadPage(1);
+
+	// 打开单个Entry
+	$('#entries').on('click', 'a[id^="entry-"]', function() {
+		$('#entry-modal').modal();
+		$('#entry-title').html($(this).data('title'));
+		$('#entry-content').html($(this).data('content')).slimScroll({
+			height : (itemsDivHeight - 35) + 'px',
+			scrollTo : 0
+		});
+	});
 
 	// 刷新
 	$('#refresh').click(function() {
