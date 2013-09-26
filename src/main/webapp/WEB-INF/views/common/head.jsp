@@ -10,7 +10,7 @@
 <link href="${resources}/styles/jquery.validator/jquery.validator.css" rel="stylesheet">
 <link href="${resources}/styles/common.css" rel="stylesheet">
 <link rel="shortcut icon" type="image/x-icon" href="${resources}/favicon.ico">
-<script src="${resources}/app.js"></script>
+<script src="${resources}/app.js?minimize=false"></script>
 <!--[if lt IE 9]>
 <script src="${resources}/compatible.js"></script>
 <![endif]-->
