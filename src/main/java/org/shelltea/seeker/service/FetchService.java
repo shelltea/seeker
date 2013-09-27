@@ -12,12 +12,12 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 import org.shelltea.seeker.entity.Entry;
 import org.shelltea.seeker.entity.Feed;
 import org.shelltea.seeker.repository.EntryRepository;
 import org.shelltea.seeker.repository.FeedRepository;
+import org.shelltea.seeker.util.WhitelistUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,7 +117,7 @@ public class FetchService {
 				entry.setLastFetchTime(now);
 
 				// 清理内容
-				entry.setContent(Jsoup.clean(originContent, fetchFeed.getUrl(), Whitelist.relaxed()));
+				entry.setContent(Jsoup.clean(originContent, fetchFeed.getUrl(), WhitelistUtils.textWithImages()));
 
 				entryRepository.save(entry);
 				logger.debug("save entry:{}", entryAbsolutePath);
