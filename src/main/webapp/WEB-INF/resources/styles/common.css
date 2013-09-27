@@ -34,3 +34,7 @@
 .list-group-item a {
 	cursor: pointer;
 }
+
+.modal-body img {
+	max-width: 538px;
+}
