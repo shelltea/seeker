@@ -16,10 +16,10 @@
 		<div id="toolbar" class="row row-padding">
 			<div class="col-sm-4 col-md-3 hidden-xs">
 				<div class="input-group input-group-sm">
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" placeholder="<fmt:message key="index.search.placeholder" />">
 					<span class="input-group-btn">
-						<button type="button" class="btn btn-danger">
-							<fmt:message key="index.subscribe.title" />
+						<button type="button" class="btn btn-success">
+							<fmt:message key="index.search.title" />
 						</button>
 					</span>
 				</div>
