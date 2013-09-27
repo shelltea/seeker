@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.shelltea.seeker.service.FetchService;
@@ -111,6 +112,58 @@ public class FetchTest {
 
 		Elements author = pageDoc.select(".PubDate > a");
 		logger.info("{}", author.get(0).html());
+
+		logger.debug("Jsoup:{}", stopwatch.toString());
+	}
+
+	@Test
+	public void imgPathFilterTest() throws IOException {
+		Document pageDoc = Jsoup.connect("http://www.oschina.net/news/44548/are-we-witnessing-the-decline-of-ubuntu")
+				.userAgent(FetchService.USER_AGENT).get();
+
+		Elements title = pageDoc.select(".OSCTitle");
+		if (title.size() > 0) {
+			logger.info("{}", title.get(0).html());
+		}
+
+		Elements content = pageDoc.select(".NewsContent");
+
+		String cleanHtml = Jsoup.clean(content.get(0).html(), "http://www.oschina.net/", Whitelist.relaxed());
+		logger.info("{}", cleanHtml);
+	}
+
+	@Test
+	public void imgPathTest() throws IOException {
+		Stopwatch stopwatch = Stopwatch.createStarted();
+
+		String fetchUrl = "http://www.oschina.net/news/list?show=industry";
+		String entryUrlPrefix = "http://www.oschina.net";
+
+		Document doc = Jsoup.connect(fetchUrl).userAgent(FetchService.USER_AGENT).get();
+		Elements links = doc.select(".List > li > h2 > a");
+
+		for (Element link : links) {
+			if (link.attr("href").startsWith("http://")) {
+				continue;
+			}
+			Document pageDoc = Jsoup.connect(entryUrlPrefix + link.attr("href")).userAgent(FetchService.USER_AGENT)
+					.get();
+
+			Elements title = pageDoc.select(".OSCTitle");
+			if (title.size() > 0) {
+				logger.info("{}", title.get(0).html());
+			}
+
+			Elements content = pageDoc.select(".NewsContent");
+
+			if (content.size() > 0) {
+				Elements images = content.get(0).select("img");
+
+				for (Element image : images) {
+					logger.info("{}:{}", image, image.attr("src"));
+				}
+			}
+		}
 
 		logger.debug("Jsoup:{}", stopwatch.toString());
 	}

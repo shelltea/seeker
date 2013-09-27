@@ -12,6 +12,7 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 import org.shelltea.seeker.entity.Entry;
 import org.shelltea.seeker.entity.Feed;
@@ -115,8 +116,8 @@ public class FetchService {
 				entry.setOriginContent(originContent);
 				entry.setLastFetchTime(now);
 
-				// TODO 清理内容
-				entry.setContent(originContent);
+				// 清理内容
+				entry.setContent(Jsoup.clean(originContent, fetchFeed.getUrl(), Whitelist.relaxed()));
 
 				entryRepository.save(entry);
 				logger.debug("save entry:{}", entryAbsolutePath);
