@@ -2,6 +2,10 @@
 	font-family: 微软雅黑, 宋体, Helvetica, Arial, Verdana, sans-serif;
 }
 
+*:focus {
+	outline: 0px !important;
+}
+
 .navbar-logo {
 	padding: 12px 0px 0px 15px;
 }
