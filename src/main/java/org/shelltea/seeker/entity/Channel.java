@@ -41,6 +41,16 @@ public class Channel extends IDEntity {
 	 */
 	private Set<Feed> feeds = Sets.newHashSet();
 
+	public Channel() {
+	}
+
+	public Channel(String title, String iconUrl, String description) {
+		super();
+		this.title = title;
+		this.iconUrl = iconUrl;
+		this.description = description;
+	}
+
 	@Lob
 	public String getDescription() {
 		return description;
