@@ -99,9 +99,21 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 id="entry-title" class="modal-title"></h4>
+					<h4 class="modal-title">
+						<span class="glyphicon glyphicon-star-empty pointer" title="<fmt:message key="index.modal.star.tooltip" />" data-toggle="tooltip" data-placement="bottom"></span>
+						<span id="entry-title"></span>
+					</h4>
+					<div class="modal-title">
+						<small><span class="glyphicon glyphicon-calendar"></span> <span id="entry-publishedTime"></span> <img id="entry-feed-img" width="12" height="12"
+							style="margin-bottom: 3px"> <span id="entry-author"></span></small>
+					</div>
 				</div>
 				<div id="entry-content" class="modal-body"></div>
+				<div class="modal-footer modal-footer-toolbar">
+					<a id="entry-url" target="_blank" class="btn btn-primary btn-sm">
+						<fmt:message key="index.modal.original" />
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

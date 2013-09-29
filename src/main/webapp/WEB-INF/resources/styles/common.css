@@ -1,5 +1,11 @@
 * {
-	font-family: 微软雅黑, 宋体, Helvetica, Arial, Verdana, sans-serif;
+	font-family: 微软雅黑, 宋体, "Helvetica Neue", Helvetica, Arial, Verdana,
+		sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
+	font-family: 微软雅黑, 宋体, "Helvetica Neue", Helvetica, Arial, Verdana,
+		sans-serif;
 }
 
 *:focus {
@@ -37,4 +43,14 @@
 
 .modal-body img {
 	max-width: 538px;
+}
+
+.modal-footer-toolbar {
+	padding: 2px 20px;
+	margin-top: 0;
+	text-align: center;
+}
+
+.pointer {
+	cursor: pointer;
 }

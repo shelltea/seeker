@@ -4,10 +4,15 @@ $(function() {
 	// 获取选择的Feed
 	var feedTitle = location.pathname.split('/')[2];
 
-	// 启用Tooltip
-	$('body').tooltip({
+	// 启用页面中的Tooltip
+	$('.container, .navbar').tooltip({
 		selector : "[data-toggle=tooltip]",
 		container : "body"
+	});
+
+	// 启用弹出框中的Tooltip
+	$('.modal').tooltip({
+		selector : "[data-toggle=tooltip]"
 	});
 
 	// 注册Handlebars Helper
@@ -75,10 +80,14 @@ $(function() {
 	$('#entries').on('click', 'a[id^="entry-"]', function() {
 		$('#entry-modal').modal();
 		$('#entry-title').html($(this).data('title'));
+		$('#entry-author').html($(this).data('author'));
+		$('#entry-publishedTime').html($(this).data('published-time'));
 		$('#entry-content').html($(this).data('content')).slimScroll({
-			height : (itemsDivHeight - 35) + 'px',
+			height : ($(window).height() - 180) + 'px',
 			scrollTo : 0
 		});
+		$('#entry-url').attr('href', $(this).data('url'));
+		$('#entry-feed-img').attr('src', $('#feed-img-' + $(this).data('feed-id')).attr('src'));
 	});
 
 	// 刷新
