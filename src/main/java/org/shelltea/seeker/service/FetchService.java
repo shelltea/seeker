@@ -15,6 +15,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.shelltea.seeker.entity.Entry;
 import org.shelltea.seeker.entity.Feed;
+import org.shelltea.seeker.entity.Selector;
 import org.shelltea.seeker.repository.EntryRepository;
 import org.shelltea.seeker.repository.FeedRepository;
 import org.shelltea.seeker.util.WhitelistUtils;
@@ -149,8 +150,13 @@ public class FetchService {
 			entryMap.put("title", getData(pageDocument, fetchFeed.getTitleSelector()));
 			entryMap.put("author", getData(pageDocument, fetchFeed.getAuthorSelector()));
 			entryMap.put("publishedTime", getData(pageDocument, fetchFeed.getPublishedTimeSelector()));
-			entryMap.put("originContent", getData(pageDocument, fetchFeed.getOriginContentSelector()));
 
+			// 移除指定内容
+			for (Selector removeSelector : fetchFeed.getRemoveSelectors()) {
+				pageDocument.select(removeSelector.getCssQuery()).remove();
+			}
+
+			entryMap.put("originContent", getData(pageDocument, fetchFeed.getOriginContentSelector()));
 			logger.debug("fetching entry completed:{}", entryAbsolutePath);
 			return entryMap;
 		} catch (IOException | InterruptedException e) {

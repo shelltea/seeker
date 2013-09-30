@@ -4,10 +4,13 @@
 package org.shelltea.seeker.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -90,6 +93,11 @@ public class Feed extends IDEntity {
 	 */
 	private String authorSelector;
 
+	/**
+	 * 移除选择器.
+	 */
+	private Set<Selector> removeSelectors;
+
 	public String getAuthorSelector() {
 		return authorSelector;
 	}
@@ -140,6 +148,11 @@ public class Feed extends IDEntity {
 
 	public String getPublishedTimeSelector() {
 		return publishedTimeSelector;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER)
+	public Set<Selector> getRemoveSelectors() {
+		return removeSelectors;
 	}
 
 	@Column(nullable = false)
@@ -198,6 +211,10 @@ public class Feed extends IDEntity {
 
 	public void setPublishedTimeSelector(String publishedTimeSelector) {
 		this.publishedTimeSelector = publishedTimeSelector;
+	}
+
+	public void setRemoveSelectors(Set<Selector> removeSelectors) {
+		this.removeSelectors = removeSelectors;
 	}
 
 	public void setTitle(String title) {

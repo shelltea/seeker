@@ -43,7 +43,9 @@ public class FetchTest {
 		Elements title = pageDoc.select("#news_title");
 		logger.info("{}", title.get(0).html());
 
-		Elements content = pageDoc.select(".content > .content");
+		Elements content = pageDoc.select(".content");
+		Elements imgs = pageDoc.select(".content > .introduction > div").remove();
+		logger.info("{}", imgs.get(0).html());
 		logger.info("{}", content.get(0).html());
 
 		Elements date = pageDoc.select(".date");
