@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.shelltea.seeker.entity.Channel;
 import org.shelltea.seeker.entity.Feed;
+import org.shelltea.seeker.entity.Selector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 	private FeedRepository feedRepository;
 	@Autowired
 	private ChannelRepository channelRepository;
+	@Autowired
+	private SelectorRepository selectorRepository;
 
 	@Before
 	public void createChannel() {
@@ -59,6 +62,9 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 
 	@Test
 	public void saveCnbetaFeed() {
+		Selector selector = new Selector(".content > .introduction > div");
+		selectorRepository.save(selector);
+
 		Feed cnbetaFeed = new Feed();
 		cnbetaFeed.setTitle("cnBeta");
 		cnbetaFeed.setUrl("http://www.cnbeta.com");
@@ -72,6 +78,7 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 		cnbetaFeed.setPublishedTimePattern("yyyy-MM-dd HH:mm:ss");
 		cnbetaFeed.setAuthorSelector(".where > a");
 		cnbetaFeed.setLastFetchTime(new Date(System.currentTimeMillis()));
+		cnbetaFeed.getRemoveSelectors().add(selector);
 		feedRepository.save(cnbetaFeed);
 
 		Channel techChannel = channelRepository.findByTitle("科技");

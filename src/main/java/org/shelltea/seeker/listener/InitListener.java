@@ -7,9 +7,11 @@ import java.util.Date;
 
 import org.shelltea.seeker.entity.Channel;
 import org.shelltea.seeker.entity.Feed;
+import org.shelltea.seeker.entity.Selector;
 import org.shelltea.seeker.repository.AccountRepository;
 import org.shelltea.seeker.repository.ChannelRepository;
 import org.shelltea.seeker.repository.FeedRepository;
+import org.shelltea.seeker.repository.SelectorRepository;
 import org.shelltea.seeker.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +41,8 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 	private FeedRepository feedRepository;
 	@Autowired
 	private ChannelRepository channelRepository;
+	@Autowired
+	private SelectorRepository selectorRepository;
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
@@ -62,6 +66,9 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 				// 初始化默认订阅源
 				if (feedRepository.count() == 0) {
 					// cnbeta
+					Selector cnbetaRemoveSelector = new Selector(".content > .introduction > div");
+					selectorRepository.save(cnbetaRemoveSelector);
+
 					Feed cnbetaFeed = new Feed();
 					cnbetaFeed.setTitle("cnBeta");
 					cnbetaFeed.setUrl("http://www.cnbeta.com");
@@ -75,6 +82,7 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 					cnbetaFeed.setPublishedTimePattern("yyyy-MM-dd HH:mm:ss");
 					cnbetaFeed.setAuthorSelector(".where > a");
 					cnbetaFeed.setLastFetchTime(new Date(System.currentTimeMillis()));
+					cnbetaFeed.getRemoveSelectors().add(cnbetaRemoveSelector);
 					feedRepository.save(cnbetaFeed);
 
 					Channel techChannel = channelRepository.findByTitle("科技");
