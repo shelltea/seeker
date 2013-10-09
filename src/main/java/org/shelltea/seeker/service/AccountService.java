@@ -3,8 +3,6 @@
  */
 package org.shelltea.seeker.service;
 
-import java.sql.Timestamp;
-
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -38,7 +36,6 @@ public class AccountService {
 		account.setSalt(salt);
 		account.setPassword(new SimpleHash(HASH_ALGORITHM_NAME, password.trim(), salt, HASH_ITERATIONS).toBase64());
 		account.setLocked(false);
-		account.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
 		return account;
 	}

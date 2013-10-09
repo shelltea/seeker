@@ -3,6 +3,8 @@
  */
 package org.shelltea.seeker.service.security;
 
+import java.util.Date;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -57,6 +59,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		Account account = accountRepository.findByUsername(usernamePasswordToken.getUsername());
 
 		if (account != null) {
+			account.setUpdateTime(new Date(System.currentTimeMillis()));
+			accountRepository.save(account);
+
 			return new SimpleAuthenticationInfo(new ShiroAccount(account.getId(), account.getUsername(),
 					account.getEmail()), account.getPassword(), ByteSource.Util.bytes(account.getSalt()), getName());
 		} else {

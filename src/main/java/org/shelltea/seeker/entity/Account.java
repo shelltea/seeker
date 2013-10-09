@@ -38,7 +38,7 @@ public class Account extends IDEntity implements Serializable {
 	private Date createTime = new Date(System.currentTimeMillis());
 
 	/**
-	 * 账户最后更新时间.
+	 * 账户最后更新时间：登录/修改账户信息.
 	 */
 	private Date updateTime;
 
@@ -84,7 +84,6 @@ public class Account extends IDEntity implements Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable = false)
 	public Date getUpdateTime() {
 		return updateTime;
 	}
