@@ -22,13 +22,18 @@ public class RouterController {
 	@Autowired
 	private FeedRepository feedRepository;
 
+	@RequestMapping(value = "explore", method = RequestMethod.GET)
+	public String explore() {
+		return "explore";
+	}
+
 	@RequestMapping(value = "feed/{title}", method = RequestMethod.GET)
 	public String feed(@PathVariable String title) {
 		return "index";
 	}
 
 	@RequestMapping(value = "inbox", method = RequestMethod.GET)
-	public String register() {
+	public String inbox() {
 		return "index";
 	}
 }

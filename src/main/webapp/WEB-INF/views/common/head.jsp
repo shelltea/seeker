@@ -15,6 +15,6 @@
 <script src="${resources}/compatible.js"></script>
 <![endif]-->
 <script type="text/javascript">
-	var contextPath = "${contextPath}";
-	var resources = "${resources}";
+	var contextPath = '${contextPath}';
+	var resources = '${resources}';
 </script>

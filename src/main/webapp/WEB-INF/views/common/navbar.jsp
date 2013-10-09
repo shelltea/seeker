@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
-<div id="navbar" class="navbar navbar-default navbar-static-top">
+<nav id="navbar" class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 			<span class="icon-bar"></span>
@@ -30,7 +30,7 @@
 				</a>
 			</li>
 		</ul>
-		<p class="navbar-text navbar-right">
+		<p class="navbar-text navbar-right navbar-height-20">
 			<a href="${contextPath}/account/profile" class="navbar-link navbar-profile-link">
 				<img src="<shiro:principal property="gravatarURL" />" width="20" height="20" class="img-rounded">
 				<shiro:principal property="username" />
@@ -45,4 +45,9 @@
 			</a>
 		</p>
 	</div>
-</div>
+</nav>
+<script type="text/javascript">
+	$(function() {
+		$('a[href="' + location.pathname + '"]').parent().addClass('active');
+	});
+</script>

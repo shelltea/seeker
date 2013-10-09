@@ -13,7 +13,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 }
 
 .navbar-logo {
-	padding: 12px 0px 0px 15px;
+	padding: 12px 15px 0px 15px;
 }
 
 .navbar-logo span {
@@ -31,6 +31,10 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 
 .navbar-profile-link:HOVER {
 	text-decoration: none;
+}
+
+.navbar-height-20 {
+	height: 20px;
 }
 
 .row-padding {

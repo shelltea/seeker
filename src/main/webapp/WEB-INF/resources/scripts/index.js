@@ -29,6 +29,11 @@ $(function() {
 
 	// 获取Feed列表
 	$.get(contextPath + '/api/feeds', function(data) {
+		// 如果没有订阅任何源，自动跳转
+		if (data.data.length === 0) {
+			window.location = contextPath + '/explore';
+		}
+
 		var template = Handlebars.compile($('#feed-template').html());
 		var html = template(data);
 		$('#feeds').html(html);
@@ -57,6 +62,10 @@ $(function() {
 		}
 
 		$.get(entryUri, function(data) {
+			if (data.data === null) {
+				return;
+			}
+
 			var template = Handlebars.compile($('#entry-template').html());
 			var html = template(data.data);
 			$('#entries').html(html);
