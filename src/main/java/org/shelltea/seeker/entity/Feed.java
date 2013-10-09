@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.google.common.collect.Sets;
+
 /**
  * 订阅源.
  * 
@@ -96,7 +98,7 @@ public class Feed extends IDEntity {
 	/**
 	 * 移除选择器.
 	 */
-	private Set<Selector> removeSelectors;
+	private Set<Selector> removeSelectors = Sets.newHashSet();
 
 	public String getAuthorSelector() {
 		return authorSelector;

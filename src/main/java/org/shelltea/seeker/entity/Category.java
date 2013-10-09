@@ -57,7 +57,7 @@ public class Category extends IDEntity {
 		return categories;
 	}
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@OrderBy
 	public Set<Feed> getFeeds() {
 		return feeds;

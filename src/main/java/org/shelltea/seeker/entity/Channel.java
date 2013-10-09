@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,7 +46,6 @@ public class Channel extends IDEntity {
 	}
 
 	public Channel(String title, String iconUrl, String description) {
-		super();
 		this.title = title;
 		this.iconUrl = iconUrl;
 		this.description = description;
@@ -56,7 +56,7 @@ public class Channel extends IDEntity {
 		return description;
 	}
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	public Set<Feed> getFeeds() {
 		return feeds;
 	}

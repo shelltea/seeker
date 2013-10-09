@@ -58,8 +58,8 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 
 				// 初始化频道
 				if (channelRepository.count() == 0) {
-					channelRepository.save(new Channel("科技", "", ""));
-					channelRepository.save(new Channel("新闻", "", ""));
+					channelRepository.save(new Channel("科技", "tech", ""));
+					channelRepository.save(new Channel("新闻", "news", ""));
 					logger.info("完成初始化频道");
 				}
 
