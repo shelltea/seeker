@@ -4,6 +4,7 @@
 package org.shelltea.seeker.service.security;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -12,17 +13,23 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.shelltea.seeker.entity.Account;
+import org.shelltea.seeker.entity.Category;
 import org.shelltea.seeker.repository.AccountRepository;
+import org.shelltea.seeker.repository.CategoryRepository;
 import org.shelltea.seeker.service.AccountService;
+import org.shelltea.seeker.service.CategoryService;
 import org.shelltea.seeker.web.entity.ShiroAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.common.collect.Sets;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
@@ -33,6 +40,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
 	@Autowired
 	private AccountRepository accountRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	public ShiroDbRealm() {
 		super();
@@ -71,6 +80,21 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		return null;
+		ShiroAccount shiroAccount = (ShiroAccount) principals.getPrimaryPrincipal();
+
+		// 设置用户权限
+		Category category = categoryRepository.findByAccountIdAndTitle(shiroAccount.getId(),
+				CategoryService.DEFAULT_ROOT_CATEGORY);
+
+		Set<String> permissions = Sets.newHashSet();
+		permissions.add("categories:read,create");
+		permissions.add("categories:add-feed:" + category.getId());
+		permissions.add("channels:read");
+		permissions.add("entries:read,update");
+		permissions.add("feeds:read");
+
+		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+		simpleAuthorizationInfo.addStringPermissions(permissions);
+		return simpleAuthorizationInfo;
 	}
 }

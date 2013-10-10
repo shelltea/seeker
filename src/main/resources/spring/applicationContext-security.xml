@@ -29,10 +29,13 @@
 
 				/account/register/**=anon
 				/favicon.ico=anon
-				/api/**=anon
 				/static-resources/**=anon
+				/api/accounts/**=anon
 
-				/manage/**=roles[admin]
+				/api/categories/**=rest[categories]
+				/api/channels/**=rest[channels]
+				/api/entries/**=rest[entries]
+				/api/feeds/**=rest[feeds]
 				/**=user
 			</value>
 		</property>
