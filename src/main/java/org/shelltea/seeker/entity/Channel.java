@@ -28,7 +28,7 @@ public class Channel extends IDEntity {
 	private String title;
 
 	/**
-	 * 图标地址.
+	 * 图标地址/样式.
 	 */
 	private String iconUrl;
 

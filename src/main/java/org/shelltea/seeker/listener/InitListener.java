@@ -58,8 +58,8 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 
 				// 初始化频道
 				if (channelRepository.count() == 0) {
-					channelRepository.save(new Channel("科技", "tech", ""));
-					channelRepository.save(new Channel("新闻", "news", ""));
+					channelRepository.save(new Channel("科技", "hdd", ""));
+					channelRepository.save(new Channel("新闻", "globe", ""));
 					logger.info("完成初始化频道");
 				}
 
@@ -73,6 +73,8 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 					cnbetaFeed.setTitle("cnBeta");
 					cnbetaFeed.setUrl("http://www.cnbeta.com");
 					cnbetaFeed.setFaviconUrl("http://www.cnbeta.com/favicon.ico");
+					cnbetaFeed
+							.setLogoUrl("http://easyread.ph.126.net/L7UMtMO6H4adgKkFh4SroQ==/3942338523811683680.png");
 					cnbetaFeed.setFetchUrl("http://www.cnbeta.com");
 					cnbetaFeed.setEntryUrlPrefix("http://www.cnbeta.com");
 					cnbetaFeed.setListSelector("#allnews_all dt > a");
@@ -94,6 +96,7 @@ public class InitListener implements ApplicationListener<ApplicationEvent> {
 					ifengFeed.setTitle("iFeng");
 					ifengFeed.setUrl("http://www.ifeng.com/");
 					ifengFeed.setFaviconUrl("http://y0.ifengimg.com/index/favicon.ico");
+					ifengFeed.setLogoUrl("http://easyread.ph.126.net/zJJjqyFR2Wgncc11UNh-9Q==/3942619998790397121.png");
 					ifengFeed.setFetchUrl("http://news.ifeng.com/rt-channel/rtlist_0");
 					ifengFeed.setEntryUrlPrefix("");
 					ifengFeed.setListSelector(".newsList ul a");

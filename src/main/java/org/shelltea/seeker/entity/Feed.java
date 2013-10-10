@@ -36,6 +36,11 @@ public class Feed extends IDEntity {
 	private String faviconUrl;
 
 	/**
+	 * Logo地址.
+	 */
+	private String logoUrl;
+
+	/**
 	 * 列表抓取地址.
 	 */
 	private String fetchUrl;
@@ -139,6 +144,10 @@ public class Feed extends IDEntity {
 		return listSelector;
 	}
 
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
 	@Column(nullable = false)
 	public String getOriginContentSelector() {
 		return originContentSelector;
@@ -201,6 +210,10 @@ public class Feed extends IDEntity {
 
 	public void setListSelector(String listSelector) {
 		this.listSelector = listSelector;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public void setOriginContentSelector(String originContentSelector) {
