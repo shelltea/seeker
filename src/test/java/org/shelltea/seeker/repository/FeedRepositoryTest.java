@@ -73,7 +73,7 @@ public class FeedRepositoryTest extends AbstractTransactionalJUnit4SpringContext
 		cnbetaFeed.setEntryUrlPrefix("http://www.cnbeta.com");
 		cnbetaFeed.setListSelector("#allnews_all dt > a");
 		cnbetaFeed.setTitleSelector("#news_title");
-		cnbetaFeed.setOriginContentSelector(".content > .content");
+		cnbetaFeed.setOriginContentSelector(".content");
 		cnbetaFeed.setPublishedTimeSelector(".date");
 		cnbetaFeed.setPublishedTimePattern("yyyy-MM-dd HH:mm:ss");
 		cnbetaFeed.setAuthorSelector(".where > a");
