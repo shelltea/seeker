@@ -5,9 +5,9 @@ package org.shelltea.seeker.web.api;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
-import org.shelltea.seeker.web.api.entity.Response;
 import org.shelltea.seeker.web.entity.LoginAccount;
 import org.shelltea.seeker.web.entity.RegisterAccount;
+import org.shelltea.seeker.web.entity.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;

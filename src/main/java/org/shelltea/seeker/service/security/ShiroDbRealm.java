@@ -87,8 +87,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 				CategoryService.DEFAULT_ROOT_CATEGORY);
 
 		Set<String> permissions = Sets.newHashSet();
-		permissions.add("categories:read,create");
+		permissions.add("categories:read");
 		permissions.add("categories:add-feed:" + category.getId());
+		permissions.add("categories:remove-feed:" + category.getId());
 		permissions.add("channels:read");
 		permissions.add("entries:read,update");
 		permissions.add("feeds:read");

@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
-@JsonInclude(Include.NON_EMPTY)
+@JsonInclude(Include.NON_NULL)
 public class WebEntity {
 	@Override
 	public String toString() {

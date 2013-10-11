@@ -10,7 +10,7 @@ import org.shelltea.seeker.entity.Feed;
 import org.shelltea.seeker.repository.CategoryRepository;
 import org.shelltea.seeker.repository.FeedRepository;
 import org.shelltea.seeker.service.CategoryService;
-import org.shelltea.seeker.web.api.entity.Response;
+import org.shelltea.seeker.web.entity.Response;
 import org.shelltea.seeker.web.entity.ShiroAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,5 +67,30 @@ public class CategoryApiController {
 
 		return new Response(categoryRepository.findByAccountIdAndTitle(loginAccount.getId(),
 				CategoryService.DEFAULT_ROOT_CATEGORY));
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public Response removeFeedFromCategory(@PathVariable long id, @RequestBody Feed feed) {
+		feed = feedRepository.findOne(feed.getId());
+
+		if (feed == null) {
+			return new Response();
+		}
+
+		// 验证用户是否有从此Category移除Feed的权限
+		Subject currentUser = SecurityUtils.getSubject();
+		if (currentUser.isPermitted("categories:remove-feed:" + id)) {
+			Category category = categoryRepository.findOne(id);
+
+			if (category == null) {
+				return new Response();
+			}
+
+			category.getFeeds().remove(feed);
+			return new Response(categoryRepository.save(category));
+		} else {
+			return new Response();
+		}
 	}
 }

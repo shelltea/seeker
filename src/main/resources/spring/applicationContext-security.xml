@@ -32,7 +32,7 @@
 				/static-resources/**=anon
 				/api/accounts/**=anon
 
-				/api/categories/**=rest[categories]
+				/api/categories=rest[categories]
 				/api/channels/**=rest[channels]
 				/api/entries/**=rest[entries]
 				/api/feeds/**=rest[feeds]

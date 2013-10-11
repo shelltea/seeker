@@ -63,6 +63,14 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 	padding-top: 10px;
 }
 
-.media-icon span {
+.green-icon {
 	color: #5cb85c;
+}
+
+.red-icon {
+	color: #d9534f;
+}
+
+.blue-icon {
+	color: #428bca;
 }

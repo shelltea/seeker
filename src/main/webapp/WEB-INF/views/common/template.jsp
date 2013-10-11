@@ -35,12 +35,16 @@
   					<a class="pull-left">
     					<img class="media-object" src="{{logoUrl}}" width="50" height="50" class="img-rounded">
   					</a>
-  					<div class="media-body media-icon">
+  					<div class="media-body">
     					<h5 class="media-heading"><b>{{title}}</b></h5>	
 						{{#if subscribe}}
-							<span id="feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-ok pointer"></span>
+							<span id="subscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-plus pointer blue-icon" style="display: none;"></span>
+							<span id="subscribed-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-ok pointer green-icon"></span>
+							<span id="unsubscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-remove pointer red-icon" style="display: none;"></span>
 						{{else}}
-							<span id="feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-plus pointer"></span>
+							<span id="subscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-plus pointer blue-icon"></span>
+							<span id="subscribed-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-ok pointer green-icon" style="display: none;"></span>
+							<span id="unsubscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-remove pointer red-icon" style="display: none;"></span>
 						{{/if}}
   					</div>
 				</div>

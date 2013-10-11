@@ -14,7 +14,7 @@ import org.shelltea.seeker.repository.ChannelRepository;
 import org.shelltea.seeker.service.CategoryService;
 import org.shelltea.seeker.web.api.entity.ApiChannel;
 import org.shelltea.seeker.web.api.entity.ApiFeed;
-import org.shelltea.seeker.web.api.entity.Response;
+import org.shelltea.seeker.web.entity.Response;
 import org.shelltea.seeker.web.entity.ShiroAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
