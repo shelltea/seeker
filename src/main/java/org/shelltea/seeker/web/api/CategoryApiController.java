@@ -3,13 +3,16 @@
  */
 package org.shelltea.seeker.web.api;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.shelltea.seeker.entity.Category;
 import org.shelltea.seeker.entity.Feed;
 import org.shelltea.seeker.repository.CategoryRepository;
 import org.shelltea.seeker.repository.FeedRepository;
 import org.shelltea.seeker.service.CategoryService;
+import org.shelltea.seeker.web.api.entity.ApiCategory;
 import org.shelltea.seeker.web.entity.Response;
 import org.shelltea.seeker.web.entity.ShiroAccount;
 import org.slf4j.Logger;
@@ -38,59 +41,49 @@ public class CategoryApiController {
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public Response addFeedToCategory(@PathVariable long id, @RequestBody Feed feed) {
-		feed = feedRepository.findOne(feed.getId());
-
-		if (feed == null) {
-			return new Response();
-		}
-
 		// 验证用户是否有添加Feed到此Category的权限
-		Subject currentUser = SecurityUtils.getSubject();
-		if (currentUser.isPermitted("categories:add-feed:" + id)) {
+		if (SecurityUtils.getSubject().isPermitted("categories:add-feed:" + id)) {
 			Category category = categoryRepository.findOne(id);
+			feed = feedRepository.findOne(feed.getId());
 
-			if (category == null) {
-				return new Response();
+			if (category != null && feed != null) {
+				category.getFeeds().add(feed);
+				categoryRepository.save(category);
+				return new Response(true);
 			}
-
-			category.getFeeds().add(feed);
-			return new Response(categoryRepository.save(category));
-		} else {
-			return new Response();
 		}
+
+		return new Response();
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
-	public Response list() {
+	public Response list() throws IllegalAccessException, InvocationTargetException {
 		ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
 
-		return new Response(categoryRepository.findByAccountIdAndTitle(loginAccount.getId(),
-				CategoryService.DEFAULT_ROOT_CATEGORY));
+		ApiCategory apiCategory = new ApiCategory();
+		BeanUtils
+				.copyProperties(apiCategory, categoryRepository.findByAccountIdAndTitle(loginAccount.getId(),
+						CategoryService.DEFAULT_ROOT_CATEGORY));
+
+		return new Response(apiCategory);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public Response removeFeedFromCategory(@PathVariable long id, @RequestBody Feed feed) {
-		feed = feedRepository.findOne(feed.getId());
-
-		if (feed == null) {
-			return new Response();
-		}
-
 		// 验证用户是否有从此Category移除Feed的权限
-		Subject currentUser = SecurityUtils.getSubject();
-		if (currentUser.isPermitted("categories:remove-feed:" + id)) {
+		if (SecurityUtils.getSubject().isPermitted("categories:remove-feed:" + id)) {
 			Category category = categoryRepository.findOne(id);
+			feed = feedRepository.findOne(feed.getId());
 
-			if (category == null) {
-				return new Response();
+			if (category != null && feed != null) {
+				category.getFeeds().remove(feed);
+				categoryRepository.save(category);
+				return new Response(true);
 			}
-
-			category.getFeeds().remove(feed);
-			return new Response(categoryRepository.save(category));
-		} else {
-			return new Response();
 		}
+
+		return new Response();
 	}
 }

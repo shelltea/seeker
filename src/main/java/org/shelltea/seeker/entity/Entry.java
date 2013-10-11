@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 文章条目.
  * 
@@ -20,6 +22,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "seeker_entry")
+@JsonIgnoreProperties({ "originContent" })
 public class Entry extends IdEntity {
 	/**
 	 * 所属源.
