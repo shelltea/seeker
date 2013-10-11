@@ -3,13 +3,12 @@
  */
 package org.shelltea.seeker.web.api.entity;
 
-import org.shelltea.seeker.web.entity.WebEntity;
+import org.shelltea.seeker.web.entity.WebIdEntity;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
-public class ApiFeed extends WebEntity {
-	private Long id;
+public class ApiFeed extends WebIdEntity {
 	private String title;
 	private String faviconUrl;
 	private Long entryCount;
@@ -22,10 +21,6 @@ public class ApiFeed extends WebEntity {
 		return faviconUrl;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -36,10 +31,6 @@ public class ApiFeed extends WebEntity {
 
 	public void setFaviconUrl(String faviconUrl) {
 		this.faviconUrl = faviconUrl;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public void setTitle(String title) {

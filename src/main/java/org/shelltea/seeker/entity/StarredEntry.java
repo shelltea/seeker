@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "seeker_starred_entry")
-public class StarredEntry extends IDEntity {
+public class StarredEntry extends IdEntity {
 	/**
 	 * 账户.
 	 */

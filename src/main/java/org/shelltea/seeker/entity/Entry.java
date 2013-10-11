@@ -20,7 +20,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "seeker_entry")
-public class Entry extends IDEntity {
+public class Entry extends IdEntity {
 	/**
 	 * 所属源.
 	 */

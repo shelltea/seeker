@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "seeker_account")
-public class Account extends IDEntity implements Serializable {
+public class Account extends IdEntity implements Serializable {
 	private static final long serialVersionUID = -3651803052145540378L;
 
 	/**

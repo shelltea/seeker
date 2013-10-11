@@ -24,7 +24,7 @@ import com.google.common.collect.Sets;
  */
 @Entity
 @Table(name = "seeker_feed")
-public class Feed extends IDEntity {
+public class Feed extends IdEntity {
 	/**
 	 * 网站地址.
 	 */

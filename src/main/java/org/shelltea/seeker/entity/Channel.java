@@ -21,7 +21,7 @@ import com.google.common.collect.Sets;
  */
 @Entity
 @Table(name = "seeker_channel")
-public class Channel extends IDEntity {
+public class Channel extends IdEntity {
 	/**
 	 * 标题.
 	 */

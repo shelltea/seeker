@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "seeker_read_entry")
-public class ReadEntry extends IDEntity {
+public class ReadEntry extends IdEntity {
 	/**
 	 * 账户.
 	 */

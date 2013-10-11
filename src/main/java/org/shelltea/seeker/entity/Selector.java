@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "seeker_selector")
-public class Selector extends IDEntity {
+public class Selector extends IdEntity {
 	private String cssQuery;
 
 	public Selector() {

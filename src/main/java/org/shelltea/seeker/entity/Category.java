@@ -21,7 +21,7 @@ import com.google.common.collect.Sets;
  */
 @Entity
 @Table(name = "seeker_category")
-public class Category extends IDEntity {
+public class Category extends IdEntity {
 	/**
 	 * 所属账户.
 	 */
