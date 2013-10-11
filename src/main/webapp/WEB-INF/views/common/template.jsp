@@ -32,12 +32,16 @@
 		{{#each feeds}}
 			<div class="col-xs-3">
 				<div class="media">
-  					<a class="pull-left" href="#">
+  					<a class="pull-left">
     					<img class="media-object" src="{{logoUrl}}" width="50" height="50" class="img-rounded">
   					</a>
   					<div class="media-body media-icon">
     					<h5 class="media-heading"><b>{{title}}</b></h5>	
-						<span id="feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-plus pointer"></span>
+						{{#if subscribe}}
+							<span id="feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-ok pointer"></span>
+						{{else}}
+							<span id="feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-plus pointer"></span>
+						{{/if}}
   					</div>
 				</div>
 			</div>

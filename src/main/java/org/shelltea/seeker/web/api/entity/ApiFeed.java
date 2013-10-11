@@ -11,7 +11,26 @@ import org.shelltea.seeker.web.entity.WebIdEntity;
 public class ApiFeed extends WebIdEntity {
 	private String title;
 	private String faviconUrl;
+	private String logoUrl;
 	private Long entryCount;
+	private Boolean subscribe;
+
+	public ApiFeed() {
+	}
+
+	public ApiFeed(Long id, String title, String logoUrl, Boolean subscribe) {
+		this.id = id;
+		this.title = title;
+		this.logoUrl = logoUrl;
+		this.subscribe = subscribe;
+	}
+
+	public ApiFeed(Long id, String title, String faviconUrl, Long entryCount) {
+		this.id = id;
+		this.title = title;
+		this.faviconUrl = faviconUrl;
+		this.entryCount = entryCount;
+	}
 
 	public Long getEntryCount() {
 		return entryCount;
@@ -19,6 +38,14 @@ public class ApiFeed extends WebIdEntity {
 
 	public String getFaviconUrl() {
 		return faviconUrl;
+	}
+
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public Boolean getSubscribe() {
+		return subscribe;
 	}
 
 	public String getTitle() {
@@ -31,6 +58,14 @@ public class ApiFeed extends WebIdEntity {
 
 	public void setFaviconUrl(String faviconUrl) {
 		this.faviconUrl = faviconUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+	public void setSubscribe(Boolean subscribe) {
+		this.subscribe = subscribe;
 	}
 
 	public void setTitle(String title) {

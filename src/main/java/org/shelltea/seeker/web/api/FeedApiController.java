@@ -49,13 +49,8 @@ public class FeedApiController {
 		List<ApiFeed> apiFeeds = Lists.transform(Lists.newArrayList(feeds), new Function<Feed, ApiFeed>() {
 			@Override
 			public ApiFeed apply(Feed input) {
-				ApiFeed apiFeed = new ApiFeed();
-				apiFeed.setTitle(input.getTitle());
-				apiFeed.setId(input.getId());
-				apiFeed.setFaviconUrl(input.getFaviconUrl());
-				apiFeed.setEntryCount(entryRepository.countByFeedId(input.getId()));
-
-				return apiFeed;
+				return new ApiFeed(input.getId(), input.getTitle(), input.getFaviconUrl(), entryRepository
+						.countByFeedId(input.getId()));
 			}
 		});
 
