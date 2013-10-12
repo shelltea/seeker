@@ -2,7 +2,7 @@ $(function() {
 	var rootCategoryId;
 
 	// 计算Tab高度
-	var tabsDivHeight = $(window).height() - ($('#navbar').height() + $('#localebar').height());
+	var tabsDivHeight = $(window).height() - ($('#navbar').height());
 	$('#channel-tabs').height(tabsDivHeight - 25);
 
 	// 获取根目录

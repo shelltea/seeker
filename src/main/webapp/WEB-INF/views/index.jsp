@@ -91,7 +91,6 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="common/locale.jsp"%>
 	<!-- Entry -->
 	<div class="modal" id="entry-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 		<div class="modal-dialog">

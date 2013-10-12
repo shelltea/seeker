@@ -37,6 +37,8 @@ public class ShiroAccount extends WebIdEntity implements Serializable {
 	}
 
 	public void setEmail(String email) {
+		gravatarURL = "http://www.gravatar.com/avatar/" + new SimpleHash("MD5", email.trim().toLowerCase()).toString()
+				+ "?d=mm&s=200";
 		this.email = email;
 	}
 

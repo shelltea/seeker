@@ -22,6 +22,8 @@ import org.shelltea.seeker.util.ValidationUtils;
 import org.shelltea.seeker.web.entity.LoginAccount;
 import org.shelltea.seeker.web.entity.RegisterAccount;
 import org.shelltea.seeker.web.entity.Response;
+import org.shelltea.seeker.web.entity.ShiroAccount;
+import org.shelltea.seeker.web.entity.UpdateAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,11 +62,40 @@ public class AccountApiController {
 			return messageSource.getMessage("NotBlank.registerAccount.email", null, locale);
 		}
 
+		// 如果用户已登录，则做修改邮件时的验证
+		Subject subject = SecurityUtils.getSubject();
+		if (subject.isAuthenticated()) {
+			ShiroAccount loginAccount = (ShiroAccount) subject.getPrincipal();
+			if (StringUtils.equals(email, loginAccount.getEmail())) {
+				return "";
+			}
+		}
+
 		Account account = accountRepository.findByEmail(email);
 		if (null == account) {
 			return "";
 		} else {
 			return messageSource.getMessage("Unique.registerAccount.email", null, locale);
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "checking/password", method = RequestMethod.GET)
+	public String checkingPassword(String oldPassword, Locale locale) {
+		if (Strings.isNullOrEmpty(oldPassword)) {
+			return messageSource.getMessage("NotBlank.updateAccount.oldPassword", null, locale);
+		}
+
+		ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
+
+		if (loginAccount == null) {
+			return messageSource.getMessage("NotLogin.updateAccount.oldPassword", null, locale);
+		}
+
+		if (accountService.isPasswordMatch(loginAccount.getId(), oldPassword)) {
+			return "";
+		} else {
+			return messageSource.getMessage("Invalidate.updateAccount.oldPassword", null, locale);
 		}
 	}
 
@@ -108,6 +139,49 @@ public class AccountApiController {
 				registerAccount.getPassword()));
 
 		return new Response(true);
+	}
+
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.PUT)
+	public Response update(@Valid @RequestBody UpdateAccount updateAccount, Locale locale) {
+		ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
+
+		// 验证用户是否登录
+		if (loginAccount == null) {
+			return new Response(ValidationUtils.renderResultMap("NotLogin.updateAccount.newPassword", messageSource,
+					locale));
+		}
+
+		if (StringUtils.isNotBlank(updateAccount.getEmail())) { // 更新邮箱
+			if (StringUtils.equals(updateAccount.getEmail(), loginAccount.getEmail())) {
+				return new Response(true);
+			}
+
+			Account account = accountRepository.findByEmail(updateAccount.getEmail());
+			if (null == account) {
+				Account accountInDb = accountRepository.findOne(loginAccount.getId());
+				accountInDb.setEmail(updateAccount.getEmail());
+				accountRepository.save(accountInDb);
+				loginAccount.setEmail(updateAccount.getEmail()); // 同步更新ShiroAccount
+				return new Response(true);
+			} else {
+				return new Response(ValidationUtils.renderResultMap("Unique.registerAccount.email", messageSource,
+						locale));
+			}
+		} else { // 更新密码
+			if (!StringUtils.equals(updateAccount.getNewPassword(), updateAccount.getConfirmPassword())) {
+				return new Response(ValidationUtils.renderResultMap("Invalidate.updateAccount.confirmPassword",
+						messageSource, locale));
+			}
+
+			if (!accountService.isPasswordMatch(loginAccount.getId(), updateAccount.getOldPassword())) {
+				return new Response(ValidationUtils.renderResultMap("Invalidate.updateAccount.oldPassword",
+						messageSource, locale));
+			}
+
+			accountService.updatePassword(loginAccount.getId(), updateAccount.getConfirmPassword());
+			return new Response(true);
+		}
 	}
 
 	@ResponseBody

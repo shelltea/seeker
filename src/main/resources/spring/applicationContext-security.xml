@@ -30,6 +30,7 @@
 				/account/register/**=anon
 				/favicon.ico=anon
 				/static-resources/**=anon
+
 				/api/accounts/**=anon
 
 				/api/categories=rest[categories]

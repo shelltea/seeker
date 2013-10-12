@@ -3,6 +3,7 @@
  */
 package org.shelltea.seeker.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -34,7 +35,7 @@ public class AccountService {
 		account.setEmail(email.trim());
 		account.setUsername(username.trim());
 		account.setSalt(salt);
-		account.setPassword(new SimpleHash(HASH_ALGORITHM_NAME, password.trim(), salt, HASH_ITERATIONS).toBase64());
+		account.setPassword(generatePassword(password, salt));
 		account.setLocked(false);
 
 		return account;
@@ -51,5 +52,31 @@ public class AccountService {
 		categoryRepository.save(category);
 
 		return account;
+	}
+
+	public boolean isPasswordMatch(Long accountId, String password) {
+		Account account = accountRepository.findOne(accountId);
+
+		if (account == null) {
+			return false;
+		}
+
+		return StringUtils.equals(account.getPassword(), generatePassword(password, account.getSalt()));
+	}
+
+	public Account updatePassword(Long accountId, String password) {
+		Account account = accountRepository.findOne(accountId);
+
+		if (account == null) {
+			return null;
+		}
+
+		account.setPassword(generatePassword(password, account.getSalt()));
+
+		return accountRepository.save(account);
+	}
+
+	private String generatePassword(String password, String salt) {
+		return new SimpleHash(HASH_ALGORITHM_NAME, password.trim(), salt, HASH_ITERATIONS).toBase64();
 	}
 }

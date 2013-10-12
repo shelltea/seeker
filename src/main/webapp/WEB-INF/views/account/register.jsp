@@ -9,7 +9,7 @@
 </head>
 <body style="background-color: #eee;">
 	<div class="container">
-		<form id="registerForm" class="form-horizontal" method="POST">
+		<form id="registerForm" class="form-horizontal">
 			<fieldset>
 				<legend>
 					<fmt:message key="register.title" />

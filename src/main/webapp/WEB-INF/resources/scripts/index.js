@@ -21,7 +21,7 @@ $(function() {
 	});
 
 	// 计算Entry列表高度
-	var itemsDivHeight = $(window).height() - ($('#navbar').height() + $('#toolbar').height() + $('#localebar').height());
+	var itemsDivHeight = $(window).height() - ($('#navbar').height() + $('#toolbar').height());
 	$('#entries').slimScroll({
 		height : (itemsDivHeight - 35) + 'px',
 		alwaysVisible : true

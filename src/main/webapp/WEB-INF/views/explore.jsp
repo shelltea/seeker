@@ -12,6 +12,5 @@
 <body style="background-color: #fff;">
 	<%@ include file="common/navbar.jsp"%>
 	<div id="channel-tabs" class="container"></div>
-	<%@ include file="common/locale.jsp"%>
 </body>
 </html>
