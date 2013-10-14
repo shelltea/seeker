@@ -5,6 +5,12 @@ $(function() {
 	var tabsDivHeight = $(window).height() - ($('#navbar').height());
 	$('#channel-tabs').height(tabsDivHeight - 25);
 
+	// 启用页面中的Tooltip
+	$('.container, .navbar').tooltip({
+		selector : "[data-toggle=tooltip]",
+		container : "body"
+	});
+
 	// 获取根目录
 	$.get(contextPath + '/api/categories', function(data) {
 		rootCategoryId = data.data.id;

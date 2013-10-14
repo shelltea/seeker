@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.shelltea</groupId>
 	<artifactId>seeker</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Seeker</name>
 	<description>&quot;Get the Snitch or die trying.&quot;</description>

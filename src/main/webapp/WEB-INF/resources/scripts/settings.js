@@ -3,6 +3,12 @@ $(function() {
 	var tabsDivHeight = $(window).height() - ($('#navbar').height() + $('#localebar').height());
 	$('#settings-tabs').height(tabsDivHeight - 25);
 
+	// 启用页面中的Tooltip
+	$('.container, .navbar').tooltip({
+		selector : "[data-toggle=tooltip]",
+		container : "body"
+	});
+
 	$('#update-password-form').validator({
 		theme : 'yellow_right',
 		fields : {
