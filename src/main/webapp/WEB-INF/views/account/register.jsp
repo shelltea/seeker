@@ -15,28 +15,29 @@
 					<fmt:message key="register.title" />
 				</legend>
 				<div class="form-group">
-					<label for="email" class="col-lg-2 control-label"> <fmt:message key="register.email" />
+					<label for="email" class="col-xs-2 control-label"> <fmt:message key="register.email" />
 					</label>
-					<div class="col-lg-4">
+					<div class="col-xs-6">
 						<input id="email" name="email" type="text" class="form-control" placeholder="<fmt:message key="register.email"/>" autofocus="autofocus">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="username" class="col-lg-2 control-label"> <fmt:message key="register.username" />
+					<label for="username" class="col-xs-2 control-label"> <fmt:message key="register.username" />
 					</label>
-					<div class="col-lg-4">
+					<div class="col-xs-6">
 						<input id="username" name="username" type="text" class="form-control" placeholder="<fmt:message key="register.username"/>">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="password" class="col-lg-2 control-label"> <fmt:message key="register.password" />
+					<label for="password" class="col-xs-2 control-label"> <fmt:message key="register.password" />
 					</label>
-					<div class="col-lg-4">
+					<div class="col-xs-6">
 						<input id="password" name="password" type="password" class="form-control" placeholder="<fmt:message key="register.password"/>">
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-lg-offset-2 col-lg-10">
+					<div class="col-xs-2"></div>
+					<div class="col-xs-6">
 						<button type="submit" class="btn btn-primary">
 							<fmt:message key="register.title" />
 						</button>

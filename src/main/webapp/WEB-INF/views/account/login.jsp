@@ -23,21 +23,22 @@
 					</div>
 				</c:if>
 				<div class="form-group">
-					<label for="username" class="col-lg-2 control-label"> <fmt:message key="login.username" />
+					<label for="username" class="col-xs-2 control-label"> <fmt:message key="login.username" />
 					</label>
-					<div class="col-lg-4">
+					<div class="col-xs-6">
 						<input id="username" name="username" type="text" class="form-control" placeholder="<fmt:message key="login.username" />" autofocus="autofocus">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="password" class="col-lg-2 control-label"> <fmt:message key="login.password" />
+					<label for="password" class="col-xs-2 control-label"> <fmt:message key="login.password" />
 					</label>
-					<div class="col-lg-4">
+					<div class="col-xs-6">
 						<input id="password" name="password" type="password" class="form-control" placeholder="<fmt:message key="login.password" />">
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-lg-offset-2 col-lg-10">
+					<div class="col-xs-2"></div>
+					<div class="col-xs-6">
 						<div class="checkbox">
 							<label> <input name="rememberMe" type="checkbox"> <fmt:message key="login.rememberMe" />
 							</label>
@@ -45,7 +46,8 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-lg-offset-2 col-lg-10">
+					<div class="col-xs-2"></div>
+					<div class="col-xs-6">
 						<button type="submit" class="btn btn-primary">
 							<fmt:message key="login.title" />
 						</button>
