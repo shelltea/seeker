@@ -4,6 +4,7 @@
 package org.shelltea.seeker.web.api;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.apache.shiro.SecurityUtils;
@@ -19,6 +20,7 @@ import org.shelltea.seeker.web.entity.ShiroAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,10 +42,12 @@ public class ChannelApiController {
 	private ChannelRepository channelRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private MessageSource messageSource;
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
-	public Response list() {
+	public Response list(final Locale locale) {
 		// 获取用户已订阅Feed
 		ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
 
@@ -65,8 +69,8 @@ public class ChannelApiController {
 										.contains(input));
 							}
 						});
-
-				return new ApiChannel(input.getId(), input.getTitle(), input.getIconUrl(), Sets.newHashSet(apiFeeds));
+				return new ApiChannel(input.getId(), messageSource.getMessage("channel." + input.getIconUrl(), null,
+						locale), input.getIconUrl(), Sets.newHashSet(apiFeeds));
 			}
 		});
 
