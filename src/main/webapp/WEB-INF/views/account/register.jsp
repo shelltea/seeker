@@ -47,7 +47,6 @@
 				</div>
 			</fieldset>
 		</form>
-		<%@ include file="../common/locale.jsp"%>
 	</div>
 </body>
 </html>

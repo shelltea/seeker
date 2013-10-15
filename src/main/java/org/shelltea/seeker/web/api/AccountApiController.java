@@ -36,8 +36,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.base.Strings;
-
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
@@ -57,9 +55,10 @@ public class AccountApiController {
 
 	@ResponseBody
 	@RequestMapping(value = "checking/email", method = RequestMethod.GET)
-	public String checkingEmail(String email, Locale locale) {
-		if (Strings.isNullOrEmpty(email)) {
-			return messageSource.getMessage("NotBlank.registerAccount.email", null, locale);
+	public Response checkingEmail(String email, Locale locale) {
+		if (StringUtils.isBlank(email)) {
+			return new Response(
+					ValidationUtils.renderResultMap("NotBlank.registerAccount.email", messageSource, locale));
 		}
 
 		// 如果用户已登录，则做修改邮件时的验证
@@ -67,50 +66,55 @@ public class AccountApiController {
 		if (subject.isAuthenticated()) {
 			ShiroAccount loginAccount = (ShiroAccount) subject.getPrincipal();
 			if (StringUtils.equals(email, loginAccount.getEmail())) {
-				return "";
+				return new Response(true);
 			}
 		}
 
 		Account account = accountRepository.findByEmail(email);
 		if (null == account) {
-			return "";
+			return new Response(true);
 		} else {
-			return messageSource.getMessage("Unique.registerAccount.email", null, locale);
+			return new Response(ValidationUtils.renderResultMap("Unique.registerAccount.email", messageSource, locale));
 		}
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "checking/password", method = RequestMethod.GET)
-	public String checkingPassword(String oldPassword, Locale locale) {
-		if (Strings.isNullOrEmpty(oldPassword)) {
-			return messageSource.getMessage("NotBlank.updateAccount.oldPassword", null, locale);
+	public Response checkingPassword(String oldPassword, Locale locale) {
+		if (StringUtils.isBlank(oldPassword)) {
+			return new Response(ValidationUtils.renderResultMap("NotBlank.updateAccount.oldPassword", messageSource,
+					locale));
 		}
 
 		ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
 
 		if (loginAccount == null) {
-			return messageSource.getMessage("NotLogin.updateAccount.oldPassword", null, locale);
+			return new Response(ValidationUtils.renderResultMap("NotLogin.updateAccount.oldPassword", messageSource,
+					locale));
 		}
 
 		if (accountService.isPasswordMatch(loginAccount.getId(), oldPassword)) {
-			return "";
+			return new Response(true);
 		} else {
-			return messageSource.getMessage("Invalidate.updateAccount.oldPassword", null, locale);
+			return new Response(ValidationUtils.renderResultMap("Invalidate.updateAccount.oldPassword", messageSource,
+					locale));
 		}
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "checking/username", method = RequestMethod.GET)
-	public String checkingUsername(String username, Locale locale) {
-		if (Strings.isNullOrEmpty(username)) {
-			return messageSource.getMessage("NotBlank.registerAccount.username", null, locale);
+	public Response checkingUsername(String username, Locale locale) {
+		if (StringUtils.isBlank(username)) {
+			return new Response(ValidationUtils.renderResultMap("NotBlank.registerAccount.username", messageSource,
+					locale));
 		}
 
 		Account account = accountRepository.findByUsername(username);
 		if (null == account) {
-			return "";
+			return new Response(true);
 		} else {
-			return messageSource.getMessage("Unique.registerAccount.username", null, locale);
+			return new Response(ValidationUtils.renderResultMap("Unique.registerAccount.username", messageSource,
+					locale));
 		}
 	}
 
