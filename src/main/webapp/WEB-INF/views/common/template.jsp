@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script id="entry-template" type="text/x-handlebars-template">
 {{#each content}}
 <div class="list-group-item">
@@ -38,13 +39,13 @@
   					<div class="media-body">
     					<h5 class="media-heading"><b>{{title}}</b></h5>	
 						{{#if subscribe}}
-							<span id="subscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-plus pointer blue-icon" style="display: none;"></span>
-							<span id="subscribed-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-ok pointer green-icon"></span>
-							<span id="unsubscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-remove pointer red-icon" style="display: none;"></span>
+							<span id="subscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-plus pointer blue-icon" style="display: none;" title="<fmt:message key="explore.subscribe.title" />" data-toggle="tooltip" data-placement="right"></span>
+							<span id="subscribed-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-ok pointer green-icon" title="<fmt:message key="explore.subscribed.title" />" data-toggle="tooltip" data-placement="right"></span>
+							<span id="unsubscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-remove pointer red-icon" style="display: none;" title="<fmt:message key="explore.unsubscribe.title" />" data-toggle="tooltip" data-placement="right"></span>
 						{{else}}
-							<span id="subscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-plus pointer blue-icon"></span>
-							<span id="subscribed-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-ok pointer green-icon" style="display: none;"></span>
-							<span id="unsubscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-remove pointer red-icon" style="display: none;"></span>
+							<span id="subscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-plus pointer blue-icon" title="<fmt:message key="explore.subscribe.title" />" data-toggle="tooltip" data-placement="right"></span>
+							<span id="subscribed-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-ok pointer green-icon" style="display: none;" title="<fmt:message key="explore.subscribed.title" />" data-toggle="tooltip" data-placement="right"></span>
+							<span id="unsubscribe-feed-{{id}}" data-id="{{id}}" class="glyphicon glyphicon-remove pointer red-icon" style="display: none;" title="<fmt:message key="explore.unsubscribe.title" />" data-toggle="tooltip" data-placement="right"></span>
 						{{/if}}
   					</div>
 				</div>

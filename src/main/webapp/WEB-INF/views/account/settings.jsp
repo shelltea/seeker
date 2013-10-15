@@ -5,7 +5,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title><fmt:message key="index.title" /> - <shiro:principal property="username" /></title>
+<title><fmt:message key="settings.title" /> - <shiro:principal property="username" /></title>
 <%@ include file="../common/head.jsp"%>
 <%@ include file="../common/template.jsp"%>
 <script src="${resources}/scripts/settings.js" type="text/javascript"></script>
