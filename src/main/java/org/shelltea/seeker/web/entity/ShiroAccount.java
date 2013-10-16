@@ -10,13 +10,14 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
-public class ShiroAccount extends WebIdEntity implements Serializable {
+public class ShiroAccount extends WebEntity implements Serializable {
 	private static final long serialVersionUID = -3482500760998201817L;
+	private Long id;
 	private String username;
 	private String email;
 	private String gravatarURL;
 
-	public ShiroAccount(long id, String username, String email) {
+	public ShiroAccount(Long id, String username, String email) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -32,6 +33,10 @@ public class ShiroAccount extends WebIdEntity implements Serializable {
 		return gravatarURL;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -44,6 +49,10 @@ public class ShiroAccount extends WebIdEntity implements Serializable {
 
 	public void setGravatarURL(String gravatarURL) {
 		this.gravatarURL = gravatarURL;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setUsername(String username) {
