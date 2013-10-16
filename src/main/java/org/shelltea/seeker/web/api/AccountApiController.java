@@ -152,8 +152,8 @@ public class AccountApiController {
 
 		// 验证用户是否登录
 		if (loginAccount == null) {
-			return new Response(ValidationUtils.renderResultMap("NotLogin.updateAccount.newPassword", messageSource,
-					locale));
+			return new Response(
+					ValidationUtils.renderResultMap("NotLogin.updateAccount.account", messageSource, locale));
 		}
 
 		if (StringUtils.isNotBlank(updateAccount.getEmail())) { // 更新邮箱
