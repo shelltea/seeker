@@ -1,22 +1,29 @@
-seeker
+Seeker
 ======
 
-"Get the Snitch or die trying."
+    "Get the Snitch or die trying."
+    —Oliver Wood to team Seeker, Harry Potter
 
 ## 背景
 
-当听说Google Reader要关闭的时候，我相信很多人和我一样的十分诧异Google的做法。仔细想想，虽然我是个GR的深度用户，但是从未在GR上花费一毛钱，一个无法带来利润的项目，哪怕是Google这样财大气粗的企业，长时间的支持也会让它觉得是个负担，遭到清理也是无奈的举措。
-
-在GR即将关闭之前，很多公司都适时的推出了各自的阅读应用，每一个应用都标榜自己能完美取代GR，甚至一些公司还拿GR被关闭来讽刺一个Google并承诺不会像Google那样突然的抛弃用户。
-
-搜寻替代者成了每一个被Google“抛弃”的GR用户急需解决的问题，我也在试用了一堆应用之后，短暂的停留在了网易云阅读上。但是在使用过程中还是觉得不顺手，给官方提的意见也没有被采纳。
-
-不会期待它变得更好，也不想继续等待它变好。这就是Seeker诞生的原因。
+Google Reader被“不作恶”的Google关闭了。
 
 ## 介绍
 
+Seeker的目标是做一个简单易用的阅读应用。
+
+![](https://github.com/shelltea/seeker/diff_blob/f1e935223923fb81142b34987362b6d2eb4b28f0/src/main/webapp/WEB-INF/resources/images/screenshot-1.png?raw=true)
+
+![](https://github.com/shelltea/seeker/diff_blob/31026f8394f692aba1caaef64949b1446134d7ef/src/main/webapp/WEB-INF/resources/images/screenshot-2.png?raw=true)
+
 ## 特性
+
+虽然特性目前少得都没法写，但如果你也是名Java攻城师，Seeker的特性将由你决定。
 
 ## 如何运行
 
-## 其他问题
+    git clone https://github.com/shelltea/seeker.git
+    mvn jetty:run
+
+数据库默认使用的是内置的H2，会在启动时自动创建数据库和表结构，并执行初始化。
+启动后，访问：http://localhost:8080，默认用户名和密码为shelltea。
