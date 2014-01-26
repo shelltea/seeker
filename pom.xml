@@ -22,7 +22,7 @@
 
 	<properties>
 		<spring.version>3.2.4.RELEASE</spring.version>
-		<hibernate.version>4.2.7.SP1</hibernate.version>
+		<hibernate.version>4.3.1.Final</hibernate.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<jetty.version>9.0.6.v20130930</jetty.version>
 		<js.dir>WEB-INF/resources/scripts</js.dir>
