@@ -30,21 +30,6 @@
 		<jdk.version>1.7</jdk.version>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>ccrise</id>
-			<name>CCRISE Repository</name>
-			<url>http://10.10.22.19:8080/nexus/content/groups/public/</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>ccrise</id>
-			<name>CCRISE Repository</name>
-			<url>http://10.10.22.19:8080/nexus/content/groups/public/</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
