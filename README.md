@@ -12,9 +12,9 @@ Google Reader被“不作恶”的Google关闭了。
 
 Seeker的目标是做一个简单易用的阅读应用。
 
-![](https://github.com/shelltea/seeker/diff_blob/f1e935223923fb81142b34987362b6d2eb4b28f0/src/main/webapp/WEB-INF/resources/images/screenshot-1.png?raw=true)
+![](https://raw.githubusercontent.com/shelltea/seeker/develop/src/main/webapp/WEB-INF/resources/images/screenshot-1.png)
 
-![](https://github.com/shelltea/seeker/diff_blob/31026f8394f692aba1caaef64949b1446134d7ef/src/main/webapp/WEB-INF/resources/images/screenshot-2.png?raw=true)
+![](https://raw.githubusercontent.com/shelltea/seeker/develop/src/main/webapp/WEB-INF/resources/images/screenshot-2.png)
 
 ## 特性
 

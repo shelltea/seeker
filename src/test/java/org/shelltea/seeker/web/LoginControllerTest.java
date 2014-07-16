@@ -22,9 +22,9 @@ import java.util.List;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class LoginControllerTest {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Test
+    @Test
     public void testLoginPost() throws IOException {
         CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().build();
 
@@ -32,9 +32,9 @@ public class LoginControllerTest {
         formParams.add(new BasicNameValuePair("username", "shelltea"));
         formParams.add(new BasicNameValuePair("password", "shelltea"));
 
-		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formParams, "UTF-8");
-		HttpPost httpPost = new HttpPost("http://localhost:8080/account/login");
-		httpPost.setEntity(entity);
+        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formParams, "UTF-8");
+        HttpPost httpPost = new HttpPost("http://localhost:8080/account/login");
+        httpPost.setEntity(entity);
 
         CloseableHttpResponse closeableHttpResponse = closeableHttpClient.execute(httpPost);
 
