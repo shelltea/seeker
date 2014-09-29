@@ -9,7 +9,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,7 +32,7 @@ public class JsoupTest {
 	public void testHttpClient() throws ClientProtocolException, IOException {
 		Stopwatch stopwatch = Stopwatch.createStarted();
 
-		HttpClient httpClient = new DefaultHttpClient();
+		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpResponse httpResponse = httpClient.execute(new HttpGet("http://www.cnbeta.com/"));
 		String html = EntityUtils.toString(httpResponse.getEntity(), Charsets.UTF_8);
 
