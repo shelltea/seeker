@@ -6,7 +6,6 @@ package org.shelltea.seeker.util;
 import java.io.IOException;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -29,7 +28,7 @@ public class JsoupTest {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Test
-	public void testHttpClient() throws ClientProtocolException, IOException {
+	public void testHttpClient() throws IOException {
 		Stopwatch stopwatch = Stopwatch.createStarted();
 
 		HttpClient httpClient = HttpClientBuilder.create().build();
