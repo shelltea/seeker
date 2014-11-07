@@ -2,4 +2,6 @@
 /.settings
 /.classpath
 /.project
+/.idea
+/seeker.iml
 /src/main/resources/application.local.properties
