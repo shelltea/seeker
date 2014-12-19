@@ -27,7 +27,7 @@
 		<jetty.version>9.2.4.v20141103</jetty.version>
 		<js.dir>WEB-INF/resources/scripts</js.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>1.8</jdk.version>
 	</properties>
 
 	<repositories>
@@ -183,6 +183,11 @@
 			<groupId>org.projectreactor.spring</groupId>
 			<artifactId>reactor-spring-webmvc</artifactId>
 			<version>2.0.0.M1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.darwinsys</groupId>
+			<artifactId>hirondelle-date4j</artifactId>
+			<version>1.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
