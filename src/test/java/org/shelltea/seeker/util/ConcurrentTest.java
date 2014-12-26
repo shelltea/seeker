@@ -1,5 +1,6 @@
 package org.shelltea.seeker.util;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.math.RandomUtils;
 import org.junit.Before;
@@ -19,7 +20,7 @@ import java.util.concurrent.*;
 public class ConcurrentTest {
     private static Logger logger = LoggerFactory.getLogger(ConcurrentTest.class);
     private ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
-    private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(10);
+    private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1000);
 
     @Before
     public void init() {
@@ -79,5 +80,74 @@ public class ConcurrentTest {
         end.await();
         logger.debug("Game Over");
         fixedThreadPool.shutdown();
+    }
+
+    @Test
+    public void testAtomic() throws InterruptedException, ExecutionException {
+        Count count1 = new Count(0);
+        Count count2 = new Count(0);
+
+        List<Callable<Integer>> callables = Lists.newArrayList();
+
+        for (int i = 0; i < 1000; i++) {
+            callables.add(() -> {
+                count1.add();
+                count2.add();
+                Count.add2();
+                return 0;
+            });
+        }
+
+        fixedThreadPool.invokeAll(callables);
+
+        logger.debug("{}", Count.count2);
+        logger.debug("{}", count1.count);
+        logger.debug("{}", count2.count);
+    }
+
+    @Test
+    public void testSynchronized() {
+        Integer i = 0;
+
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        synchronized (i) {
+            i++;
+        }
+        logger.debug("{}", stopwatch.stop());
+
+        stopwatch.reset().start();
+        i++;
+        logger.debug("{}", stopwatch.stop());
+    }
+}
+
+class Count {
+    int count;
+    static int count2;
+
+    public Count(int count) {
+        this.count = count;
+    }
+
+    public void add() {
+        if (this.count < 500) {
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.count++;
+        }
+    }
+
+    public static synchronized void add2() {
+        if (count2 < 500) {
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            count2++;
+        }
     }
 }
