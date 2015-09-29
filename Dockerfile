@@ -5,4 +5,4 @@ MAINTAINER shelltea@gmail.com
 COPY . /usr/seeker
 WORKDIR /usr/seeker
 
-RUN ["mvn", "clean", "package"]
+RUN mvn clean package -Dmaven.test.skip=true
