@@ -3,14 +3,8 @@
  */
 package org.shelltea.seeker.service.security;
 
-import java.util.Date;
-import java.util.Set;
-
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import com.google.common.collect.Sets;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -29,73 +23,74 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Sets;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Service
 public class ShiroDbRealm extends AuthorizingRealm {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private AccountRepository accountRepository;
-	@Autowired
-	private CategoryRepository categoryRepository;
+    @Autowired
+    private AccountRepository accountRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-	public ShiroDbRealm() {
-		super();
+    public ShiroDbRealm() {
+        super();
 
-		// 设置HashedCredentialsMatcher，采用Base64编码
-		HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher(AccountService.HASH_ALGORITHM_NAME);
-		credentialsMatcher.setHashIterations(AccountService.HASH_ITERATIONS);
-		credentialsMatcher.setStoredCredentialsHexEncoded(false);
-		setCredentialsMatcher(credentialsMatcher);
-	}
+        // 设置HashedCredentialsMatcher，采用Base64编码
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher(AccountService.HASH_ALGORITHM_NAME);
+        credentialsMatcher.setHashIterations(AccountService.HASH_ITERATIONS);
+        credentialsMatcher.setStoredCredentialsHexEncoded(false);
+        setCredentialsMatcher(credentialsMatcher);
+    }
 
-	public AccountRepository getAccountRepository() {
-		return accountRepository;
-	}
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 
-	public void setAccountRepository(AccountRepository accountRepository) {
-		this.accountRepository = accountRepository;
-	}
+        Account account = accountRepository.findByUsername(usernamePasswordToken.getUsername());
 
-	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+        if (account != null) {
+            account.setUpdateTime(new Date(System.currentTimeMillis()));
+            accountRepository.save(account);
 
-		Account account = accountRepository.findByUsername(usernamePasswordToken.getUsername());
+            return new SimpleAuthenticationInfo(new ShiroAccount(account.getId(), account.getUsername(),
+                    account.getEmail()), account.getPassword(), ByteSource.Util.bytes(account.getSalt()), getName());
+        } else {
+            return null;
+        }
+    }
 
-		if (account != null) {
-			account.setUpdateTime(new Date(System.currentTimeMillis()));
-			accountRepository.save(account);
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        ShiroAccount shiroAccount = (ShiroAccount) principals.getPrimaryPrincipal();
 
-			return new SimpleAuthenticationInfo(new ShiroAccount(account.getId(), account.getUsername(),
-					account.getEmail()), account.getPassword(), ByteSource.Util.bytes(account.getSalt()), getName());
-		} else {
-			return null;
-		}
-	}
+        // 设置用户权限
+        Category category = categoryRepository.findByAccountIdAndTitle(shiroAccount.getId(),
+                CategoryService.DEFAULT_ROOT_CATEGORY);
 
-	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		ShiroAccount shiroAccount = (ShiroAccount) principals.getPrimaryPrincipal();
+        Set<String> permissions = Sets.newHashSet();
+        permissions.add("categories:read");
+        permissions.add("categories:add-feed:" + category.getId());
+        permissions.add("categories:remove-feed:" + category.getId());
+        permissions.add("channels:read");
+        permissions.add("entries:read,update");
+        permissions.add("feeds:read");
 
-		// 设置用户权限
-		Category category = categoryRepository.findByAccountIdAndTitle(shiroAccount.getId(),
-				CategoryService.DEFAULT_ROOT_CATEGORY);
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        simpleAuthorizationInfo.addStringPermissions(permissions);
+        return simpleAuthorizationInfo;
+    }
 
-		Set<String> permissions = Sets.newHashSet();
-		permissions.add("categories:read");
-		permissions.add("categories:add-feed:" + category.getId());
-		permissions.add("categories:remove-feed:" + category.getId());
-		permissions.add("channels:read");
-		permissions.add("entries:read,update");
-		permissions.add("feeds:read");
+    public AccountRepository getAccountRepository() {
+        return accountRepository;
+    }
 
-		SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-		simpleAuthorizationInfo.addStringPermissions(permissions);
-		return simpleAuthorizationInfo;
-	}
+    public void setAccountRepository(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
 }

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>[%-5level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] %logger:%line : %msg%n</pattern>
-		</encoder>
-	</appender>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%-5level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] %logger:%line : %msg%n</pattern>
+        </encoder>
+    </appender>
 
-	<logger name="org.springframework" level="WARN" />
-	<logger name="org.hibernate" level="WARN" />
-	<logger name="ro.isdc.wro" level="WARN" />
-	<logger name="org.apache.shiro" level="WARN" />
-	<logger name="com.alibaba.druid" level="WARN" />
-	<logger name="ch.qos.logback" level="WARN" />
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="ro.isdc.wro" level="WARN"/>
+    <logger name="org.apache.shiro" level="WARN"/>
+    <logger name="com.alibaba.druid" level="WARN"/>
+    <logger name="ch.qos.logback" level="WARN"/>
 
-	<logger name="org.shelltea" level="DEBUG" />
+    <logger name="org.shelltea" level="DEBUG"/>
 
-	<!-- 日志等级: DEBUG < INFO < WARN < ERROR < FATAL -->
-	<root level="DEBUG">
-		<appender-ref ref="console" />
-	</root>
+    <!-- 日志等级: DEBUG < INFO < WARN < ERROR < FATAL -->
+    <root level="DEBUG">
+        <appender-ref ref="console"/>
+    </root>
 </configuration>

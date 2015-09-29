@@ -10,5 +10,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CategoryService {
-	public static final String DEFAULT_ROOT_CATEGORY = "ROOT";
+    public static final String DEFAULT_ROOT_CATEGORY = "ROOT";
 }

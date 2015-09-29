@@ -3,9 +3,8 @@
  */
 package org.shelltea.seeker.web.api;
 
-import java.util.List;
-import java.util.Set;
-
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import org.apache.shiro.SecurityUtils;
 import org.shelltea.seeker.entity.Feed;
 import org.shelltea.seeker.repository.CategoryRepository;
@@ -22,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
@@ -31,29 +30,29 @@ import com.google.common.collect.Lists;
 @Controller
 @RequestMapping(value = "api/feeds")
 public class FeedApiController {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private CategoryRepository categoryRepository;
-	@Autowired
-	private EntryRepository entryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private EntryRepository entryRepository;
 
-	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET)
-	public Response list() {
-		ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET)
+    public Response list() {
+        ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
 
-		Set<Feed> feeds = categoryRepository.findByAccountIdAndTitle(loginAccount.getId(),
-				CategoryService.DEFAULT_ROOT_CATEGORY).getFeeds();
+        Set<Feed> feeds = categoryRepository.findByAccountIdAndTitle(loginAccount.getId(),
+                CategoryService.DEFAULT_ROOT_CATEGORY).getFeeds();
 
-		List<ApiFeed> apiFeeds = Lists.transform(Lists.newArrayList(feeds), new Function<Feed, ApiFeed>() {
-			@Override
-			public ApiFeed apply(Feed input) {
-				return new ApiFeed(input.getId(), input.getTitle(), input.getFaviconUrl(), entryRepository
-						.countByFeedId(input.getId()));
-			}
-		});
+        List<ApiFeed> apiFeeds = Lists.transform(Lists.newArrayList(feeds), new Function<Feed, ApiFeed>() {
+            @Override
+            public ApiFeed apply(Feed input) {
+                return new ApiFeed(input.getId(), input.getTitle(), input.getFaviconUrl(), entryRepository
+                        .countByFeedId(input.getId()));
+            }
+        });
 
-		return new Response(apiFeeds);
-	}
+        return new Response(apiFeeds);
+    }
 }

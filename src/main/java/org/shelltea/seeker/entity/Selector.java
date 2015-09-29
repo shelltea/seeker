@@ -13,21 +13,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "seeker_selector")
 public class Selector extends IdEntity {
-	private String cssQuery;
+    private String cssQuery;
 
-	public Selector() {
-	}
+    public Selector() {
+    }
 
-	public Selector(String cssQuery) {
-		this.cssQuery = cssQuery;
-	}
+    public Selector(String cssQuery) {
+        this.cssQuery = cssQuery;
+    }
 
-	@Column(nullable = false)
-	public String getCssQuery() {
-		return cssQuery;
-	}
+    @Column(nullable = false)
+    public String getCssQuery() {
+        return cssQuery;
+    }
 
-	public void setCssQuery(String cssQuery) {
-		this.cssQuery = cssQuery;
-	}
+    public void setCssQuery(String cssQuery) {
+        this.cssQuery = cssQuery;
+    }
 }

@@ -3,164 +3,157 @@
  */
 package org.shelltea.seeker.entity;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 文章条目.
- * 
+ *
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 @Entity
 @Table(name = "seeker_entry")
-@JsonIgnoreProperties({ "originContent" })
+@JsonIgnoreProperties({"originContent"})
 public class Entry extends IdEntity {
-	/**
-	 * 所属源.
-	 */
-	private Long feedId;
+    /**
+     * 所属源.
+     */
+    private Long feedId;
 
-	/**
-	 * 文章原地址.
-	 */
-	private String url;
+    /**
+     * 文章原地址.
+     */
+    private String url;
 
-	/**
-	 * 标题.
-	 */
-	private String title;
+    /**
+     * 标题.
+     */
+    private String title;
 
-	/**
-	 * 作者.
-	 */
-	private String author;
+    /**
+     * 作者.
+     */
+    private String author;
 
-	/**
-	 * 原内容.
-	 */
-	private String originContent;
+    /**
+     * 原内容.
+     */
+    private String originContent;
 
-	/**
-	 * 处理后的内容.
-	 */
-	private String content;
+    /**
+     * 处理后的内容.
+     */
+    private String content;
 
-	/**
-	 * 最后抓取时间.
-	 */
-	private Date lastFetchTime;
+    /**
+     * 最后抓取时间.
+     */
+    private Date lastFetchTime;
 
-	/**
-	 * 发布时间.
-	 */
-	private Date publishedTime;
+    /**
+     * 发布时间.
+     */
+    private Date publishedTime;
 
 	/* 非持久化属性 */
-	/**
-	 * 是否加星.
-	 */
-	private Boolean starred;
+    /**
+     * 是否加星.
+     */
+    private Boolean starred;
 
-	/**
-	 * 是否已读.
-	 */
-	private Boolean read;
+    /**
+     * 是否已读.
+     */
+    private Boolean read;
 
-	public String getAuthor() {
-		return author;
-	}
+    public String getAuthor() {
+        return author;
+    }
 
-	@Lob
-	public String getContent() {
-		return content;
-	}
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-	@Column(nullable = false)
-	public Long getFeedId() {
-		return feedId;
-	}
+    @Lob
+    public String getContent() {
+        return content;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date getLastFetchTime() {
-		return lastFetchTime;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	@Lob
-	public String getOriginContent() {
-		return originContent;
-	}
+    @Column(nullable = false)
+    public Long getFeedId() {
+        return feedId;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date getPublishedTime() {
-		return publishedTime;
-	}
+    public void setFeedId(Long feedId) {
+        this.feedId = feedId;
+    }
 
-	@Transient
-	public Boolean getRead() {
-		return read;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getLastFetchTime() {
+        return lastFetchTime;
+    }
 
-	@Transient
-	public Boolean getStarred() {
-		return starred;
-	}
+    public void setLastFetchTime(Date lastFetchTime) {
+        this.lastFetchTime = lastFetchTime;
+    }
 
-	@Column(nullable = false)
-	public String getTitle() {
-		return title;
-	}
+    @Lob
+    public String getOriginContent() {
+        return originContent;
+    }
 
-	@Column(nullable = false, unique = true)
-	public String getUrl() {
-		return url;
-	}
+    public void setOriginContent(String originContent) {
+        this.originContent = originContent;
+    }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getPublishedTime() {
+        return publishedTime;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setPublishedTime(Date publishedTime) {
+        this.publishedTime = publishedTime;
+    }
 
-	public void setFeedId(Long feedId) {
-		this.feedId = feedId;
-	}
+    @Transient
+    public Boolean getRead() {
+        return read;
+    }
 
-	public void setLastFetchTime(Date lastFetchTime) {
-		this.lastFetchTime = lastFetchTime;
-	}
+    public void setRead(Boolean read) {
+        this.read = read;
+    }
 
-	public void setOriginContent(String originContent) {
-		this.originContent = originContent;
-	}
+    @Transient
+    public Boolean getStarred() {
+        return starred;
+    }
 
-	public void setPublishedTime(Date publishedTime) {
-		this.publishedTime = publishedTime;
-	}
+    public void setStarred(Boolean starred) {
+        this.starred = starred;
+    }
 
-	public void setRead(Boolean read) {
-		this.read = read;
-	}
+    @Column(nullable = false)
+    public String getTitle() {
+        return title;
+    }
 
-	public void setStarred(Boolean starred) {
-		this.starred = starred;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    @Column(nullable = false, unique = true)
+    public String getUrl() {
+        return url;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

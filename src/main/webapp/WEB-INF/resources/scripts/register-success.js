@@ -1,5 +1,5 @@
-$(function() {
-	setTimeout(function() {
-		window.location = contextPath + '/account/login';
-	}, 3000);
+$(function () {
+    setTimeout(function () {
+        window.location = contextPath + '/account/login';
+    }, 3000);
 });

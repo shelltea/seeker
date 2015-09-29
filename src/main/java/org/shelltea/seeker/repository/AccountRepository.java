@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public interface AccountRepository extends JpaRepository<Account, Long> {
-	Account findByEmail(String email);
+    Account findByEmail(String email);
 
-	Account findByUsername(String username);
+    Account findByUsername(String username);
 }

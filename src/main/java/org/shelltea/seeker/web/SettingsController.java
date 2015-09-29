@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "account/settings")
 public class SettingsController {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private AccountRepository accountRepository;
-	@Autowired
-	private MessageSource messageSource;
+    @Autowired
+    private AccountRepository accountRepository;
+    @Autowired
+    private MessageSource messageSource;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String settings() {
-		return "account/settings";
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    public String settings() {
+        return "account/settings";
+    }
 }

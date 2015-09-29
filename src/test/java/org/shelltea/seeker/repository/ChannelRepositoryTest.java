@@ -16,28 +16,28 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
-@ContextConfiguration(locations = { "/spring/applicationContext.xml" })
+@ContextConfiguration(locations = {"/spring/applicationContext.xml"})
 @TransactionConfiguration(defaultRollback = false)
 public class ChannelRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private ChannelRepository channelRepository;
+    @Autowired
+    private ChannelRepository channelRepository;
 
-	@Test
-	public void testSave() {
-		String techChannelString = "新闻";
+    @Test
+    public void testSave() {
+        String techChannelString = "新闻";
 
-		Channel techChannel = channelRepository.findByTitle(techChannelString);
+        Channel techChannel = channelRepository.findByTitle(techChannelString);
 
-		if (techChannel == null) {
-			techChannel = new Channel();
-			techChannel.setTitle(techChannelString);
-			techChannel.setIconUrl("icon_" + RandomUtils.nextInt(1000));
-			techChannel.setDescription("");
-			channelRepository.save(techChannel);
-		}
+        if (techChannel == null) {
+            techChannel = new Channel();
+            techChannel.setTitle(techChannelString);
+            techChannel.setIconUrl("icon_" + RandomUtils.nextInt(1000));
+            techChannel.setDescription("");
+            channelRepository.save(techChannel);
+        }
 
-		logger.debug("{}", techChannel);
-	}
+        logger.debug("{}", techChannel);
+    }
 }

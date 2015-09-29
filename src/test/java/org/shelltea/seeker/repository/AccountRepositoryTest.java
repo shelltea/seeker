@@ -13,14 +13,14 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
-@ContextConfiguration(locations = { "/spring/applicationContext.xml" })
+@ContextConfiguration(locations = {"/spring/applicationContext.xml"})
 @TransactionConfiguration(defaultRollback = false)
 public class AccountRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
-	@Autowired
-	private AccountRepository accountRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
-	@Test
-	public void testFindByEmail() {
-		Assert.assertEquals("admin", accountRepository.findByEmail("shelltea@gmail.com").getUsername());
-	}
+    @Test
+    public void testFindByEmail() {
+        Assert.assertEquals("admin", accountRepository.findByEmail("shelltea@gmail.com").getUsername());
+    }
 }

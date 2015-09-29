@@ -3,8 +3,8 @@
  */
 package org.shelltea.seeker.util;
 
-import java.io.IOException;
-
+import com.google.common.base.Charsets;
+import com.google.common.base.Stopwatch;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -18,44 +18,43 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Stopwatch;
+import java.io.IOException;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
  */
 public class JsoupTest {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Test
-	public void testHttpClient() throws IOException {
-		Stopwatch stopwatch = Stopwatch.createStarted();
+    @Test
+    public void testHttpClient() throws IOException {
+        Stopwatch stopwatch = Stopwatch.createStarted();
 
-		HttpClient httpClient = HttpClientBuilder.create().build();
-		HttpResponse httpResponse = httpClient.execute(new HttpGet("http://www.cnbeta.com/"));
-		String html = EntityUtils.toString(httpResponse.getEntity(), Charsets.UTF_8);
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpResponse httpResponse = httpClient.execute(new HttpGet("http://www.cnbeta.com/"));
+        String html = EntityUtils.toString(httpResponse.getEntity(), Charsets.UTF_8);
 
-		Document doc = Jsoup.parse(html);
-		Elements links = doc.select("#allnews_all dt > a");
+        Document doc = Jsoup.parse(html);
+        Elements links = doc.select("#allnews_all dt > a");
 
-		for (Element link : links) {
-			logger.info("{}:{}", link.html(), link.attr("href"));
-		}
+        for (Element link : links) {
+            logger.info("{}:{}", link.html(), link.attr("href"));
+        }
 
-		logger.debug("HttpClient:{}", stopwatch.toString());
-	}
+        logger.debug("HttpClient:{}", stopwatch.toString());
+    }
 
-	@Test
-	public void testJsoup() throws IOException {
-		Stopwatch stopwatch = Stopwatch.createStarted();
+    @Test
+    public void testJsoup() throws IOException {
+        Stopwatch stopwatch = Stopwatch.createStarted();
 
-		Document doc = Jsoup.connect("http://www.cnbeta.com/").get();
-		Elements links = doc.select("#allnews_all dt > a");
+        Document doc = Jsoup.connect("http://www.cnbeta.com/").get();
+        Elements links = doc.select("#allnews_all dt > a");
 
-		for (Element link : links) {
-			logger.info("{}:{}", link.html(), link.attr("href"));
-		}
+        for (Element link : links) {
+            logger.info("{}:{}", link.html(), link.attr("href"));
+        }
 
-		logger.debug("Jsoup:{}", stopwatch.toString());
-	}
+        logger.debug("Jsoup:{}", stopwatch.toString());
+    }
 }

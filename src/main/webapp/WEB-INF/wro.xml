@@ -1,23 +1,23 @@
 <groups xmlns="http://www.isdc.ro/wro">
-	<!-- 首页 -->
-	<group name="app">
-		<js>/static-resources/scripts/jquery/jquery-1.10.2.js</js>
-		<js>/static-resources/scripts/jquery/bootstrap.js</js>
-		<js>/static-resources/scripts/jquery/json2.js</js>
-		<js>/static-resources/scripts/jquery/handlebars.js</js>
-		<js>/static-resources/scripts/jquery/jquery.slimscroll.js</js>
-		<js>/static-resources/scripts/jquery/jquery.validator.js</js>
-		<js>/static-resources/scripts/jquery/jquery.serialize-object.js</js>
-		<js>/static-resources/scripts/jquery/jquery.cookie.js</js>
-		<js>/static-resources/scripts/jquery/jqrest-1.0.0.js</js>
-		<js>/static-resources/scripts/jquery/zh_CN.js</js>
-		<js>/static-resources/scripts/date.js</js>
-		<css>/static-resources/styles/bootstrap.css</css>
-		<css>/static-resources/styles/jquery.validator/jquery.validator.css</css>
-		<css>/static-resources/styles/common.css</css>
-	</group>
-	<group name="compatible">
-		<js>/static-resources/scripts/jquery/html5shiv.js</js>
-		<js>/static-resources/scripts/jquery/respond.min.js</js>
-	</group>
+    <!-- 首页 -->
+    <group name="app">
+        <js>/static-resources/scripts/jquery/jquery-1.10.2.js</js>
+        <js>/static-resources/scripts/jquery/bootstrap.js</js>
+        <js>/static-resources/scripts/jquery/json2.js</js>
+        <js>/static-resources/scripts/jquery/handlebars.js</js>
+        <js>/static-resources/scripts/jquery/jquery.slimscroll.js</js>
+        <js>/static-resources/scripts/jquery/jquery.validator.js</js>
+        <js>/static-resources/scripts/jquery/jquery.serialize-object.js</js>
+        <js>/static-resources/scripts/jquery/jquery.cookie.js</js>
+        <js>/static-resources/scripts/jquery/jqrest-1.0.0.js</js>
+        <js>/static-resources/scripts/jquery/zh_CN.js</js>
+        <js>/static-resources/scripts/date.js</js>
+        <css>/static-resources/styles/bootstrap.css</css>
+        <css>/static-resources/styles/jquery.validator/jquery.validator.css</css>
+        <css>/static-resources/styles/common.css</css>
+    </group>
+    <group name="compatible">
+        <js>/static-resources/scripts/jquery/html5shiv.js</js>
+        <js>/static-resources/scripts/jquery/respond.min.js</js>
+    </group>
 </groups>

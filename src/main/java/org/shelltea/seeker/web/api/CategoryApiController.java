@@ -3,8 +3,6 @@
  */
 package org.shelltea.seeker.web.api;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.SecurityUtils;
 import org.shelltea.seeker.entity.Category;
@@ -19,11 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Xiong Shuhong(shelltea@gmail.com)
@@ -31,59 +27,59 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "api/categories")
 public class CategoryApiController {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private CategoryRepository categoryRepository;
-	@Autowired
-	private FeedRepository feedRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private FeedRepository feedRepository;
 
-	@ResponseBody
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
-	public Response addFeedToCategory(@PathVariable long id, @RequestBody Feed feed) {
-		// 验证用户是否有添加Feed到此Category的权限
-		if (SecurityUtils.getSubject().isPermitted("categories:add-feed:" + id)) {
-			Category category = categoryRepository.findOne(id);
-			feed = feedRepository.findOne(feed.getId());
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public Response addFeedToCategory(@PathVariable long id, @RequestBody Feed feed) {
+        // 验证用户是否有添加Feed到此Category的权限
+        if (SecurityUtils.getSubject().isPermitted("categories:add-feed:" + id)) {
+            Category category = categoryRepository.findOne(id);
+            feed = feedRepository.findOne(feed.getId());
 
-			if (category != null && feed != null) {
-				category.getFeeds().add(feed);
-				categoryRepository.save(category);
-				return new Response(true);
-			}
-		}
+            if (category != null && feed != null) {
+                category.getFeeds().add(feed);
+                categoryRepository.save(category);
+                return new Response(true);
+            }
+        }
 
-		return new Response();
-	}
+        return new Response();
+    }
 
-	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET)
-	public Response list() throws IllegalAccessException, InvocationTargetException {
-		ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET)
+    public Response list() throws IllegalAccessException, InvocationTargetException {
+        ShiroAccount loginAccount = (ShiroAccount) SecurityUtils.getSubject().getPrincipal();
 
-		ApiCategory apiCategory = new ApiCategory();
-		BeanUtils
-				.copyProperties(apiCategory, categoryRepository.findByAccountIdAndTitle(loginAccount.getId(),
-						CategoryService.DEFAULT_ROOT_CATEGORY));
+        ApiCategory apiCategory = new ApiCategory();
+        BeanUtils
+                .copyProperties(apiCategory, categoryRepository.findByAccountIdAndTitle(loginAccount.getId(),
+                        CategoryService.DEFAULT_ROOT_CATEGORY));
 
-		return new Response(apiCategory);
-	}
+        return new Response(apiCategory);
+    }
 
-	@ResponseBody
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public Response removeFeedFromCategory(@PathVariable long id, @RequestBody Feed feed) {
-		// 验证用户是否有从此Category移除Feed的权限
-		if (SecurityUtils.getSubject().isPermitted("categories:remove-feed:" + id)) {
-			Category category = categoryRepository.findOne(id);
-			feed = feedRepository.findOne(feed.getId());
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public Response removeFeedFromCategory(@PathVariable long id, @RequestBody Feed feed) {
+        // 验证用户是否有从此Category移除Feed的权限
+        if (SecurityUtils.getSubject().isPermitted("categories:remove-feed:" + id)) {
+            Category category = categoryRepository.findOne(id);
+            feed = feedRepository.findOne(feed.getId());
 
-			if (category != null && feed != null) {
-				category.getFeeds().remove(feed);
-				categoryRepository.save(category);
-				return new Response(true);
-			}
-		}
+            if (category != null && feed != null) {
+                category.getFeeds().remove(feed);
+                categoryRepository.save(category);
+                return new Response(true);
+            }
+        }
 
-		return new Response();
-	}
+        return new Response();
+    }
 }

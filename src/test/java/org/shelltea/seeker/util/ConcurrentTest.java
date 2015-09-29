@@ -28,29 +28,26 @@ public class ConcurrentTest {
     }
 
     @Test
-    public void testFuture() throws ExecutionException, InterruptedException {
-        Future<LocalDateTime> future = cachedThreadPool.submit((Callable<LocalDateTime>) LocalDateTime::now);
-        logger.debug("{}", future.get());
-    }
+    public void testAtomic() throws InterruptedException, ExecutionException {
+        Count count1 = new Count(0);
+        Count count2 = new Count(0);
 
-    @Test
-    public void testFutureList() throws InterruptedException, ExecutionException {
-        List<Callable<Instant>> callables = Lists.newArrayList();
+        List<Callable<Integer>> callables = Lists.newArrayList();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             callables.add(() -> {
-                int random = RandomUtils.nextInt(10);
-                logger.debug("random:{}", random);
-                Thread.sleep(random * 1000);
-                return Instant.now();
+                count1.add();
+                count2.add();
+                Count.add2();
+                return 0;
             });
         }
 
-        List<Future<Instant>> futures = cachedThreadPool.invokeAll(callables);
+        fixedThreadPool.invokeAll(callables);
 
-        for (Future<Instant> future : futures) {
-            logger.debug("{}", future.get().toString());
-        }
+        logger.debug("{}", Count.count2);
+        logger.debug("{}", count1.count);
+        logger.debug("{}", count2.count);
     }
 
     @Test
@@ -83,26 +80,29 @@ public class ConcurrentTest {
     }
 
     @Test
-    public void testAtomic() throws InterruptedException, ExecutionException {
-        Count count1 = new Count(0);
-        Count count2 = new Count(0);
+    public void testFuture() throws ExecutionException, InterruptedException {
+        Future<LocalDateTime> future = cachedThreadPool.submit((Callable<LocalDateTime>) LocalDateTime::now);
+        logger.debug("{}", future.get());
+    }
 
-        List<Callable<Integer>> callables = Lists.newArrayList();
+    @Test
+    public void testFutureList() throws InterruptedException, ExecutionException {
+        List<Callable<Instant>> callables = Lists.newArrayList();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             callables.add(() -> {
-                count1.add();
-                count2.add();
-                Count.add2();
-                return 0;
+                int random = RandomUtils.nextInt(10);
+                logger.debug("random:{}", random);
+                Thread.sleep(random * 1000);
+                return Instant.now();
             });
         }
 
-        fixedThreadPool.invokeAll(callables);
+        List<Future<Instant>> futures = cachedThreadPool.invokeAll(callables);
 
-        logger.debug("{}", Count.count2);
-        logger.debug("{}", count1.count);
-        logger.debug("{}", count2.count);
+        for (Future<Instant> future : futures) {
+            logger.debug("{}", future.get().toString());
+        }
     }
 
     @Test
@@ -122,22 +122,11 @@ public class ConcurrentTest {
 }
 
 class Count {
-    int count;
     static int count2;
+    int count;
 
     public Count(int count) {
         this.count = count;
-    }
-
-    public void add() {
-        if (this.count < 500) {
-            try {
-                Thread.sleep(20);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            this.count++;
-        }
     }
 
     public static synchronized void add2() {
@@ -148,6 +137,17 @@ class Count {
                 e.printStackTrace();
             }
             count2++;
+        }
+    }
+
+    public void add() {
+        if (this.count < 500) {
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.count++;
         }
     }
 }

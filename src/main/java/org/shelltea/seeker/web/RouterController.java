@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class RouterController {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private FeedRepository feedRepository;
+    @Autowired
+    private FeedRepository feedRepository;
 
-	@RequestMapping(value = "explore", method = RequestMethod.GET)
-	public String explore() {
-		return "explore";
-	}
+    @RequestMapping(value = "explore", method = RequestMethod.GET)
+    public String explore() {
+        return "explore";
+    }
 
-	@RequestMapping(value = "feed/{title}", method = RequestMethod.GET)
-	public String feed(@PathVariable String title) {
-		return "index";
-	}
+    @RequestMapping(value = "feed/{title}", method = RequestMethod.GET)
+    public String feed(@PathVariable String title) {
+        return "index";
+    }
 
-	@RequestMapping(value = "inbox", method = RequestMethod.GET)
-	public String inbox() {
-		return "index";
-	}
+    @RequestMapping(value = "inbox", method = RequestMethod.GET)
+    public String inbox() {
+        return "index";
+    }
 }

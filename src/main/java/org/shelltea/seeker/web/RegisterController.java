@@ -18,20 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "account/register")
 public class RegisterController {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private AccountRepository accountRepository;
-	@Autowired
-	private MessageSource messageSource;
+    @Autowired
+    private AccountRepository accountRepository;
+    @Autowired
+    private MessageSource messageSource;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String register() {
-		return "account/register";
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    public String register() {
+        return "account/register";
+    }
 
-	@RequestMapping(value = "success", method = RequestMethod.GET)
-	public String registerSuccess() {
-		return "account/register-success";
-	}
+    @RequestMapping(value = "success", method = RequestMethod.GET)
+    public String registerSuccess() {
+        return "account/register-success";
+    }
 }
