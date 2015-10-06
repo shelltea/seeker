@@ -10,11 +10,16 @@ import java.util.Random;
  * @author Xiong Shuhong(xiongsh@youyuan.com)
  */
 public class SortTest {
+    /**
+     * 冒泡排序.
+     *
+     * @param numbers 待排序数组
+     */
     public static void bubbleSort(int[] numbers) {
         for (int i = 0; i < numbers.length; i++) {
             for (int j = 0; j < numbers.length - i - 1; j++) {
-                int temp = numbers[j];
-                if (numbers[j + 1] < temp) {
+                if (numbers[j + 1] < numbers[j]) {
+                    int temp = numbers[j];
                     numbers[j] = numbers[j + 1];
                     numbers[j + 1] = temp;
                 }
@@ -30,6 +35,11 @@ public class SortTest {
         return numbers;
     }
 
+    /**
+     * 插入排序.
+     *
+     * @param numbers 待排序数组
+     */
     public static void insertSort(int[] numbers) {
         for (int i = 1; i < numbers.length; i++) {
             int currentNumber = numbers[i];
@@ -43,12 +53,14 @@ public class SortTest {
     }
 
     public static void main(String[] args) {
-        final int size = 20;
+        final int size = 100;
         int[] numbers1 = getRandomIntegerArray(size);
         int[] numbers2 = numbers1.clone();
         int[] numbers3 = numbers1.clone();
         int[] numbers4 = numbers1.clone();
+        int[] numbers5 = numbers1.clone();
 
+        System.out.print("原数组大小:" + size + ",元素:");
         for (int i : numbers1) {
             System.out.print(i + " ");
         }
@@ -56,41 +68,59 @@ public class SortTest {
 
         Stopwatch stopwatch = Stopwatch.createStarted();
 
+        // 插入排序
         insertSort(numbers1);
-        System.out.println(stopwatch);
-
-        stopwatch.reset().start();
-
-        shellSort(numbers2);
-        System.out.println(stopwatch);
-
-        stopwatch.reset().start();
-
-        bubbleSort(numbers3);
-        System.out.println(stopwatch);
-
-        stopwatch.reset().start();
-
-        quickSort(numbers4, 0, size - 1);
-        System.out.println(stopwatch);
-
+        System.out.println("插入排序:" + stopwatch);
         for (int i : numbers1) {
             System.out.print(i + " ");
         }
         System.out.println();
+        stopwatch.reset().start();
+
+        // 希尔排序
+        shellSort(numbers2);
+        System.out.println("希尔排序:" + stopwatch);
         for (int i : numbers2) {
             System.out.print(i + " ");
         }
         System.out.println();
+        stopwatch.reset().start();
+
+        // 冒泡排序
+        bubbleSort(numbers3);
+        System.out.println("冒泡排序:" + stopwatch);
         for (int i : numbers3) {
             System.out.print(i + " ");
         }
         System.out.println();
+        stopwatch.reset().start();
+
+        // 快速排序
+        quickSort(numbers4, 0, size - 1);
+        System.out.println("快速排序:" + stopwatch);
         for (int i : numbers4) {
             System.out.print(i + " ");
         }
+        System.out.println();
+        stopwatch.reset().start();
+
+        // 选择排序
+        selectSort(numbers5);
+        System.out.println("选择排序:" + stopwatch);
+        for (int i : numbers5) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+        stopwatch.reset().start();
     }
 
+    /**
+     * 快速排序.
+     *
+     * @param numbers 待排序数组
+     * @param low     低位
+     * @param high    高位
+     */
     public static void quickSort(int[] numbers, int low, int high) {
         if (high > low) {
             int p = partition(numbers, low, high);
@@ -100,6 +130,32 @@ public class SortTest {
         }
     }
 
+    /**
+     * 选择排序.
+     *
+     * @param numbers 待排序数组
+     */
+    public static void selectSort(int[] numbers) {
+        for (int i = 0; i < numbers.length; i++) {
+            int min = i;
+
+            for (int j = i + 1; j < numbers.length; j++) {
+                if (numbers[j] < numbers[min]) {
+                    min = j;
+                }
+            }
+
+            int temp = numbers[min];
+            numbers[min] = numbers[i];
+            numbers[i] = temp;
+        }
+    }
+
+    /**
+     * 希尔排序.
+     *
+     * @param numbers 待排序数组
+     */
     public static void shellSort(int[] numbers) {
         int group = numbers.length / 2;
 
@@ -126,16 +182,16 @@ public class SortTest {
         int pivot = numbers[high];
         int i = low - 1;
         int j, temp;
-        for (j = low; j < high; ++j)
+        for (j = low; j < high; ++j) {
             if (numbers[j] < pivot) {
                 temp = numbers[++i];
                 numbers[i] = numbers[j];
                 numbers[j] = temp;
             }
+        }
         temp = numbers[i + 1];
         numbers[i + 1] = numbers[high];
         numbers[high] = temp;
         return i + 1;
     }
-
 }
