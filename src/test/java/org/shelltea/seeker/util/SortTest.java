@@ -4,6 +4,7 @@ import com.google.common.base.Stopwatch;
 
 import java.util.Random;
 
+
 /**
  * 八大排序算法.
  *
@@ -36,7 +37,16 @@ public class SortTest {
     }
 
     /**
-     * 插入排序.
+     * 堆排序.
+     *
+     * @param numbers 待排序数组
+     */
+    public static void heapSort(int[] numbers) {
+        buildHeap(numbers);
+    }
+
+    /**
+     * 直接插入排序.
      *
      * @param numbers 待排序数组
      */
@@ -53,12 +63,13 @@ public class SortTest {
     }
 
     public static void main(String[] args) {
-        final int size = 100;
+        final int size = 10;
         int[] numbers1 = getRandomIntegerArray(size);
         int[] numbers2 = numbers1.clone();
         int[] numbers3 = numbers1.clone();
         int[] numbers4 = numbers1.clone();
         int[] numbers5 = numbers1.clone();
+        int[] numbers6 = numbers1.clone();
 
         System.out.print("原数组大小:" + size + ",元素:");
         for (int i : numbers1) {
@@ -67,51 +78,52 @@ public class SortTest {
         System.out.println();
 
         Stopwatch stopwatch = Stopwatch.createStarted();
-
-        // 插入排序
         insertSort(numbers1);
         System.out.println("插入排序:" + stopwatch);
         for (int i : numbers1) {
             System.out.print(i + " ");
         }
         System.out.println();
-        stopwatch.reset().start();
 
-        // 希尔排序
+        stopwatch.reset().start();
         shellSort(numbers2);
         System.out.println("希尔排序:" + stopwatch);
         for (int i : numbers2) {
             System.out.print(i + " ");
         }
         System.out.println();
-        stopwatch.reset().start();
 
-        // 冒泡排序
+        stopwatch.reset().start();
         bubbleSort(numbers3);
         System.out.println("冒泡排序:" + stopwatch);
         for (int i : numbers3) {
             System.out.print(i + " ");
         }
         System.out.println();
-        stopwatch.reset().start();
 
-        // 快速排序
+        stopwatch.reset().start();
         quickSort(numbers4, 0, size - 1);
         System.out.println("快速排序:" + stopwatch);
         for (int i : numbers4) {
             System.out.print(i + " ");
         }
         System.out.println();
-        stopwatch.reset().start();
 
-        // 选择排序
+        stopwatch.reset().start();
         selectSort(numbers5);
-        System.out.println("选择排序:" + stopwatch);
+        System.out.println("直接选择排序:" + stopwatch);
         for (int i : numbers5) {
             System.out.print(i + " ");
         }
         System.out.println();
+
         stopwatch.reset().start();
+        heapSort(numbers6);
+        System.out.println("堆排序:" + stopwatch);
+        for (int i : numbers6) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
     }
 
     /**
@@ -131,7 +143,7 @@ public class SortTest {
     }
 
     /**
-     * 选择排序.
+     * 直接选择排序.
      *
      * @param numbers 待排序数组
      */
@@ -176,6 +188,9 @@ public class SortTest {
             }
             group /= 2;
         }
+    }
+
+    private static void buildHeap(int[] numbers) {
     }
 
     private static int partition(int[] numbers, int low, int high) {
